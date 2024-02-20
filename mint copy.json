@@ -3,7 +3,7 @@
   "name": "basic.tech docs",
   "logo": {
     "dark": "/logo/logo_dark.png",
-    "light": "/logo/logo_dark.png"
+    "light": "/logo/light.svg"
   },
   "favicon": "/favicon.png",
   "colors": {
@@ -20,26 +20,40 @@
   },
   "topbarLinks": [
     {
-      "name": "Say Hi",
-      "url": "https://twitter.com/basic_tech"
-    },
-    {
-      "name": "We're Hiring!",
-      "url": "https://basic.tech/careers"
+      "name": "Support",
+      "url": "mailto:hi@mintlify.com"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://basic.tech"
+    "url": "https://dashboard.mintlify.com"
   },
   "tabs": [
     {
       "name": "API Reference",
       "url": "api-reference"
+    }, 
+    {
+      "name": "API",
+      "url": "account"
     }
   ],
   "anchors": [
- 
+    {
+      "name": "Documentation",
+      "icon": "book-open-cover",
+      "url": "https://mintlify.com/docs"
+    },
+    {
+      "name": "Community",
+      "icon": "slack",
+      "url": "https://mintlify.com/community"
+    },
+    {
+      "name": "Blog",
+      "icon": "newspaper",
+      "url": "https://mintlify.com/blog"
+    }
   ],
   "navigation": [
     {

@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: Example API
+  version: 1.0.0
+servers:
+  - url: 'https://api.basic.tech'
+paths:
+  /v2/account/apps:
+    get:
+      summary: Get Apps
+      operationId: getApps
+      tags:
+        - Account
+      responses:
+        '200':
+          description: A list of apps
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/App'
+components:
+  schemas:
+    App:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The app's unique identifier
+        name:
+          type: string
+          description: The name of the app
