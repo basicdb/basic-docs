@@ -1,0 +1,16 @@
+---
+title: "Authentication"
+description: "How to authenticate with the API"
+---
+
+All APIs use the bearer token authentication method. To authenticate with the API, you need to include the `Authorization` header in your request with the value `Bearer <YOUR_TOKEN>`.
+
+```bash
+'Authorization': 'Bearer <YOUR_TOKEN>'
+```
+
+## API Tokens
+
+You can find your API token in your project dashboard.
+
+The API token is a secret key that should be kept confidential. Do not share your API token in publicly accessible areas such as GitHub, client-side code, and so on. 

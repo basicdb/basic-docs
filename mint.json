@@ -35,7 +35,7 @@
   "tabs": [
     {
       "name": "API Reference",
-      "url": "api-reference"
+      "url": "api-spec"
     }
   ],
   "anchors": [
@@ -48,22 +48,18 @@
     },
    
     {
-      "group": "API Documentation",
-      "pages": ["api-reference/authentication"]
-    },
-    {
-      "group": "Account",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/update",
-        "api-reference/endpoint/delete"
-      ]
-    }, 
-    {
       "group": "API",
       "pages": [
-        "account/get-apps"
+          "api-spec/authentication",
+          "api-spec/retrieve-account-information",
+          "api-spec/get-list-of-apps",
+          "api-spec/get-list-of-projects",
+          "api-spec/create-a-new-account",
+          "api-spec/get-project-by-id",
+          "api-spec/get-project-key",
+          "api-spec/get-project-schema",
+          "api-spec/create-a-new-project",
+          "api-spec/update-project"
       ]
     }
 

@@ -1,33 +1,166 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
-  title: Example API
-  version: 1.0.0
+  title: basic-server API
+  version: "1.0"
 servers:
-  - url: 'https://api.basic.tech'
+  - url: https://api.basic.tech
 paths:
-  /v2/account/apps:
+  /account:
     get:
-      summary: Get Apps
-      operationId: getApps
-      tags:
-        - Account
+      summary: Retrieve account information
+      operationId: getAccount
+      security:
+        - bearerAuth: []
       responses:
         '200':
-          description: A list of apps
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/App'
+          description: Account information retrieved successfully
+  /v2/account/apps:
+    get:
+      summary: Get list of apps
+      operationId: getApps
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of apps retrieved successfully
+  /account/projects:
+    get:
+      summary: Get list of projects
+      operationId: getProjects
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of projects retrieved successfully
+  /v2/account/new:
+    post:
+      summary: Create a new account
+      operationId: createAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAccountRequest'
+      responses:
+        '201':
+          description: Account created successfully
+  /project/{projectId}:
+    get:
+      summary: Get project by ID
+      operationId: getProject
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Project retrieved successfully
+  /project/{projectId}/key/{key}:
+    get:
+      summary: Get project key
+      operationId: getProjectKey
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Project key retrieved successfully
+  /project/{projectId}/schema:
+    get:
+      summary: Get project schema
+      operationId: getProjectSchema
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Project schema retrieved successfully
+  /v2/project/new:
+    post:
+      summary: Create a new project
+      operationId: createProject
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewProjectRequest'
+      responses:
+        '201':
+          description: Project created successfully
+  /v2/project/{projectId}:
+    post:
+      summary: Update project
+      operationId: updateProject
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectRequest'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Project updated successfully
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
-    App:
+    NewAccountRequest:
       type: object
       properties:
-        id:
+        external_id:
           type: string
-          description: The app's unique identifier
         name:
           type: string
-          description: The name of the app
+        email:
+          type: string
+    NewProjectRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        owner_id:
+          type: string
+    UpdateProjectRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            website:
+              type: string
+            is_public:
+              type: boolean
