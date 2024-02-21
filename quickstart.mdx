@@ -53,17 +53,66 @@ fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>", {
 <Info> Databases on Basic are currently document collections, similar to MongoDB or Firebase.  Support for SQL databases is coming soon! </Info>
 
 <Steps>
-  <Step title="Create your project">
-    After creating your account, head to the Dashboard and create a new project using the button on the top right.
+  <Step title="Go the Data tab, and create a new table.">
   </Step>
-  <Step title="Note your project ID, database URL, and API key (keep this a secret!)">
-    <Frame>
-      <img src="/images/quickstart_1.png" />
-    </Frame>
-  </Step>
-  <Step title="You can test everything is working by making a sample fetch request to your database:">
-    Make sure to replace `<YOUR_PROJECT_ID>` and `<YOUR_API_KEY>`. 
+  <Step title="You can now query all the documents within it ">
 
+    
+      ``` js GET database table
+fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>/db/<TABLE_NAME>", {
+  headers: {
+      "Authorization": "Bearer <YOUR_API_KEY>",
+  },
+}).then(response => response.json())
+.then(data => console.log(data));
+```
+Since we don’t have any documents created yet, this should return an empty array. 
 
   </Step>
+  <Step title="Add your first document">
+
+        ``` js POST add item
+fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>/db/<TABLE_NAME>", {
+  method: "POST",
+  headers: {
+      "Authorization": "Bearer <YOUR_API_KEY>",
+  },
+  body: JSON.stringify({
+    "hello": "world"
+  })
+}).then(response => response.json())
+.then(data => console.log(data));
+```
+    
+    If we retry the query from step 2, you should now see your document!
+
+  </Step>
+
+ <Step title="Update the document">
+ Let’s update the document now. We’ll provide a document ID, and some additional data we want to store. By default, this will merge the data, instead of replacing it.
+
+        ``` js POST update item
+fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>/db/<TABLE_NAME>", {
+  method: "POST",
+  headers: {
+      "Authorization": "Bearer <YOUR_API_KEY>",
+  },
+  body: JSON.stringify({
+    "sup": "universe"
+  })
+}).then(response => response.json())
+.then(data => console.log(data));
+```
+
+  </Step>
+
+  
 </Steps>
+
+
+## Next steps
+You can now start building your app! Create tables, add items, and query to your hearts content.
+
+<Info>
+In this limited preview, you are only able to store data for your own account. Support for adding additional users to your app coming soon.
+</Info>

@@ -21,7 +21,7 @@
   "topbarLinks": [
     {
       "name": "Say Hi",
-      "url": "https://twitter.com/basic_tech"
+      "url": "https://twitter.com/basic_db"
     },
     {
       "name": "We're Hiring!",
@@ -44,12 +44,9 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "pages": ["introduction", "quickstart"]
     },
-    {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
-    },
+   
     {
       "group": "API Documentation",
       "pages": ["api-reference/authentication"]
@@ -82,8 +79,7 @@
   },
   "openapi": ["/openapi_test.yml"],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "twitter": "https://twitter.com/basic_db",
+    "github": "https://github.com/basicdb"
   }
 }
