@@ -46,6 +46,11 @@
       "group": "Get Started",
       "pages": ["introduction", "quickstart"]
     },
+
+    {
+      "group": "Learn More",
+      "pages": ["more/overview", "more/reading"]
+    },
    
     {
       "group": "API",
