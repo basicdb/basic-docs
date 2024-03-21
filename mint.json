@@ -35,7 +35,7 @@
   "tabs": [
     {
       "name": "API Reference",
-      "url": "api-spec"
+      "url": "api-reference"
     }
   ],
   "anchors": [
@@ -51,20 +51,42 @@
       "group": "Learn More",
       "pages": ["more/overview", "more/reading"]
     },
-   
+
     {
-      "group": "API",
+      "group": "Auth",
       "pages": [
-          "api-spec/authentication",
-          "api-spec/retrieve-account-information",
-          "api-spec/get-list-of-apps",
-          "api-spec/get-list-of-projects",
-          "api-spec/create-a-new-account",
-          "api-spec/get-project-by-id",
-          "api-spec/get-project-key",
-          "api-spec/get-project-schema",
-          "api-spec/create-a-new-project",
-          "api-spec/update-project"
+          "api-reference/authorize", 
+
+          "api-reference/user-info",
+          "api-reference/token"
+      ]
+    },
+    {
+      "group": "Account API",
+      "pages": [
+          "api-reference/account",
+          "api-reference/get-apps",
+          "api-reference/get-projects"
+
+      ]
+    },
+    {
+      "group": "Project API",
+      "pages": [
+          "api-reference/get-project",
+          "api-reference/update-project",
+          "api-reference/get-schema",
+          "api-reference/update-schema"
+      ]
+    }, 
+    {
+      "group": "Database API",
+      "pages": [
+          "api-reference/get-items",
+          "api-reference/add-item",
+          "api-reference/update-item",
+          "api-reference/set-item",
+          "api-reference/del-item"
       ]
     }
 
@@ -78,7 +100,7 @@
       "mode": "show"
     }
   },
-  "openapi": ["/openapi_test.yml"],
+  "openapi": ["/openapi.yml"],
   "footerSocials": {
     "twitter": "https://twitter.com/basic_db",
     "github": "https://github.com/basicdb"
