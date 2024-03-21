@@ -53,13 +53,13 @@ fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>", {
 <Info> Databases on Basic are currently document collections, similar to MongoDB or Firebase.  Support for SQL databases is coming soon! </Info>
 
 <Steps>
-  <Step title="Go the Data tab, and create a new table.">
+  <Step title="Go the Schema tab, and create a new table.">
   </Step>
-  <Step title="You can now query all the documents within it ">
+  <Step title="You can now query all the documents in the table ">
 
     
       ``` js GET database table
-fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>/db/<TABLE_NAME>", {
+fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>/db/<ACCOUNT_ID>/<TABLE_NAME>", {
   headers: {
       "Authorization": "Bearer <YOUR_API_KEY>",
   },
@@ -67,12 +67,13 @@ fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>/db/<TABLE_NAME>", {
 .then(data => console.log(data));
 ```
 Since we don’t have any documents created yet, this should return an empty array. 
+For the `account_id` parameter, you can use "self".
 
   </Step>
   <Step title="Add your first document">
 
         ``` js POST add item
-fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>/db/<TABLE_NAME>", {
+fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>/db/<ACCOUNT_ID>/<TABLE_NAME>", {
   method: "POST",
   headers: {
       "Authorization": "Bearer <YOUR_API_KEY>",
@@ -92,7 +93,7 @@ fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>/db/<TABLE_NAME>", {
  Let’s update the document now. We’ll provide a document ID, and some additional data we want to store. By default, this will merge the data, instead of replacing it.
 
         ``` js POST update item
-fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>/db/<TABLE_NAME>", {
+fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>/db/<ACCOUNT_ID>/<TABLE_NAME>", {
   method: "POST",
   headers: {
       "Authorization": "Bearer <YOUR_API_KEY>",
