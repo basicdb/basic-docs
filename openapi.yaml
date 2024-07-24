@@ -74,7 +74,7 @@ paths:
       security:
         - bearerAuth: []
         
-  /v2/project/new:
+  /project/new:
     post:
       summary: New Project
       requestBody:
@@ -86,7 +86,7 @@ paths:
         '200':
           description: Successful response
           
-  /v2/project/{project_id}:
+  /project/{project_id}:
     post:
       summary: Update Project
       parameters:

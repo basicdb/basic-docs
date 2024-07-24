@@ -46,50 +46,54 @@
       "group": "Get Started",
       "pages": ["introduction", "quickstart"]
     },
-
     {
       "group": "Learn More",
       "pages": ["more/overview", "more/reading"]
     },
-
+    {
+      "group": "Account",
+      "pages": [
+        "api-reference/account/account",
+        "api-reference/account/get-apps",
+        "api-reference/account/get-projects"
+      ]
+    },
+    {
+      "group": "Projects",
+      "pages": [
+        "api-reference/projects/get-profile",
+        "api-reference/projects/get-project",
+        "api-reference/projects/new-project",
+        "api-reference/projects/update-project",
+        "api-reference/projects/get-key"
+      ]
+    },
     {
       "group": "Auth",
       "pages": [
-          "api-reference/authorize", 
-
-          "api-reference/user-info",
-          "api-reference/token"
+        "api-reference/auth/authorize",
+        "api-reference/auth/authorize-1",
+        "api-reference/auth/token",
+        "api-reference/auth/userinfo"
       ]
     },
     {
-      "group": "Account API",
+      "group": "Database",
       "pages": [
-          "api-reference/account",
-          "api-reference/get-apps",
-          "api-reference/get-projects"
-
+        "api-reference/db/get-items",
+        "api-reference/db/add-item",
+        "api-reference/db/set-item",
+        "api-reference/db/del-item",
+        "api-reference/db/update-item"
       ]
     },
     {
-      "group": "Project API",
+      "group": "Project Schema",
       "pages": [
-          "api-reference/get-project",
-          "api-reference/update-project",
-          "api-reference/get-schema",
-          "api-reference/update-schema"
-      ]
-    }, 
-    {
-      "group": "Database API",
-      "pages": [
-          "api-reference/get-items",
-          "api-reference/add-item",
-          "api-reference/update-item",
-          "api-reference/set-item",
-          "api-reference/del-item"
+        "api-reference/projectsschema/get-schema",
+        "api-reference/projectsschema/update-schema"
       ]
     }
-
   ],
   "api": {
     "baseUrl": "https://api.basic.tech", 
@@ -100,7 +104,7 @@
       "mode": "show"
     }
   },
-  "openapi": ["/openapi.yml"],
+  "openapi": ["/openapi.json"],
   "footerSocials": {
     "twitter": "https://twitter.com/basic_db",
     "github": "https://github.com/basicdb"
