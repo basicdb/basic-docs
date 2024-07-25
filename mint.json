@@ -51,6 +51,24 @@
       "pages": ["more/overview", "more/reading"]
     },
     {
+      "group": "Auth",
+      "pages": [
+        "api-reference/auth/authorize",
+        "api-reference/auth/token",
+        "api-reference/auth/userinfo"
+      ]
+    },
+    {
+      "group": "Database",
+      "pages": [
+        "api-reference/db/get-items",
+        "api-reference/db/add-item",
+        "api-reference/db/set-item",
+        "api-reference/db/del-item",
+        "api-reference/db/update-item"
+      ]
+    },
+    {
       "group": "Account",
       "pages": [
         "api-reference/account/account",
@@ -66,25 +84,6 @@
         "api-reference/projects/new-project",
         "api-reference/projects/update-project",
         "api-reference/projects/get-key"
-      ]
-    },
-    {
-      "group": "Auth",
-      "pages": [
-        "api-reference/auth/authorize",
-        "api-reference/auth/authorize-1",
-        "api-reference/auth/token",
-        "api-reference/auth/userinfo"
-      ]
-    },
-    {
-      "group": "Database",
-      "pages": [
-        "api-reference/db/get-items",
-        "api-reference/db/add-item",
-        "api-reference/db/set-item",
-        "api-reference/db/del-item",
-        "api-reference/db/update-item"
       ]
     },
     {
