@@ -1,0 +1,74 @@
+---
+title: 'Adding Authentication'
+description: 'Adding authentication to your project.'
+---
+
+# How Basic Auth works
+Basic uses OAuth 2.0 for authentication.  
+
+Here's a brief overview of how the flow works:
+
+1. The user beings the flow by clicking a "Sign in with Basic" button in your app.
+2. Redirect the user to login page, with the appropriate parameters. (see below for the required parameters)
+3. The user can login with Basic.id and grants permissions to your app.
+4. Basic.id redirects the user back to your app with an authorization code.
+5. Your app can exhange the authorization code for an access token and refresh token.
+6. Your app can use the access token to make database requests and keep the user logged in.
+7. If the access token expires, use the refresh token to get a new access token.
+
+In other words: 
+
+1. Redirect use to `/authorize`
+2. User grants access and redirects back to your app with an authorization code
+3. Use /token to exchange the code for an access token and refresh token
+4. Use the access tokens to make database requests   
+
+
+# Authentication with the API
+
+<Steps>
+
+    <Step title="Redirect user to /authorize">
+        Redirect the user to the login page, with the appropriate parameters.
+        
+        Redirect URL: 
+        `https://api.basic.tech/authorize`   
+
+
+        ### Required Query Parameters
+       <ParamField query="redirect_uri" type="string" default="none" required>
+        The URL you want the user to be redirected to after they login.
+        </ParamField>
+        <ParamField query="response_type" type="string" default="code" required>
+            The type of response you want to receive. must be `code`.
+        </ParamField>
+        <ParamField query="client_id" type="string" default="none" required>
+            Your Basic Project ID.
+        </ParamField>
+        <ParamField query="scope" type="string" default="profile" required>
+            The scopes you want to request. Default is Profile
+        </ParamField>
+        <ParamField query="state" type="string" default="none" required>
+            A random string. 
+        </ParamField>
+    </Step>
+
+    <Step title="User grants access and is redirected back to your app with an authorization code">
+        The authorization code will be in the URL as a `code` query parameter.
+        For example: 
+        `https://your-app.com/callback?code=1234567890`
+    </Step>
+
+    <Step title="Exchange the authorization code for an access token and refresh token">
+        Make a post request to `/token` with the authorization code in the body. 
+        The response will be a JSON object with the access token and refresh token.
+
+        Token URL: 
+        `https://api.basic.tech/token`
+
+
+
+    </Step>
+
+</Steps>
+

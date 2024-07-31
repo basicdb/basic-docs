@@ -3,48 +3,6 @@ title: 'Quickstart'
 description: 'Start building on Basic in minutes.'
 ---
 
-## Create your project
-
-
-
-<Info>This guide uses the dashboard to manage your project - an API and CLI are in progress.</Info>
-
-
-<Steps>
-  <Step title="Create your project">
-    After creating your account, head to the Dashboard and create a new project using the button on the top right.
-  </Step>
-  <Step title="Note your project ID, database URL, and API key (keep this a secret!)">
-    <Frame>
-      <img src="/images/quickstart_1.png" />
-    </Frame>
-  </Step>
-  <Step title="You can test everything is working by making a sample fetch request to your database:">
-    Make sure to replace `<YOUR_PROJECT_ID>` and `<YOUR_API_KEY>`. 
-  
-``` js GET Project Details
-fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>", {
-  headers: {
-      "Authorization": "Bearer <YOUR_API_KEY>",
-  },
-}).then(response => response.json())
-.then(data => console.log(data));
-```
-
-  </Step>
-</Steps>
-
- 
-{/* <AccordionGroup>
-  <Accordion icon="github" title="Clone your docs locally">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.mintlify.com). To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
-  </Accordion>
-</AccordionGroup> */}
 
 ## Create your database
 
@@ -53,8 +11,8 @@ fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>", {
 <Info> Databases on Basic are currently document collections, similar to MongoDB or Firebase.  Support for SQL databases is coming soon! </Info>
 
 <Steps>
-  <Step title="Go the Schema tab, and create a new table.">
-  </Step>
+  <Step title="Go the Schema tab, and create a new table." />
+     
   <Step title="You can now query all the documents in the table ">
 
     

@@ -1,0 +1,186 @@
+---
+title: "Using with React"
+description: "Using Basic with a React project, using the basictech-react package"
+---
+
+1. Create a new react project, if you don't have one already. Otherwise, open your existing project.
+```jsx
+// create a new vite project:
+npm create vite@latest
+
+//select the React + Javascript template in the Vite prompts
+```
+
+
+2. Install basictech-react in your app
+
+<Info> This library is for client side React - a NextJS library is coming soon! </Info>
+```bash
+npm install basictech-react
+
+// or update with: 
+npm install basictech-react@latest
+```
+
+3. Add the BasicProvider to main.jsx
+
+
+<Info> Use the Project ID from the dashboard.</Info>
+```jsx
+// .. rest of your imports ...
+
+// 1. import the provider
+import { BasicProvider } from 'basictech-react'
+
+// 2. wrap your app in BasicProvider, including the project id 
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BasicProvider project_id=''>
+      <App />
+      // rest of your code ...
+    </BasicProvider>
+  </React.StrictMode>,
+)
+```
+
+4. Now lets add auth to our project! In App.jsx, we can import the useAuth hook.
+
+```jsx
+// at the top of App.jsx, import the useBasic react hook.
+import { useBasic } from 'basictech-react'
+
+function App() {
+	// at the top of the App, lets import the signin function
+  const { signin } = useBasic()
+  
+  // ... rest of your App code ...
+}
+```
+
+5. lets create a login button
+
+```jsx
+function App() {
+  const { signin } = useBasic()
+  const [count, setCount] = useState(0)
+  
+  // rest of your code
+
+  return (
+    <>
+	    // add a button somewhere, calling the signin hook
+	    
+        <button onClick={signin}>sign in</button>
+	    
+	    // rest of your code 
+    </>
+  )
+}
+```
+
+lets test it out! clicking on the button should now redirect you to the [Basic.id](http://Basic.id) page where your users can login or create an account. 
+
+6. Now we can display the user email! lets import user from the useBasic hook
+
+```jsx
+function App() {
+	// import user from the useBasic hook
+  const { signin, user} = useBasic()
+
+	// display the user email
+  return (
+    <>
+        <button onClick={signin}>sign in</button>
+        <p>hello {user?.email}</p>
+      
+      // ... rest of code
+    </>
+  )
+}
+
+```
+
+7. lets add a logout function now. we can use the isSignedIn hook to check if the user is logged in, and the signout function to sign out the user.
+
+```jsx
+
+// 1. import isSignedIn and signout from the useBasic hook
+function App() {
+  const { signin, user, isSignedIn, signout} = useBasic()
+  const [count, setCount] = useState(0)
+
+  return (
+    <>
+     // first, lets check if the user is signed in.
+     // then we can display the email and signout button
+     // otherwise, show the login button
+     
+        { isSignedIn ? 
+          <>
+            <p>hello {user?.email}</p>
+            <button onClick={signout}>sign out</button> 
+          </>
+          : 
+          <button onClick={signin}>sign in</button>
+        }
+      
+	     // ... rest of code
+    </>
+  )
+}
+```
+
+---
+
+# Database
+
+Read tables: 
+
+```jsx
+// import db from useBasic() inside your React component
+const { db } = useBasic()
+
+const data = db.table('tablename').get()
+// returns a promise, so you can await the response, like so: 
+
+// --- Full Example ---- //
+
+function App() {
+  const { db } = useBasic()
+  const [items, setItems] = useState([]) 
+	
+	const GetData = async () => { 
+		const data = await db.table('tablename').get()
+		setItems(data.data)
+	}
+	
+  return (
+    // render items
+  )
+}
+
+```
+
+Add new item:
+
+```jsx
+const data = db.table('tablename').add({ name: 'cutie'}) 
+//returns promise, with newly created object
+```
+
+Update item: 
+
+```jsx
+const data = db.table('tablename').update({ 
+	id: 'ID_OF_ITEM',
+	value: { name: 'super cute' }
+})
+//returns promise, with newly updated object
+```
+
+Delete item: 
+
+```jsx
+const data = db.table('tablename').delete('ID_OF_ITEM')
+//returns promise
+```

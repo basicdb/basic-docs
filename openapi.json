@@ -395,21 +395,21 @@
                   }, 
                   "slug": {
                     "type": "string"
-                  },
-                  "owner_id": {
-                    "type": "string"
                   }
                 },
                 "example": {
                   "name": "project name",
-                  "slug": "project-slug",
-                  "owner_id": "ID_of_the_account_owner"
+                  "slug": "project-slug"
                 }
               }
             }
           }
         },
-        "security": []
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/project/{project_id}": {

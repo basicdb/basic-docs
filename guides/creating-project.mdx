@@ -1,0 +1,47 @@
+---
+title: 'Creating a Project'
+description: 'Using the Dashboard to create a new project.'
+---
+
+## Create your project
+
+
+
+<Info>This guide uses the dashboard to manage your project - a CLI is in progress.</Info>
+
+
+<Steps>
+    <Step title="Login to the Dashboard">
+        You can login/signup using your Basic.id account - if you don't have one yet, you will be prompted to create one.
+    </Step>
+  <Step title="Create your project">
+    After creating your account, head to the Dashboard and create a new project using the button on the top right.
+  </Step>
+  <Step title="Note your project ID, database URL, and API key (keep this a secret!)">
+    Your project ID is a public identifier for your project.
+    <Warning>
+        Keep your API Key a secret! Only use it on a secure server environment.
+    </Warning>
+    <Frame>
+      <img src="/images/quickstart_1.png" />
+    </Frame>
+  </Step>
+  <Step title="You can test everything is working by making a sample fetch request to your database:">
+    Make sure to replace `<YOUR_PROJECT_ID>` and `<YOUR_API_KEY>`. 
+  
+``` js GET Project Details
+fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>", {
+  headers: {
+      "Authorization": "Bearer <YOUR_API_KEY>",
+  },
+}).then(response => response.json())
+.then(data => console.log(data));
+```
+
+  </Step>
+</Steps>
+
+
+
+## Next steps
+You can now start building your app! Create tables, add items, and query to your hearts content.
