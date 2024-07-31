@@ -44,7 +44,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["more/introduction", "guides/creating-project", "guides/adding-auth", "guides/using-react"]
+      "pages": ["more/introduction", "more/about", "guides/creating-project", "guides/adding-auth", "guides/using-react"]
     },
     {
       "group": "Learn More",
