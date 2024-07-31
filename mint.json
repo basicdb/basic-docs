@@ -48,7 +48,7 @@
     },
     {
       "group": "Learn More",
-      "pages": ["more/overview", "more/reading"]
+      "pages": ["more/overview", "more/reading", "more/roadmap"]
     },
     {
       "group": "Auth",
