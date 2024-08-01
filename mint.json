@@ -43,12 +43,16 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["more/introduction", "more/about", "guides/creating-project", "guides/adding-auth", "guides/using-react"]
+      "group": "About",
+      "pages": ["start/welcome", "start/about", 
+      { 
+        "group": "Quickstart",
+        "pages": ["guides/creating-project" ,"guides/adding-auth" ,"guides/using-react"]
+      } ]
     },
     {
       "group": "Learn More",
-      "pages": ["more/overview", "more/reading", "more/roadmap"]
+      "pages": ["start/overview", "start/reading", "start/roadmap"]
     },
     {
       "group": "Auth",
