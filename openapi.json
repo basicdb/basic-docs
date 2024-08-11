@@ -776,9 +776,9 @@
         ]
       }
     },
-    "/project/{project_id}/db/{account_id}/{table_name}": {
+    "/account/{project_id}/db/{table_name}": {
       "get": {
-        "description": "Retrieve items from a specific table for an account within a project.",
+        "description": "Retrieve items from a specific table within a project.",
         "summary": "Get Items",
         "tags": [
           "DB"
@@ -792,15 +792,6 @@
               "type": "string"
             },
             "description": "The ID of the project"
-          },
-          {
-            "name": "account_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the account"
           },
           {
             "name": "table_name",
@@ -840,11 +831,9 @@
             "bearerAuth": []
           }
         ]
-      }
-    },
-    "/project/{project_id}/db/{account}/{table_name}": {
+      },
       "post": {
-        "description": "Add a new item to a specific table for an account within a project.",
+        "description": "Add a new item to a specific table within a project.",
         "summary": "Add Item",
         "tags": [
           "DB"
@@ -858,15 +847,6 @@
               "type": "string"
             },
             "description": "The ID of the project"
-          },
-          {
-            "name": "account",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the account"
           },
           {
             "name": "table_name",
@@ -919,9 +899,9 @@
         ]
       }
     },
-    "/project/{project_id}/db/{account}/{table_name}/{item_id}": {
+    "/account/{project_id}/db/{table_name}/{item_id}": {
       "patch": {
-        "description": "Update a specific item in a table for an account within a project.",
+        "description": "Update a specific item in a table within a project.",
         "summary": "Update Item",
         "tags": [
           "DB"
@@ -935,15 +915,6 @@
               "type": "string"
             },
             "description": "The ID of the project"
-          },
-          {
-            "name": "account",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The account identifier"
           },
           {
             "name": "table_name",
@@ -1005,7 +976,7 @@
         ]
       },
       "put": {
-        "description": "Replace a specific item in a table for an account within a project.",
+        "description": "Replace a specific item in a table within a project.",
         "summary": "Set Item",
         "tags": [
           "DB"
@@ -1021,15 +992,6 @@
             "description": "The ID of the project"
           },
           {
-            "name": "account_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the account"
-          },
-          {
             "name": "table_name",
             "in": "path",
             "required": true,
@@ -1037,8 +999,7 @@
               "type": "string"
             },
             "description": "The name of the table"
-          }
-        ,
+          },
           {
             "name": "item_id",
             "in": "path",
@@ -1090,7 +1051,7 @@
         ]
       },
       "delete": {
-        "description": "Delete a specific item from a table for an account within a project.",
+        "description": "Delete a specific item from a table within a project.",
         "summary": "Del Item",
         "tags": [
           "DB"
@@ -1104,15 +1065,6 @@
               "type": "string"
             },
             "description": "The ID of the project"
-          },
-          {
-            "name": "account",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the account"
           },
           {
             "name": "table_name",
