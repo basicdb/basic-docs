@@ -20,17 +20,13 @@
   },
   "topbarLinks": [
     {
-      "name": "Say Hi",
+      "name": "Connect with us",
       "url": "https://twitter.com/basic_db"
-    },
-    {
-      "name": "We're Hiring!",
-      "url": "https://basic.tech/careers"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://app.basic.tech"
+    "name": "Request Access",
+    "url": "https://airtable.com/shr5ALU6Ha9uBzErA"
   },
   "tabs": [
     {
@@ -38,21 +34,35 @@
       "url": "api-reference"
     }
   ],
-  "anchors": [
- 
-  ],
+  "anchors": [],
   "navigation": [
     {
       "group": "About",
-      "pages": ["start/welcome", "start/about", 
-      { 
-        "group": "Quickstart",
-        "pages": ["guides/creating-project" ,"guides/adding-auth" ,"guides/using-react"]
-      } ]
+      "pages": [
+        "start/welcome",
+        "start/introduction",
+        {
+          "group": "Quickstart",
+          "pages": [
+            "quickstart/creating-project",
+            {
+              "group": "Implementing Basic",
+              "pages": [
+                "quickstart/using-api",
+                "quickstart/using-react"
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "group": "Learn More",
-      "pages": ["start/overview", "start/reading", "start/roadmap"]
+      "pages": [
+        "start/overview",
+        "start/reading",
+        "start/roadmap"
+      ]
     },
     {
       "group": "Auth",
@@ -99,15 +109,17 @@
     }
   ],
   "api": {
-    "baseUrl": "https://api.basic.tech", 
+    "baseUrl": "https://api.basic.tech",
     "auth": {
-      "method": "bearer" 
-    }, 
+      "method": "bearer"
+    },
     "playground": {
       "mode": "show"
     }
   },
-  "openapi": ["/openapi.json"],
+  "openapi": [
+    "/openapi.json"
+  ],
   "footerSocials": {
     "twitter": "https://twitter.com/basic_db",
     "github": "https://github.com/basicdb"
