@@ -21,7 +21,7 @@
   "topbarLinks": [
     {
       "name": "Connect with us",
-      "url": "https://twitter.com/basic_db"
+      "url": "https://cal.com/basic/30min?user=basic&date=2024-09-20&month=2024-09"
     }
   ],
   "topbarCtaButton": {
@@ -37,19 +37,19 @@
   "anchors": [],
   "navigation": [
     {
-      "group": "About",
+      "group": "Get Started",
       "pages": [
-        "start/welcome",
-        "start/introduction",
+        "get-started/welcome",
+        "get-started/introduction",
         {
           "group": "Quickstart",
           "pages": [
-            "quickstart/creating-project",
+            "get-started/quickstart/creating-project",
             {
-              "group": "Implementing Basic",
+              "group": "Implement Basic",
               "pages": [
-                "quickstart/using-api",
-                "quickstart/using-react"
+                "get-started/quickstart/using-api",
+                "get-started/quickstart/using-react"
               ]
             }
           ]
@@ -57,11 +57,10 @@
       ]
     },
     {
-      "group": "Learn More",
+      "group": "Others",
       "pages": [
-        "start/overview",
-        "start/reading",
-        "start/roadmap"
+        "others/reading",
+        "others/roadmap"
       ]
     },
     {

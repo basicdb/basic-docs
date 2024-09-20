@@ -1,0 +1,84 @@
+---
+title: Introduction to Basic
+---
+
+Basic is a new kind of database, with a focus on privacy, user ownership, and local-first. 
+
+It works by create a database for every end user - a Personal Data Store - and then lets applications request access to read & write to it.
+Its a bit like iCloud - but open source and for the entire web.
+
+---
+
+## Problem
+
+We need a better way to store user data: 
+
+- too fragmented: user data is spread across dozens of apps/platforms
+- vendor lock in & walled gardens limit user choice
+- privacy issues & stolen user data are too common
+- user data depends on third parties - can be shut down, censored, lost, etc
+
+---
+
+## Objectives
+Basic is building for a more private, collaborate, and user-owned web. Some of our goals are:  
+1. user-owned data : users should be able to control who has access to their data, and what they share.
+2. interoperable data : data should not be silod behind walled gardens, but rather be able to flow accross apps.
+3. privacy : users should be able to use apps without giving developers read access to their data. 
+4. open source protocol : all of it should be open, creating a healthy, open ecosystem
+
+Furthermore, any new database should be: 
+- Easy: it should take only minutes to design and deploy a database, and integrate it into any stack. It should just work.
+- Relational: most devs prefer relational and typed models
+- Serverless scale: Devs should never have to worry about performance - database should automatically scale up with growth, and scale down to zero when not in use.
+
+---
+
+## Solution
+
+Basic is a serverless, relational database, for user-owned data. 
+
+Databases have always worked the same way. An application that wants to store data will create and host a database, and use it to write and read data. When an end user - a client - wants to view their data, they send a request to the application, which then looks up the data in their database, and then returns that information back to the client.
+
+
+<Frame><img src="/images/diagram_1.png" alt="traditional diagram" /></Frame>
+
+In this current model, data lives with and is controlled by the application - and the user must request access to it.  
+
+This presents a number of problems, both for the the user, and the application developer. Developers, for one, have to scale their database as their app grows, and might have to save and store data for millions of users. 
+
+This model presents a further problem for the actual users though - they don’t have any direct access or control over their data, and must rely fully on the application. 
+
+Basic presents an alternative. What if data lived with, and was controlled by, the *user* - and applications requested access to it.
+
+<Frame><img src="/images/diagram_2.png" alt="basic diagram" /></Frame>
+
+
+In this model, rather than all data being stored with the application, user data is instead stored in a user-controlled database that the application has access to. Since the user data exists independent of the app, this leads to some key benefits: 
+
+1. User can revoke access to data, or limit the read/write permissions 
+2. User can give multiple apps access to the same data, creating a source of truth for all personal data
+3. User data becomes interoperable, and can easily be transferred across apps 
+
+Furthermore, it provides benefits to application  as well: 
+
+1. Easier scale: Devs don’t have to worry about storing user data, or scaling their database, since users will “bring their own data”
+2. Improved security: Sensitive data doesn’t need to be stored on app servers
+3. Devs can make it easier for users to import their data, removing friction from onboarding
+
+---
+
+## How it works
+For the most part, you can use Basic as you would a regular database, with additional benefits. There two main components: Auth and Database.
+
+### Auth
+Basic Auth uses the standard OAuth2 flow. You can initiate the flow from any platform using the API, or use the libraries that handle everything for you. 
+
+The main thing to note is that instead of having a seperate account for every app - users create a single Basic.id account, where they can control all of their data and apps. Thus, whenever a user logs into your app, they will be redirected to their Basic.id account to give you access. The goal here to to make it easy for users to view all of their apps and data from a single convenient location.
+
+### Database
+Basic currently functions like a document database (similar to Firebase or MongoDB). You can create collections of documents, which are just JSON objects. However, support for relations and SQL are coming soon. 
+
+You can use the REST API to read and write data, or use the React library (more libraries coming soon).
+
+The main thing to note is that instead of one massive database where you store all of your users data, Basic instead has seperate databases for every user. 
