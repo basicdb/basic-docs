@@ -20,17 +20,13 @@
   },
   "topbarLinks": [
     {
-      "name": "Say Hi",
-      "url": "https://twitter.com/basic_db"
-    },
-    {
-      "name": "We're Hiring!",
-      "url": "https://basic.tech/careers"
+      "name": "Connect with us",
+      "url": "https://cal.com/basic/30min?user=basic&date=2024-09-20&month=2024-09"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://app.basic.tech"
+    "name": "Request Access",
+    "url": "https://airtable.com/shr5ALU6Ha9uBzErA"
   },
   "tabs": [
     {
@@ -38,21 +34,34 @@
       "url": "api-reference"
     }
   ],
-  "anchors": [
- 
-  ],
+  "anchors": [],
   "navigation": [
     {
-      "group": "About",
-      "pages": ["start/welcome", "start/about", 
-      { 
-        "group": "Quickstart",
-        "pages": ["guides/creating-project" ,"guides/adding-auth" ,"guides/using-react"]
-      } ]
+      "group": "Get Started",
+      "pages": [
+        "get-started/welcome",
+        "get-started/introduction",
+        {
+          "group": "Quickstart",
+          "pages": [
+            "get-started/quickstart/creating-project",
+            {
+              "group": "Implement Basic",
+              "pages": [
+                "get-started/quickstart/using-api",
+                "get-started/quickstart/using-react"
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
-      "group": "Learn More",
-      "pages": ["start/overview", "start/reading", "start/roadmap"]
+      "group": "Others",
+      "pages": [
+        "others/reading",
+        "others/roadmap"
+      ]
     },
     {
       "group": "Auth",
@@ -99,15 +108,17 @@
     }
   ],
   "api": {
-    "baseUrl": "https://api.basic.tech", 
+    "baseUrl": "https://api.basic.tech",
     "auth": {
-      "method": "bearer" 
-    }, 
+      "method": "bearer"
+    },
     "playground": {
       "mode": "show"
     }
   },
-  "openapi": ["/openapi.json"],
+  "openapi": [
+    "/openapi.json"
+  ],
   "footerSocials": {
     "twitter": "https://twitter.com/basic_db",
     "github": "https://github.com/basicdb"
