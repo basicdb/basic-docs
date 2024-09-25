@@ -1,6 +1,6 @@
 ---
 title: "Using with React"
-description: "Using Basic with a React project, using the basictech-react package"
+description: "Using Basic with a React project, using the @basictech/react package"
 ---
 
 1. Create a new react project, if you don't have one already. Otherwise, open your existing project.
@@ -12,14 +12,14 @@ npm create vite@latest
 ```
 
 
-2. Install basictech-react in your app
+2. Install @basictech/react in your app
 
 <Info> This library is for client side React - a NextJS library is coming soon! </Info>
 ```bash
-npm install basictech-react
+npm install @basictech/react
 
 // or update with: 
-npm install basictech-react@latest
+npm install @basictech/react@latest
 ```
 
 3. Add the BasicProvider to main.jsx
@@ -30,7 +30,7 @@ npm install basictech-react@latest
 // .. rest of your imports ...
 
 // 1. import the provider
-import { BasicProvider } from 'basictech-react'
+import { BasicProvider } from '@basictech/react'
 
 // 2. wrap your app in BasicProvider, including the project id 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -47,7 +47,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 ```jsx
 // at the top of App.jsx, import the useBasic react hook.
-import { useBasic } from 'basictech-react'
+import { useBasic } from '@basictech/react'
 
 function App() {
 	// at the top of the App, lets import the signin function
