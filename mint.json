@@ -40,18 +40,12 @@
       "group": "Get Started",
       "pages": [
         "get-started/welcome",
-        "get-started/introduction",
+        "get-started/sign-up-for-basic",
         {
-          "group": "Quickstart",
+          "group": "Implement Basic",
           "pages": [
-            "get-started/quickstart/creating-project",
-            {
-              "group": "Implement Basic",
-              "pages": [
-                "get-started/quickstart/using-api",
-                "get-started/quickstart/using-react"
-              ]
-            }
+            "get-started/implement-basic/using-api",
+            "get-started/implement-basic/using-react"
           ]
         }
       ]
@@ -59,6 +53,8 @@
     {
       "group": "Others",
       "pages": [
+        "others/why-basic",
+        "others/auth-basic",
         "others/reading",
         "others/roadmap"
       ]

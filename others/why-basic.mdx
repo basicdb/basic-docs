@@ -1,13 +1,11 @@
 ---
-title: Introduction to Basic
+title: Why Basic?
 ---
 
 Basic is a new kind of database, with a focus on privacy, user ownership, and local-first. 
 
 It works by create a database for every end user - a Personal Data Store - and then lets applications request access to read & write to it.
 Its a bit like iCloud - but open source and for the entire web.
-
----
 
 ## Problem
 
@@ -17,8 +15,6 @@ We need a better way to store user data:
 - vendor lock in & walled gardens limit user choice
 - privacy issues & stolen user data are too common
 - user data depends on third parties - can be shut down, censored, lost, etc
-
----
 
 ## Objectives
 Basic is building for a more private, collaborate, and user-owned web. Some of our goals are:  
@@ -34,7 +30,7 @@ Furthermore, any new database should be:
 
 ---
 
-## Solution
+# Solution
 
 Basic is a serverless, relational database, for user-owned data. 
 
@@ -65,8 +61,6 @@ Furthermore, it provides benefits to application  as well:
 1. Easier scale: Devs don’t have to worry about storing user data, or scaling their database, since users will “bring their own data”
 2. Improved security: Sensitive data doesn’t need to be stored on app servers
 3. Devs can make it easier for users to import their data, removing friction from onboarding
-
----
 
 ## How it works
 For the most part, you can use Basic as you would a regular database, with additional benefits. There two main components: Auth and Database.

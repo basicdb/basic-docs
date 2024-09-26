@@ -3,28 +3,8 @@ title: 'Using the API'
 description: 'Adding authentication to your project.'
 ---
 
-# How Basic Auth works
-Basic uses OAuth 2.0 for authentication.  
-
-Here's a brief overview of how the flow works:
-
-1. The user beings the flow by clicking a "Sign in with Basic" button in your app.
-2. Redirect the user to login page, with the appropriate parameters. (see below for the required parameters)
-3. The user can login with Basic.id and grants permissions to your app.
-4. Basic.id redirects the user back to your app with an authorization code.
-5. Your app can exhange the authorization code for an access token and refresh token.
-6. Your app can use the access token to make database requests and keep the user logged in.
-7. If the access token expires, use the refresh token to get a new access token.
-
-In other words: 
-
-1. Redirect use to `/authorize`
-2. User grants access and redirects back to your app with an authorization code
-3. Use /token to exchange the code for an access token and refresh token
-4. Use the access tokens to make database requests   
-
-
-# Authentication with the API
+# Authentication with API
+Basic uses OAuth 2.0 for authentication. For more details on OAuth 2.0, read more about [Introduction to OAuth 2.0](/learn/auth-basic#introduction-to-oauth-2-0), or a [pseudocode example](/learn/auth-basic#pseudocode-example).
 
 <Steps>
 
