@@ -1,49 +1,31 @@
 ---
-title: 'Basic Auth via API'
-description: 'Overview of the Basic Auth (when using the API)'
+title: 'Basic Auth'
+description: 'Overview of the Basic Auth'
 ---
-# Summary
-
-1. The user beings the flow by clicking a "Sign in with Basic" button in your app
-2. User is redirected to login page
-3. The user can login with Basic.id which grants them permissions to your app
-4. Basic.id redirects the user back to your app with an authorization code
-5. Your app can exhange the authorization code for access and refresh tokens
-6. Your app can use the access token to make database requests and keep the user logged in
-7. If the access token expires, you can use the refresh token to get a new access token
----
+<Note>
+    This is primarily for developers using the Basic API. The client SDKs handle all these aspects of OAuth 2.0 for you.
+</Note>
 # Introduction to OAuth 2.0
-Basic uses OAuth 2.0 for authentication.
-OAuth 2.0 is a widely adopted authorization framework that enables a secure way for a user to grant permissions (sign up, sign in, etc.) to many applications using a single account (similar to "Login with Google").
+Basic uses OAuth 2.0 for authentication. This widely adopted framework allows users to securely grant permissions to multiple applications using a single account, similar to "Login with Google". It ensures user data security while enabling controlled access for third-party apps, without directly handling sensitive login credentials.
 
 ### Authorization
-First, an application redirects the user to the Authorization Server. Here, the user enters their login credentials of their existing account (e.g., Google, Apple, BasicID, etc.), and explicitly grants permissions to your app. The Authorization Server then issues an authorization code to the application, which has a one-time use and is exchanged for access and refresh tokens (also known as JWTs).
+First, an application redirects the user to the Authorization Server. Here, the user enters their login credentials of their existing account (e.g., Google, Apple, BasicID, etc.), and explicitly grants permissions to your app. 
 
-JWTs are JSON blurbs that securely transmit information between parties.
+<Note>
+    The benefit of using a service for Authorization is that they handle storing user credentials securely, validating passwords, account recovery, etc.
+</Note>
+
+The Authorization Server then issues an authorization code to the application, which has a one-time use and is exchanged for an access token <Tooltip tip="JWTs are strings that securely transmit information between parties.">(also known as JWTs)</Tooltip> and a refresh code. 
+
+These tokens and codes should be extracted from the callback URL and are generally stored in your user's cache or cookies.
 
 ### Access tokens
-Access tokens are a short-lived JWT (with Basic, this is 1 hour) that can be used to make secure and authenticated requests to protected information. When it expires, the refresh token can be used to obtain a new access token without requiring the user to re-authenticate (i.e., without re-entering their login credentials). 
+Access tokens are a short-lived JWT (with Basic, this is 1 hour) that can be used to make secure and authenticated requests to protected information. They are used to make requests to the API via the `Authorization` header (e.g., `Authorization: Bearer 'YOUR_ACCESS_TOKEN'`). 
 
-### Refresh tokens
-Refresh tokens are long-lived JWTs (with Basic, this is 30 days) that can be used to obtain a new access token when the current access token expires. Refresh tokens ensure you as a developer can revoke access from your users if they have been compromised. Once refresh tokens also expire, the user will be required to sign in again (this is rotation of keys improves security for you and your users).
+Before making a request, you should validate if the access token is still valid - if it has expired, you would use the refresh token to get a new access token without requiring the user to re-authenticate (i.e., without re-entering their login credentials). 
 
-OAuth 2.0's flow ensures that user data remains secure while allowing controlled access to third-party applications. The user maintains control over their data, deciding what information to share and with whom. Meanwhile, applications can securely access necessary resources without handling sensitive login credentials directly.
-
----
-# Pseudocode example
-Here's a simple example of how the flow works:
-
-### 1. "Sign in with Basic" button
-You would add a "Sign in with Basic" button to your app. You would add a redirect URL to the button that points it to the BasicID sign up / sign in page (the URL requires certain parameters to be set, which are explained below). This button would redirect the user to the Basic login page which would handle the authentication process (user sign up, sign in, forget password, change password, etc.).
-
-### 2. Authorization code
-After the user signs up or signs in, they will be redirected back to your app with an authorization code. If you're using the API, you'd extract the authorization code from the callback URL. You would use this to exchange for access and refresh tokens.
-
-### 3. Access tokens
-With the access token, you can access information about the user in a secure manner. The access token would be added to every API request you make in the form of a "Bearer" token. Before making a request, you should validate if the access token is still valid - if it has expired, you can use the refresh token to get a new access token.
-
-### 4. Refresh tokens
-The refresh token can be used to obtain a new access token when the current access token expires. Similarly, since the refresh token also expires, you would first want to check that the refresh token is valid. If it is, you can use it to exchange for a new access token. If it is expired, you would need to redirect the user to the login page to sign in again (so that you can receive a new authorization token to repeat the previous few steps).
+### Refresh code
+Refresh codes can be used to obtain a new access token via the `/token` endpoint when the current access token expires. This regenerates a new access token and refresh code.
 
 ---
 # Required parameters
@@ -61,7 +43,7 @@ Here are the required parameters you need to set on the "Sign in with Basic" but
 
 ### redirect_uri
 <ParamField query="redirect_uri" type="string" required>
-    This is the URL that the user will be redirected to after they sign up or sign in. It must be set to `https://api.basic.id/v1/oauth/callback`.
+    This is the URL that the user will be redirected to after they sign up or sign in. This would generally be a URL on your app.
 </ParamField>
 
 ### response_type

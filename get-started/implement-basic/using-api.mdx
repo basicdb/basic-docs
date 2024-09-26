@@ -2,183 +2,240 @@
 title: 'Using the API'
 description: 'Adding authentication to your project.'
 ---
+# Summary
+1. The user beings the flow by clicking a "Sign in with Basic" button in your app
+2. User is redirected to a login page
+3. The user can login with Basic.id which grants them permissions to your app
+4. Basic.id redirects the user back to your app with an authorization code
+5. Your app can exchange the authorization code for access and refresh tokens. With the access token, you can make database requests and keep the user logged in. If the access token expires, you can use the refresh token to get a new access token
+
+With this, you'll be ready to [access the user's database](/api-reference/db/get-items)!
 
 # Authentication with API
-Basic uses OAuth 2.0 for authentication. For more details on OAuth 2.0, read more about [Introduction to OAuth 2.0](/others/auth-basic#introduction-to-oauth-2-0) or refer to a [pseudocode example](/others/auth-basic#pseudocode-example).
+Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Auth](/others/auth-basic#introduction-to-oauth-2-0).
 
 <Steps>
-
     <Step title="Redirect user to /authorize">
-        Create a button that redirects the user to the login page, with the appropriate parameters.
+        Create a button that redirects the user to the Basic Auth page, with the following required parameters (more info on [required parameters](/others/auth-basic#required-parameters)):
+        - `client_id='YOUR_CLIENT_ID'`
+        - `redirect_uri='YOUR_REDIRECT_URI'`
+        - `response_type=code`
+        - `scope=profile`
+        - `state='YOUR_STATE'`
+        
+        Redirect URL template: `https://api.basic.tech/auth/authorize?response_type=code&redirect_uri=YOUR_REDIRECT_URI&scope=profile&state=YOUR_STATE&client_id=YOUR_CLIENT_ID`
+        <Note>
+            Make sure to replace `YOUR_CLIENT_ID`, `YOUR_REDIRECT_URI`, `YOUR_STATE` with your own values
+        </Note>
+        <CodeGroup>
+            ```bash cURL
+            curl --request GET \
+                --url 'https://api.basic.tech/auth/authorize?response_type=code&redirect_uri='YOUR_REDIRECT_URI'&scope=profile&state='YOUR_STATE'&client_id='YOUR_CLIENT_ID''
+            ```
+            ```python Python
+            import requests
 
-        Redirect URL: 
-        `https://api.basic.tech/authorize`. For more information on how to use the redirect URL, check out the [required parameters](/others/auth-basic#required-parameters).   
+            url = "https://api.basic.tech/auth/authorize"
 
-        Example:
-        ```typescript SignInButton.tsx
-        // Create a button that redirects the user to the login page
-        import React from 'react';
+            querystring = {"response_type":"code","client_id":"YOUR_CLIENT_ID","redirect_uri":"YOUR_REDIRECT_URI","scope":"profile","state":"YOUR_STATE"}
 
-        const SignInButton: React.FC = () => {
-          const handleSignIn = () => {
-            // make sure to replace the redirect_uri, client_id, scope, and state with your actual values
-            const redirectUrl = `https://api.basic.tech/authorize?redirect_uri=${encodeURIComponent('https://your-app.com/callback')}&response_type=code&client_id=${encodeURIComponent('YOUR_BASIC_PROJECT_ID')}&scope=profile&state=${encodeURIComponent('RANDOM_STRING')}`;
-            window.location.href = redirectUrl;
-          };
+            response = requests.request("GET", url, params=querystring)
 
-          return (
-            <button onClick={handleSignIn}>
-              Sign in with Basic
-            </button>
-          );
-        };
+            print(response.text)
+            ``` 
+            ```javascript JavaScript
+            const options = {method: 'GET'};
 
-        // If you wanted to use this button in your app, you would import it and use it like this:
-        // <SignInButton />
-        ```
+            fetch('https://api.basic.tech/auth/authorize?response_type=code&client_id='YOUR_CLIENT_ID'&redirect_uri='YOUR_REDIRECT_URI'&scope=profile&state='YOUR_STATE'', options)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
+            ```
+            ```php PHP
+            <?php
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://api.basic.tech/auth/authorize?response_type=code&client_id='YOUR_CLIENT_ID'&redirect_uri='YOUR_REDIRECT_URI'&scope=profile&state='YOUR_STATE'",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+            ]);
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                echo "cURL Error #:" . $err;
+            } else {
+                echo $response;
+            }
+            ```
+            ```go Go
+            package main
+
+            import (
+                "fmt"
+                "net/http"
+                "io/ioutil"
+            )
+
+            func main() {
+
+                url := "https://api.basic.tech/auth/authorize?response_type=code&client_id='YOUR_CLIENT_ID'&redirect_uri='YOUR_REDIRECT_URI'&scope=profile&state='YOUR_STATE'"
+
+                req, _ := http.NewRequest("GET", url, nil)
+
+                res, _ := http.DefaultClient.Do(req)
+
+                defer res.Body.Close()
+                body, _ := ioutil.ReadAll(res.Body)
+
+                fmt.Println(res)
+                fmt.Println(string(body))
+
+            }
+            ```
+            ```java Java
+            HttpResponse<String> response = Unirest.get("https://api.basic.tech/auth/authorize?response_type=code&client_id='YOUR_CLIENT_ID'&redirect_uri='YOUR_REDIRECT_URI'&scope=profile&state='YOUR_STATE'")
+            .asString();
+            ```
+        </CodeGroup>
     </Step>
 
     <Step title="User grants access and is redirected back to your app with an authorization code">
         The authorization code will be in the URL as a `code` query parameter.
         For example: 
         `https://your-app.com/callback?code=1234567890`.
+        
         You need to extract the code from the URL and use it in the next step.
-        ```typescript CallbackPage.tsx
-        // Extract the code from the URL
-        const code = new URL(window.location.href).searchParams.get('code');
-        ```
     </Step>
 
-    <Step title="Exchange the authorization code for an access token and refresh token">
-        Make a post request to `/token` with the authorization code in the body. The response will be a JSON object with the access token and refresh token.
+    <Step title="Exchange the authorization code for an access token and a refresh code">
+        Make a post request to `/token` with the authorization code in the body. The response will be a JSON object with the access token and a refresh code.
 
-        Token URL: 
+        Token URL template: 
         `https://api.basic.tech/token`
 
-        Example:
-        ``` javascript ExchangeToken.js
-        const exchangeToken = async (code) => {
+        <Note>
+            Make sure to replace `YOUR_CODE` with your own values
+        </Note>
+        
+        <CodeGroup>
+            ```bash cURL
+            curl --request POST \
+                --url 'https://api.basic.tech/token' \
+                --header 'Content-Type: application/json' \
+                --data '{"code":"YOUR_CODE"}'
+            ```
+            ```python Python
+            import requests
+
+            url = "https://api.basic.tech/auth/token"
+
+            payload = {"code": "YOUR_CODE"}
+            headers = {"Content-Type": "application/json"}
+
+            response = requests.request("POST", url, json=payload, headers=headers)
+
+            print(response.text)
+            ```
+            ```javascript JavaScript
             const options = {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({code: code})
+                body: JSON.stringify({code: 'YOUR_CODE'})
             };
 
-            try {
-                const response = await fetch('https://api.basic.tech/token', options);
-                const data = await response.json();
+            fetch('https://api.basic.tech/token', options)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            ```
+            ```php PHP
+            <?php
 
-                if (response.ok) {
-                    // Store tokens in cookies
-                    document.cookie = `access_token=${data.access_token}; path=/; max-age=3600; secure; samesite=strict`;
-                    document.cookie = `refresh_token=${data.refresh_token}; path=/; max-age=2592000; secure; samesite=strict`;
+            $curl = curl_init();
 
-                    // Alternatively, store in localStorage (less secure)
-                    // localStorage.setItem('access_token', data.access_token);
-                    // localStorage.setItem('refresh_token', data.refresh_token);
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://api.basic.tech/auth/token",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => "{\n  \"code\": \"YOUR_CODE\"\n}",
+                CURLOPT_HTTPHEADER => [
+                    "Content-Type: application/json"
+                ],
+            ]);
 
-                    return data;
-                } else {
-                    throw new Error('Failed to exchange token');
-                }
-            } catch (error) {
-                console.error('Error exchanging token:', error);
-                throw error;
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                echo "cURL Error #:" . $err;
+            } else {
+            echo $response;
             }
-        };
+            ```
+            ```go Go
+            package main
 
-        // Usage:
-        // const code = new URL(window.location.href).searchParams.get('code');
-        // exchangeToken(code).then(tokens => console.log(tokens)).catch(error => console.error(error));
-        ```
-        
+            import (
+                "fmt"
+                "strings"
+                "net/http"
+                "io/ioutil"
+            )
+
+            func main() {
+
+                url := "https://api.basic.tech/auth/token"
+
+                payload := strings.NewReader("{\n  \"code\": \"YOUR_CODE\"\n}")
+
+                req, _ := http.NewRequest("POST", url, payload)
+
+                req.Header.Add("Content-Type", "application/json")
+
+                res, _ := http.DefaultClient.Do(req)
+
+                defer res.Body.Close()
+                body, _ := ioutil.ReadAll(res.Body)
+
+                fmt.Println(res)
+                fmt.Println(string(body))
+
+            }
+            ```
+            ```java Java
+            HttpResponse<String> response = Unirest.post("https://api.basic.tech/auth/token")
+            .header("Content-Type", "application/json")
+            .body("{\n  \"code\": \"YOUR_CODE\"\n}")
+            .asString();
+            ```
+        </CodeGroup>
     </Step>
 
+    <Step title="Using the access token and refresh code">
+        The access token is used to make requests to the API as part of the request header (e.g., `Authorization: Bearer 'YOUR_ACCESS_TOKEN'`), and the refresh code is used to get a new access token when the current access token expires. 
+
+        <Note>
+            Basic access tokens expire after 1 hour
+        </Note>
+    </Step>
 </Steps>
 
 # Using the database
 You can use the REST API to read and write to the user's database. Checkout the [API Reference](/api-reference/db/get-items) to get started.
-Before making any requests, you should validate that the access and refresh tokens are not expired.
+Before making any requests, you should validate that the access token is not expired.
 
-``` javascript ValidateToken.js
-import { decode, JwtPayload } from 'jsonwebtoken';
-
-interface TokenResponse {
-  access_token: string;
-  refresh_token: string;
-}
-
-const getTokenFromCookie = (tokenName: string): string | null => {
-  const cookies = document.cookie.split(';');
-  for (const cookie of cookies) {
-    const [name, value] = cookie.trim().split('=');
-    if (name === tokenName) {
-      return decodeURIComponent(value);
-    }
-  }
-  return null;
-};
-
-const setTokenCookie = (tokenName: string, tokenValue: string, maxAge: number) => {
-  document.cookie = `${tokenName}=${encodeURIComponent(tokenValue)}; path=/; max-age=${maxAge}; secure; samesite=strict`;
-};
-
-const validateTokens = async (): Promise<TokenResponse> => {
-  let accessToken = getTokenFromCookie('access_token');
-  let refreshToken = getTokenFromCookie('refresh_token');
-
-  if (!accessToken || !refreshToken) {
-    throw new Error('No tokens found in cookies');
-  }
-
-  const isTokenExpired = (token: string): boolean => {
-    const decodedToken = decode(token) as JwtPayload;
-    if (!decodedToken || !decodedToken.exp) return true;
-    return Date.now() >= decodedToken.exp * 1000;
-  };
-
-  if (!isTokenExpired(accessToken)) {
-    return { access_token: accessToken, refresh_token: refreshToken };
-  }
-
-  if (!isTokenExpired(refreshToken)) {
-    try {
-      const response = await fetch('https://api.basic.tech/token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ refresh_token: refreshToken }),
-      });
-
-      if (!response.ok) throw new Error('Failed to refresh token');
-
-      const newTokens: TokenResponse = await response.json();
-      
-      // Update cookies with new tokens
-      setTokenCookie('access_token', newTokens.access_token, 3600); // 1 hour
-      setTokenCookie('refresh_token', newTokens.refresh_token, 2592000); // 30 days
-      
-      return newTokens;
-    } catch (error) {
-      console.error('Error refreshing token:', error);
-      throw error;
-    }
-  }
-
-  // If both tokens are expired, redirect to re-authenticate
-  window.location.href = 'https://api.basic.tech/authorize?redirect_uri=YOUR_REDIRECT_URI&response_type=code&client_id=YOUR_CLIENT_ID&scope=profile&state=RANDOM_STRING';
-  throw new Error('Both tokens expired. Redirecting to re-authenticate.');
-};
-
-// Usage example
-const checkAndRefreshTokens = async () => {
-  try {
-    const validTokens = await validateTokens();
-    console.log('Valid tokens:', validTokens);
-    // Use validTokens.access_token for your API requests
-  } catch (error) {
-    console.error('Token validation failed:', error);
-  }
-};
-
-checkAndRefreshTokens();
-```
