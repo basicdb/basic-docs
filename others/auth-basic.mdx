@@ -55,16 +55,26 @@ Here are the required parameters you need to set on the "Sign in with Basic" but
 - `scope`
 - `state`
 ### client_id
-This is your application's client ID, which you can find in the Basic dashboard.
+<ParamField query="client_id" type="string" required>
+    This is your application's client ID, which you can find in the Basic dashboard.
+</ParamField>
 
 ### redirect_uri
-This is the URL that the user will be redirected to after they sign up or sign in. It must be set to `https://api.basic.id/v1/oauth/callback`.
+<ParamField query="redirect_uri" type="string" required>
+    This is the URL that the user will be redirected to after they sign up or sign in. It must be set to `https://api.basic.id/v1/oauth/callback`.
+</ParamField>
 
 ### response_type
-This must always be set to `code`, so that you can receive and extract an authorization code in the callback URL.
+<ParamField query="response_type" type="string" required>
+    This must always be set to `code`, so that you can receive and extract an authorization code in the callback URL.
+</ParamField>
 
 ### scope
-Scopes are used to specify the information that your application requires. For Basic, you can specify `profile` to request the user's email address and other information.
+<ParamField query="scope" type="string" required>
+    Scopes are used to specify the information that your application requires. For Basic, you can specify `profile` to request the user's email address and other information.
+</ParamField>
 
 ### state
-The state parameter is used to prevent CSRF attacks. It is a random string that is used to verify that the callback request is legitimate. It is recommended that you use a secure random string generator to generate a state parameter, and that you verify that the state parameter that you receive in the callback URL is the same as the one you sent.
+<ParamField query="state" type="string" required>
+    The state parameter is used to prevent CSRF attacks. It is a random string that is used to verify that the callback request is legitimate. It is recommended that you use a secure random string generator to generate a state parameter, and that you verify that the state parameter that you receive in the callback URL is the same as the one you sent.
+</ParamField>
