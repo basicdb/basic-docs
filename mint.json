@@ -37,7 +37,7 @@
   "anchors": [],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Get Started ",
       "pages": [
         "get-started/welcome",
         "get-started/sign-up-for-basic",
