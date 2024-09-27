@@ -1,140 +1,148 @@
 ---
 title: "Using with React"
-description: "Using Basic with a React project, using the @basictech/react package"
+description: "Using the @basictech/react library with your React project"
 ---
+
+<Info> This library is only for client-side React. A NextJS library is coming soon! </Info>
+
 # Authentication with React
 
-1. Create a new react project, if you don't have one already. Otherwise, open your existing project.
-```bash Terminal
-// create a new vite project:
-npm create vite@latest
+<Steps>
+  <Step title="Create a new React project">
+    If you don't have one already, create a new React project:
+    ```bash Terminal
+    # create a new vite project:
+    npm create vite@latest
 
-//select the React + Javascript template in the Vite prompts
-```
+    # select the React + Javascript template in the Vite prompts
+    ```
+    Otherwise, open your existing project.
+  </Step>
 
+  <Step title="Install the @basictech/react library">
+    Install the @basictech/react library in your app:
+    ```bash Terminal
+    npm install @basictech/react
+    ```
+    <Accordion title="Or update the library">
+      ```bash Terminal
+      npm install @basictech/react@latest
+      ```
+    </Accordion>
+  </Step>
 
-2. Install @basictech/react in your app
+  <Step title="Add the BasicProvider to main.jsx">
+    <Info>Replace YOUR_PROJECT_ID with your Project ID from the Basic dashboard</Info>
+    ```jsx main.jsx
+    // add the BasicProvider to your existing imports
+    import { BasicProvider } from '@basictech/react'
 
-<Info> This library is for client side React - a NextJS library is coming soon! </Info>
-```bash Terminal
-npm install @basictech/react
+    // wrap your app in BasicProvider, including the project id 
+    ReactDOM.createRoot(document.getElementById('root')).render(
+      <React.StrictMode>
+        <BasicProvider project_id='YOUR_PROJECT_ID'>
+          <App />
+          {/* rest of your code ... */}
+        </BasicProvider>
+      </React.StrictMode>,
+    )
+    ```
+  </Step>
 
-// or update with: 
-npm install @basictech/react@latest
-```
+  <Step title="Add auth to your project">
+    In App.jsx, import the useAuth hook:
+    ```jsx App.jsx
+    // add the useBasic react hook to your existing imports
+    import { useBasic } from '@basictech/react'
 
-3. Add the BasicProvider to main.jsx
-
-
-<Info> Use the Project ID from the dashboard.</Info>
-```jsx Main.jsx
-// .. rest of your imports ...
-
-// 1. import the provider
-import { BasicProvider } from '@basictech/react'
-
-// 2. wrap your app in BasicProvider, including the project id 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BasicProvider project_id=''>
-      <App />
-      // rest of your code ...
-    </BasicProvider>
-  </React.StrictMode>,
-)
-```
-
-4. Now lets add auth to our project! In App.jsx, we can import the useAuth hook.
-
-```jsx App.jsx
-// at the top of App.jsx, import the useBasic react hook.
-import { useBasic } from '@basictech/react'
-
-function App() {
-	// at the top of the App, lets import the signin function
-  const { signin } = useBasic()
-  
-  // ... rest of your App code ...
-}
-```
-
-5. lets create a login button
-
-```jsx App.jsx
-function App() {
-  const { signin } = useBasic()
-  const [count, setCount] = useState(0)
-  
-  // rest of your code
-
-  return (
-    <>
-	    // add a button somewhere, calling the signin hook
-	    
-        <button onClick={signin}>sign in</button>
-	    
-	    // rest of your code 
-    </>
-  )
-}
-```
-
-lets test it out! clicking on the button should now redirect you to the [Basic.id](http://Basic.id) page where your users can login or create an account. 
-
-6. Now we can display the user email! lets import user from the useBasic hook
-
-```jsx App.jsx
-function App() {
-	// import user from the useBasic hook
-  const { signin, user} = useBasic()
-
-	// display the user email
-  return (
-    <>
-        <button onClick={signin}>sign in</button>
-        <p>hello {user?.email}</p>
+    function App() {
+      // import the signin function at the top of your App function
+      const { signin } = useBasic()
       
-      // ... rest of code
-    </>
-  )
-}
+      // ... rest of your App code ...
+    }
+    ```
+  </Step>
 
-```
+  <Step title="Create a login button">
+    ```jsx App.jsx
+    function App() {
+      const { signin } = useBasic()
 
-7. lets add a logout function now. we can use the isSignedIn hook to check if the user is logged in, and the signout function to sign out the user.
+      // other existing code...
 
-```jsx App.jsx
-// 1. import isSignedIn and signout from the useBasic hook
-function App() {
-  const { signin, user, isSignedIn, signout} = useBasic()
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-     // first, lets check if the user is signed in.
-     // then we can display the email and signout button
-     // otherwise, show the login button
-     
-        { isSignedIn ? 
-          <>
-            <p>hello {user?.email}</p>
-            <button onClick={signout}>sign out</button> 
-          </>
-          : 
+      return (
+        <>
+          {/* add a button, calling the signin hook */}
           <button onClick={signin}>sign in</button>
-        }
-      
-	     // ... rest of code
-    </>
-  )
-}
-```
+          
+          {/* ... rest of your App code ... */}
+        </>
+      )
+    }
+    ```
+    Let's test it out! Clicking on the button should now redirect you to the [Basic.id](http://Basic.id) page where your users can login or create an account.
+  </Step>
+
+  <Step title="(Optional) Display the user email">
+    Import user from the useBasic hook:
+    ```jsx App.jsx
+    function App() {
+      // add "user" to the useBasic hook
+      const { signin, user} = useBasic()
+
+      // other existing code...
+
+      return (
+        <>
+          <button onClick={signin}>sign in</button>
+          {/* display the user email */}
+          <p>hello {user?.email}</p>
+          
+          {/* ... rest of your App code ... */}
+        </>
+      )
+    }
+    ```
+  </Step>
+
+  <Step title="Add a logout function">
+    Use the isSignedIn hook to check if the user is logged in, and the signout function to sign out the user:
+    ```jsx App.jsx
+    function App() {
+      // add "isSignedIn" and "signout" to the useBasic hook
+      const { signin, user, isSignedIn, signout} = useBasic()
+
+      // other existing code...
+
+      return (
+        <>
+          {/* first, lets check if the user is signed in. */}
+          {/* then we can display the email and signout button */}
+          {/* otherwise, show the login button */}
+          { isSignedIn ? 
+            <>
+              <p>hello {user?.email}</p>
+              <button onClick={signout}>sign out</button> 
+            </>
+            : 
+            <button onClick={signin}>sign in</button>
+          }
+          
+          {/* ... rest of your App code ... */}
+        </>
+      )
+    }
+    ```
+    That's it! You've successfully added Basic authentication to your React app 🎉
+  </Step>
+</Steps>
 
 ---
 
 # Using the database
 
-Read tables: 
+### Read tables
 
 ```jsx TableComponent.jsx
 // import db from useBasic() inside your React component
@@ -161,14 +169,16 @@ function App() {
 
 ```
 
-Add new item:
-
+### Add new item
+<Note>
+    Support for types in Typescript is coming soon!
+</Note>
 ```jsx TableComponent.jsx
 const data = db.table('tablename').add({ name: 'cutie'}) 
 //returns promise, with newly created object
 ```
 
-Update item: 
+### Update item
 
 ```jsx TableComponent.jsx
 const data = db.table('tablename').update({ 
@@ -178,7 +188,7 @@ const data = db.table('tablename').update({
 //returns promise, with newly updated object
 ```
 
-Delete item: 
+### Delete item
 
 ```jsx TableComponent.jsx
 const data = db.table('tablename').delete('ID_OF_ITEM')

@@ -44,8 +44,8 @@
         {
           "group": "Implement Basic",
           "pages": [
-            "get-started/implement-basic/using-api",
-            "get-started/implement-basic/using-react"
+            "get-started/implement-basic/using-react",
+            "get-started/implement-basic/using-api"
           ]
         }
       ]
