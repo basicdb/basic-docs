@@ -5,7 +5,7 @@ description: "Using Basic with a React project, using the @basictech/react packa
 # Authentication with React
 
 1. Create a new react project, if you don't have one already. Otherwise, open your existing project.
-```jsx
+```bash Terminal
 // create a new vite project:
 npm create vite@latest
 
@@ -16,7 +16,7 @@ npm create vite@latest
 2. Install @basictech/react in your app
 
 <Info> This library is for client side React - a NextJS library is coming soon! </Info>
-```bash
+```bash Terminal
 npm install @basictech/react
 
 // or update with: 
@@ -27,7 +27,7 @@ npm install @basictech/react@latest
 
 
 <Info> Use the Project ID from the dashboard.</Info>
-```jsx
+```jsx Main.jsx
 // .. rest of your imports ...
 
 // 1. import the provider
@@ -46,7 +46,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 4. Now lets add auth to our project! In App.jsx, we can import the useAuth hook.
 
-```jsx
+```jsx App.jsx
 // at the top of App.jsx, import the useBasic react hook.
 import { useBasic } from '@basictech/react'
 
@@ -60,7 +60,7 @@ function App() {
 
 5. lets create a login button
 
-```jsx
+```jsx App.jsx
 function App() {
   const { signin } = useBasic()
   const [count, setCount] = useState(0)
@@ -83,7 +83,7 @@ lets test it out! clicking on the button should now redirect you to the [Basic.i
 
 6. Now we can display the user email! lets import user from the useBasic hook
 
-```jsx
+```jsx App.jsx
 function App() {
 	// import user from the useBasic hook
   const { signin, user} = useBasic()
@@ -103,8 +103,7 @@ function App() {
 
 7. lets add a logout function now. we can use the isSignedIn hook to check if the user is logged in, and the signout function to sign out the user.
 
-```jsx
-
+```jsx App.jsx
 // 1. import isSignedIn and signout from the useBasic hook
 function App() {
   const { signin, user, isSignedIn, signout} = useBasic()
@@ -137,7 +136,7 @@ function App() {
 
 Read tables: 
 
-```jsx
+```jsx TableComponent.jsx
 // import db from useBasic() inside your React component
 const { db } = useBasic()
 
@@ -164,14 +163,14 @@ function App() {
 
 Add new item:
 
-```jsx
+```jsx TableComponent.jsx
 const data = db.table('tablename').add({ name: 'cutie'}) 
 //returns promise, with newly created object
 ```
 
 Update item: 
 
-```jsx
+```jsx TableComponent.jsx
 const data = db.table('tablename').update({ 
 	id: 'ID_OF_ITEM',
 	value: { name: 'super cute' }
@@ -181,7 +180,7 @@ const data = db.table('tablename').update({
 
 Delete item: 
 
-```jsx
+```jsx TableComponent.jsx
 const data = db.table('tablename').delete('ID_OF_ITEM')
 //returns promise
 ```
