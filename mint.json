@@ -37,7 +37,7 @@
   "anchors": [],
   "navigation": [
     {
-      "group": "Get Started ",
+      "group": "Get Started 📖",
       "pages": [
         "get-started/welcome",
         "get-started/sign-up-for-basic",
@@ -51,10 +51,15 @@
       ]
     },
     {
-      "group": "Others",
+      "group": "Info about Basic 💡",
       "pages": [
         "others/why-basic",
-        "others/auth-basic",
+        "others/auth-basic"
+      ]
+    },
+    {
+      "group": "Others 🤓",
+      "pages": [
         "others/roadmap",
         "others/reading"
       ]
