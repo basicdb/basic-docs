@@ -1,0 +1,34 @@
+---
+title: 'Managing permissions'
+description: 'How users will be able to manage permissions to their data'
+---
+<Info>
+    This is an overview of how permissions will work. These are currently in development. 
+</Info>
+
+# How it works
+Users share tokens with apps that they trust. These tokens include the scope of data that the apps have access to. 
+
+Users can revoke access to these tokens at any time. 
+
+### Flow
+ 1. Application initiates login / auth flow, which redirects users to a Basic SSO page
+ 2. User can select how much access they want to give
+ 3. The scope is defined into a self-verifiable token (JWT) that is sent to the application 
+ <Note>The token is cryptographically signed and is verifiable (i.e., it cannot be forged, and developers can independently verify that it came from the respective users)</Note>
+ 4. The application then uses this token to make requests to the user's datastore. 
+ <Note>The application simply includes the token as an auth header in its API requests</Note>
+
+### Scope
+Usually, an application will specify what it wants to request. At minimum, this is set to `profile` to return general profile info. 
+
+Scope can be extended to include access to the database, which is organized in the following hierarchy: `database > table > row > field`. 
+ 
+ For example, an application might request the following scope: 
+ - `profile`
+ - `database_id.table_id`  = read
+ - `database_id.table_id.row_id` = read, write
+
+In this example, the application can read anything under a specified table in the database, but only has write access to one row/object. 
+
+This process is modeled after [UCANs](http://ucan.xyz/)
