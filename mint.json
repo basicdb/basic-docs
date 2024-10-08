@@ -53,9 +53,9 @@
     {
       "group": "Info about Basic 💡",
       "pages": [
-        "others/why-basic",
-        "others/auth-basic",
-        "others/permissioning"
+        "info/why-basic",
+        "info/auth-basic",
+        "info/permissioning"
       ]
     },
     {
