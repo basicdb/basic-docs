@@ -22,6 +22,14 @@ Sometimes, apps and websites provide you the ability to export this data (CSV, P
 
 Ultimately, the app or website that you’re using often has ownership and control of your data - or at the least, is an intermediary that you have to interact with in order to retrieve, change, or delete your data. 
 
+---
+
+*When we mention **centralized data ownership**, it is an important distinction that we aren’t referring to **centralized data storage** (i.e., how the data is stored in a monolithic or centralized database vs. a distributed database).*
+
+*Rather, we’re referring to who has ownership and control of the data.*
+
+---
+
 ### Problems with centralized data ownership
 
 Here is a rough abstraction of the data flow in a centralized system.
@@ -85,7 +93,7 @@ It will always belong with them, and they can take that data with them wherever 
     The PDS is depicted for an individual. In the case of a business, the PDS would be owned by primary admins, but the same principles would apply.
 </Note>
 
-The illustration depicts what a PDS may look like. It would contain data of the primary user like tweets, health records, and photos. The PDS interacts with apps, devices, and other users' PDS's. 
+The illustration depicts what a PDS may look like. It would contain data of the primary user like documents, health records, and photos. The PDS interacts with apps, devices, and other users' PDS's. 
 
 The primary user can initiate or severe connections with any apps, devices, and users at any time. 
 Since user data is stored in the PDS instead of being held in the respective apps or websites, you may interface with your data across multiple apps and devices interchangeably - e.g., imagine typing up the first half of a document in Google Docs, and finishing it up in Microsoft Word.
@@ -135,10 +143,7 @@ User owned PDS's provide 3 major benefits:
   </Step>
 </Steps>
 
+In summary, Basic is a protocol for creating open-source, user-owned Personal Data Stores (PDS's). 
+We make full-stack tooling (Auth, DB, etc.) to help developers build more interoperable applications without having to worry about privacy for their users. 
+
 If you're curious about developing with Basic and user-owned PDS's, you can get started by [signing up for Basic](/get-started/sign-up-for-basic).
-
----
-
-*When we mention **centralized data ownership**, it is an important distinction that we aren’t referring to **centralized data storage** (i.e., how the data is stored in a monolithic or centralized database vs. a distributed database).*
-
-*Rather, we’re referring to who has ownership and control of the data.*
