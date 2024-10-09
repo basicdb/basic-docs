@@ -53,6 +53,7 @@
     {
       "group": "Info about Basic 💡",
       "pages": [
+        "info/PDS",
         "info/why-basic",
         "info/auth-basic",
         "info/permissioning"
