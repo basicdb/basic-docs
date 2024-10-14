@@ -1,0 +1,148 @@
+---
+title: 'Local-first sync'
+description: "Intro to Basic's local-first sync"
+---
+
+# Summary
+Basic provides the option to utilize some of the best database technologies available today - local-first sync. 
+We make it easy for you to achieve benefits like instant UI, offline support, and real-time capabilities while still syncing to the cloud automatically.
+
+All you need to get set up is [our client SDK](/get-started/implement-basic/using-react).
+
+# What is local-first sync?
+
+<img src="/images/LocalFirstSync.svg" alt="Local-first sync" />
+
+Simply put, local-first sync is a paradigm that's becoming quickly popular where reads/writes happen to the local database on the client device first, after which data is automatically synced to the cloud in the background.
+
+Unlike a local-only architecture, local-first sync provides the benefits of a cloud database (multi-device support, real-time collaboration, global scale). 
+Similarly, unlike a pure cloud app, local-first has benefits like instant UI, offline support, and fast local performance often found in local-only apps.
+
+With the rise of really powerful web apps that demand more responsive UIs while needing to be highly collaborative (such as Figma, Linear, Notion, etc.), local-first sync has become a popular approach for both adopters and tool makers.
+
+<CardGroup cols={1}>
+  <Card title="Figma co-founder explains its local-first architecture, 2019">
+    <img src="/images/figma.png" alt="Figma" />
+  </Card>
+  <Card title="Linear co-founder explains developer benefits of local-first sync, 2024">
+    <img src="/images/linear.png" alt="Linear" />
+  </Card>
+</CardGroup>
+
+<CardGroup cols={3}>
+  <Card title="ElectricSQL">
+    <img src="/images/ElectricSQL.png" alt="ElectricSQL" />
+  </Card>
+  <Card title="Pierre">
+    <img src="/images/Pierre.png" alt="Pierre" />
+  </Card>
+  <Card title="Zero">
+    <img src="/images/Zero.png" alt="Zero" />
+  </Card>
+</CardGroup>
+
+# Benefits of local-first sync
+
+### Instant and snappy UI
+
+<CardGroup cols={2}>
+  <Card title="Regular UI">
+    <img src="/images/NoInstant.gif" alt="Regular UI" />
+  </Card>
+  <Card title="Instant UI">
+    <img src="/images/Instant.gif" alt="Instant UI" />
+  </Card>
+</CardGroup>
+
+One of the immediately noticeable benefits of local-first sync is how snappily the UI responds to user actions. 
+
+For example, in the Regular UI, there's a small delay between when a user clicks the "Add" button and when the UI updates to reflect the new item. This is because the action requires a network request to the server to update the database, for the client to receive the new state, and the UI to re-render.
+
+In the Instant UI example, the UI updates immediately after the user clicks the "Add" button because the action only requires updating the local database. Changes are synced to the cloud in the background without any visible latency to the user.
+
+### Fewer network calls
+<img src="/images/FewerNetworkCalls.svg" alt="Fewer network calls" />
+
+In a local-first sync environment, every primary read/write operation occurs directly to the local database, drastically reducing the number of network calls to the server. 
+This change in data operations has two primary benefits:
+
+<Steps>
+  <Step title="Lower network costs">
+    Fewer network calls across all your users mean a lower load on the server, therefore lowering server costs.
+  </Step>
+  <Step title="Fewer points of failure">
+    Having to rely on the network for primary read/write operations introduces many points of failure. Local-first sync overcomes issues like lost connectivity, unreachable servers, and slow networks that often make apps unusable.
+  </Step>
+</Steps>
+
+### Simpler architecture
+
+<img src="/images/SimplerArchitecture.svg" alt="Simpler architecture" />
+
+A local-first sync engine replaces the need for a bloated backend, simplifying your stack and reducing engineering overhead. 
+
+Traditional stacks require spinning up and maintaining a backend to make API calls to the database. In contrast, local-first sync architectures allow the frontend to interact directly with a local database while the sync engine manages cloud database communication.
+
+The simpler architecture translates to faster development cycles for your developers with less backend code to maintain.
+
+### Automatic state management
+
+<CardGroup cols={2}>
+  <Card title="Manual state management">
+    <img src="/images/API.svg" alt="Manual state management" />
+  </Card>
+  <Card title="Automatic with Basic SDK">
+    <img src="/images/SDK.svg" alt="Automatic state management" />
+  </Card>
+</CardGroup>
+
+Traditionally, developers need to update state with the data fetched from their API requests.
+
+Basic's client SDKs contain hooks that listen for changes and automatically update state on the frontend. This translates to significantly less code for developers to write, test, and maintain as is evident from the example above.
+
+Now, you can access data as simply as `db.table('tablename').get()` without worrying about updating state.
+
+### Offline support
+
+<img src="/images/Offline.svg" alt="Offline support" />
+
+Connection gets spotty for users in various situations - if they're going through a tunnel, hiking through a less populated park, or even just in a crowded coffee shop.
+
+Rather than eliminating your users' ability to use your app in these situations, local-first sync ensures they can continue working with your app. 
+
+This not only reduces their frustration and increases your retention but also saves your developers the time of implementing loading states for every UI element they build.
+
+### Real-time capabilities
+
+<img src="/images/Realtime.svg" alt="Real-time capabilities" />
+
+The future of the internet has proven itself to be collaborative.
+But building real-time capabilities is very hard and takes away your developers' time from building other features.
+
+Basic's local-first sync engine comes with built-in real-time capabilities so your users can use your app with their friends and coworkers with no additional engineering on your part.
+
+# Trade-offs with local-first sync
+
+It would be insincere to discuss a new technology without mentioning its trade-offs. Here are a few we've identified:
+
+<Steps>
+  <Step title="More storage requirements on client device">
+    Local-first apps require more storage on the client device as they store more data locally. 
+    As more of the internet becomes local-first, more storage will be required to support this. 
+    
+    However, storage has gotten really cheap, with phones and laptops coming with higher storage capacities by default.
+    
+    Additionally, good partial-sync algorithms (as those provided by Basic) manage this automatically on behalf of developers and users.
+  </Step>
+  <Step title="More processing on client device">
+    Local-first apps offload a lot of primary read/write operations to the client device.
+    While most modern devices are more than capable of handling this, some older devices or devices with limited processing power may face faster battery drain.
+
+    Basic's sync engine is designed to be efficient in terms of processing power, and we regularly make optimizations to ensure that your app remains fast and responsive even as its data grows.
+  </Step>
+</Steps>
+
+# How to use local-first with Basic
+  All of Basic's local-first sync capabilities come built-in with our client SDKs. 
+
+  You can get started by [installing the SDK](/get-started/implement-basic/using-react).
