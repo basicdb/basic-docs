@@ -32,6 +32,10 @@
     {
       "name": "API Reference",
       "url": "api-reference"
+    },
+    {
+      "name": "SDK Reference",
+      "url": "sdk-reference"
     }
   ],
   "anchors": [],
@@ -107,6 +111,12 @@
       "pages": [
         "api-reference/projectsschema/get-schema",
         "api-reference/projectsschema/update-schema"
+      ]
+    },
+    {
+      "group": "Libraries",
+      "pages": [
+        "sdk-reference/react-sdk"
       ]
     }
   ],
