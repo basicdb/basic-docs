@@ -16,7 +16,7 @@ function App() {
   // Use .get() to retrieve data from the database
   // This returns a promise, so you need to await the response
   const GetItems = async () => {
-    const items = await db.table('tablename').get()
+    const items = await db('tablename').get()
     setItems(items.data)
   }
 
@@ -30,14 +30,14 @@ function App() {
 
 ```jsx App.jsx
 // Use .add() to add items
-db.table('tablename').add({ name: 'cutie' })
+db('tablename').add({ name: 'cutie' })
 ```
 
 # Update item
 ```jsx App.jsx
 // Use .update() to add items. 
 // Include the ID of the item you want to update, and the new value
-db.table('tablename').update({ 
+db('tablename').update({ 
   id: 'ID_OF_ITEM',
   value: { name: 'super cute' }
 })
@@ -47,6 +47,6 @@ db.table('tablename').update({
 ```jsx App.jsx
 // Use .delete() to delete items
 // Include the ID of the item you want to delete
-db.table('tablename').delete('ID_OF_ITEM')
+db('tablename').delete('ID_OF_ITEM')
 ```
 You can await the response of these functions to ensure they've been added/updated/deleted, similar to the example for [Read table](/sdk-reference/react-sdk#read-table).
