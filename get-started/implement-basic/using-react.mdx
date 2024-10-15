@@ -39,11 +39,13 @@ description: "Using the @basictech/react library with your React project"
   </Step>
   </Steps>
 
+---
+
 # Adding Auth
 <Steps>
   <Step title="Add the BasicProvider to main.jsx">
     Navigate to `src/main.jsx`, add the BasicProvider to imports, and wrap your app in it.
-    <Info>Replace YOUR_PROJECT_ID with your Project ID from the Basic dashboard</Info>
+    <Info>Replace YOUR_PROJECT_ID with your Project ID from the Basic dashboard. To create one, follow the instructions for [signing up](/get-started/sign-up-for-basic).</Info>
     ```jsx main.jsx
     // add the BasicProvider to your existing imports
     import { BasicProvider } from '@basictech/react'
@@ -127,63 +129,4 @@ description: "Using the @basictech/react library with your React project"
 ---
 
 # Using the database
-
-### Read tables
-
-```jsx TableComponent.jsx
-// import db from useBasic() inside your React component
-const { db } = useBasic()
-
-const data = db.table('tablename').get()
-// returns a promise, so you can await the response, like so: 
-
-// --- Full Example ---- //
-
-function App() {
-  const { db } = useBasic()
-  const [items, setItems] = useState([]) 
-	
-	const GetData = async () => { 
-		const data = await db.table('tablename').get()
-		setItems(data.data)
-	}
-	
-  return (
-    // render items
-  )
-}
-
-```
-
-### Add new item
-<Note>
-    Support for types in Typescript is coming soon!
-</Note>
-```jsx TableComponent.jsx
-const data = db.table('tablename').add({ name: 'cutie'}) 
-//returns promise, with newly created object
-```
-
-### Update item
-
-```jsx TableComponent.jsx
-const data = db.table('tablename').update({ 
-	id: 'ID_OF_ITEM',
-	value: { name: 'super cute' }
-})
-//returns promise, with newly updated object
-```
-
-### Delete item
-
-```jsx TableComponent.jsx
-const data = db.table('tablename').delete('ID_OF_ITEM')
-//returns promise
-```
-
-# Update Basic library
-If you need to update your Basic library, you can easily do so by running the following command via the terminal in your project directory:
-
-```bash Terminal
-npm install @basictech/react@latest
-```
+You can use the React SDK to read and write to the user's database. Checkout the [React SDK docs](/sdk-reference/react-sdk) to get started.
