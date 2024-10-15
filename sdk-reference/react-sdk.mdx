@@ -1,0 +1,52 @@
+---
+title: 'React SDK'
+---
+
+# Read table
+```jsx App.jsx
+import { useBasic } from '@basictech/react'
+import { useState } from 'react'
+
+function App() {
+  // Import db from useBasic() inside your React component
+  const { db } = useBasic()
+
+  const [items, setItems] = useState()
+
+  // Use .get() to retrieve data from the database
+  // This returns a promise, so you need to await the response
+  const GetItems = async () => {
+    const items = await db('tablename').get()
+    setItems(items.data)
+  }
+
+  return (
+    // render items
+  )
+}
+```
+
+# Add new item
+
+```jsx App.jsx
+// Use .add() to add items
+db('tablename').add({ name: 'cutie' })
+```
+
+# Update item
+```jsx App.jsx
+// Use .update() to add items. 
+// Include the ID of the item you want to update, and the new value
+db('tablename').update({ 
+  id: 'ID_OF_ITEM',
+  value: { name: 'super cute' }
+})
+```
+
+# Delete item
+```jsx App.jsx
+// Use .delete() to delete items
+// Include the ID of the item you want to delete
+db('tablename').delete('ID_OF_ITEM')
+```
+You can await the response of these functions to ensure they've been added/updated/deleted, similar to the example for [Read table](/sdk-reference/react-sdk#read-table).
