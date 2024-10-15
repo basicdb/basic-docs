@@ -1,35 +1,45 @@
-# Mintlify Starter Kit
+# Basic Documentation
 
-Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
+Welcome to the official documentation for Basic, a local-first database designed for user-owned data
 
-:) 
-- Guide pages
-- Navigation
-- Customizations
-- API Reference pages
-- Use of popular components
+## 🚀 Quick Start
 
-### 👩‍💻 Development
+To get started with Basic:
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+1. [Sign up for Basic](/get-started/sign-up-for-basic)
+2. Implement Basic in your project:
+   - [Using React](/get-started/implement-basic/using-react)
+   - [Using API](/get-started/implement-basic/using-api)
 
-```
-npm i -g mintlify
-```
+## 🌟 Key Features
 
-Run the following command at the root of your documentation (where mint.json is)
+- User-owned Personal Data Stores (PDS)
+- Local-first sync for offline support and real-time capabilities
+- OAuth 2.0 authentication included
 
-```
-mintlify dev
-```
+## 📚 Core Concepts
 
-### 😎 Publishing Changes
+- [User-owned Data Stores](/info/PDS)
+- [Local-first Sync](/info/local-first-sync)
+- [Basic Auth](/info/auth-basic)
+- [Managing Permissions](/info/permissioning)
 
-Changes will be deployed to production automatically after pushing to the default branch.
+## 🛠 API Reference
 
-You can also preview changes using PRs, which generates a preview link of the docs.
+- [Auth](/api-reference/auth/authorize)
 
-#### Troubleshooting
 
-- Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
-- Page loads as a 404 - Make sure you are running in a folder with `mint.json`
+## 💻 SDK Reference
+
+- [React SDK](/sdk-reference/react-sdk)
+
+## 🗺 Roadmap
+
+Check out our [roadmap](/others/roadmap) to see what's coming next.
+
+
+## 🤝 Connect with Us
+
+- [Twitter](https://twitter.com/basic_db)
+- [GitHub](https://github.com/basicdb)
+- [Book a Call](https://cal.com/basic/30min?user=basic&date=2024-09-20&month=2024-09)
