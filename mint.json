@@ -58,6 +58,7 @@
       "group": "Info about Basic 💡",
       "pages": [
         "info/PDS",
+        "info/PDSold",
         "info/local-first-sync",
         "info/auth-basic",
         "info/permissioning"
