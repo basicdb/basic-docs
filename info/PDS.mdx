@@ -36,7 +36,7 @@ In it’s essence, a PDS is a cloud instance with an assigned primary user.
 The primary user is the ultimate owner of the data within that instance - they can make all decisions around who the data is shared with and how it can be updated.
 It will always belong with them, and they can take that data with them wherever they go. 
 
-This contrasts with the traditional centralized ownership model of data.
+This contrasts with the traditional centralized ownership model of data as shown below:
 
 <img
   className="block"
@@ -44,10 +44,12 @@ This contrasts with the traditional centralized ownership model of data.
   alt="Centralized Data Ownership"
 />
 
-Lets take the example of Google Docs. 
+This centralized model can be explained with the example of Google Docs. 
 If you’re typing up a document, you are not only using the interface (frontend) to type and format the document, but also store the data with Google (backend and data layers).
+Data flows between the frontend, backend, and data layers as shown in App A.
 
 This results in the app or website that you’re using often having ownership and control of your data - or at the least, is an intermediary that you have to interact with in order to retrieve, change, or delete your data.
+For example, if App B or C want to access the words you had typed up in Google Docs (App A), they would likely have to go through the Google Docs backend.
 
 PDS's address these issues since they contain data of the primary user like documents, health records, and photos. 
 Primary users can initiate or severe connections with apps, devices, and other users' PDS's at any time, rather than relying on intermediary services for accessing and controlling their data.
@@ -62,10 +64,10 @@ Primary users can initiate or severe connections with apps, devices, and other u
   alt="Consolidation and Interoperability"
 />
 
-In traditional centralized data ownership models, user data is spread across multiple databases owned by different apps and websites. 
+In traditional centralized data ownership models, user data is spread across multiple databases owned by different apps and websites (notice how User A's data is spread across Apps A, B, and C). 
 The data is likely to be in different formats, limiting its utility and increasing the complexity of integration.
 
-With PDS's, it remains in a single space that can be queried. 
+With PDS's, it remains in a single space that can be queried (all the data from Apps A, B, and C that pertains to User A are stored in User A's PDS). 
 In the Google Docs example, all the words that you type up on the document are stored in your PDS. 
 Any words you may type up in Microsoft Word may also stored in the same PDS.
 
@@ -82,12 +84,12 @@ You could imagine alternating between Google Docs and Microsoft Word for the sam
 
 Traditionally, user data is generally only interactable through APIs of the respective services. 
 This approach relies on individual services to implement APIs, and to decide what data to share or not. 
-For example, if one day you stop paying for your Google Docs, you will likely not be able to (or are limited in the way you can) access your documents. 
+For example, if one day you stop paying for your Google Docs, you will likely not be able to (or are limited in the way you can) access your documents (shown by the red cross on the data flow between Apps B and C). 
 
-Similarly, if Google decides to shut down Google Docs as a product (perhaps unlikely in the instance of Google Docs, but not unfathomable given their long history of sunsetting products), you will lose your information.
+Similarly, if Google decides to shut down Google Docs as a product (perhaps unlikely in the instance of Google Docs, but not unfathomable given their long history of sunsetting products), you will lose your information (shown by the red cross on App C).
 Sometimes, apps and websites provide you the ability to export this data (CSV, PDF, etc.), but this is largely dependent on the offering. Often, this exporting process is tedious, requires many calls with customer support, or may even require payment.
 
-With PDS's, your data remains with you regardless of the availability of APIs or the shuttering of services. 
+With PDS's, your data remains with you regardless of the availability of APIs or the shuttering of services (in the diagram above, even if any of the connections to apps, devices, or users disappear, the data will still be available in User A's PDS). 
 It belongs to you forever, and will be available for use with any future services.
 
 ### Simpler applications
@@ -101,7 +103,7 @@ It belongs to you forever, and will be available for use with any future service
 Traditional apps and websites have larger and more complex backend and data layers because of having to manage data, auth, and other complex data operations for all their users.
 
 PDS's allow apps and websites to be developed with much simpler architectures since they no longer need to own or manage user data. 
-Basic enables developers to build apps without backend and data layers, and they can focus on building a better user experience.
+Basic enables developers to build apps with much less bloated backend and data layers, and they can focus on building a better user experience.
 
 ---
 *Basic is a protocol for creating open-source, user-owned Personal Data Stores (PDS's). We make full-stack tooling (Auth, DB, Sync, etc.) to help developers build more interoperable applications without having to worry about privacy for their users.*
