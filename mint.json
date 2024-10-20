@@ -44,7 +44,13 @@
       "group": "Get Started 📖",
       "pages": [
         "get-started/welcome",
-        "get-started/sign-up-for-basic",
+        {
+          "group": "Sign up",
+          "pages": [
+            "get-started/adminportal",
+            "get-started/cli"
+          ]
+        },
         {
           "group": "Implement Basic",
           "pages": [

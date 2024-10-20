@@ -1,0 +1,73 @@
+---
+title: 'Sign up using your terminal'
+description: 'Using the CLI to create a new project.'
+---
+
+## Create your project
+
+<Steps>
+  <Step title="Install the CLI">
+    First, install the CLI using your terminal.
+    ```bash
+    npm i -g @basictech/cli
+    ```
+  </Step>
+  <Step title="Login to Basic using the CLI">
+    Run `basic login` to create your basic admin account. You will be redirected to a web page to login.
+    ```bash
+    basic login
+    ```
+  </Step>
+  <Step title="Create your project">
+    Navigate to your project directory and run `basic create` to create your project. You will be prompted to enter a project name, and choose your project stack (Typescript, React, etc.).
+    ```bash
+    cd project-name
+    ```
+
+    ```bash
+    basic init
+    ```
+  </Step>
+</Steps>
+
+That's it! You now have a new project created. You'll even notice a new `basic.config.ts` / `basic.config.js` file in your project directory with your project ID included!
+
+## Other CLI commands
+
+<Card>
+**View all commands**
+
+```bash
+basic help
+```
+
+**Show all projects**
+
+```bash
+basic projects
+```
+
+**Log out**
+
+```bash
+basic logout
+```
+
+**Check if you're logged in**
+
+```bash
+basic status
+```
+
+**Show your account email**
+
+```bash
+basic account
+```
+</Card>
+
+## Next steps
+You can now start building your app! 
+If you are using a React app, we recommend you use the [React SDK](/get-started/implement-basic/using-react) to get started.
+
+Otherwise, you can use the [API](/get-started/implement-basic/using-api) for any language.
