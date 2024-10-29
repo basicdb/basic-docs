@@ -45,19 +45,20 @@
       "pages": [
         "get-started/welcome",
         {
-          "group": "Sign up",
+          "group": "1. Sign up",
           "pages": [
             "get-started/adminportal",
             "get-started/cli"
           ]
         },
         {
-          "group": "Implement Basic",
+          "group": "2. Implement Basic",
           "pages": [
             "get-started/implement-basic/using-react",
             "get-started/implement-basic/using-api"
           ]
-        }
+        },
+        "get-started/schema"
       ]
     },
     {
