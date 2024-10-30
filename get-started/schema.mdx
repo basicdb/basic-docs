@@ -14,11 +14,6 @@ The top level requires three parameters:
     This is your project ID, which you can find in the Basic dashboard, or will be auto-generated for you if you had used the [CLI to create your project](/get-started/cli).
 </ParamField>
 
-### namespace
-<ParamField query="namespace" type="string" required>
-    This should match the name of your project. It can be found in the Basic dashboard, or will be auto-generated for you if you had used the CLI.
-</ParamField>
-
 ### version
 <ParamField query="version" type="int" required>
     This will be used for versioning your schema. It should be an integer that starts at 0 and increments by 1 for each new version. 
@@ -31,12 +26,7 @@ Let's double click into the tables to learn how they are declared in the schema.
 
 <img src="/images/SchemaTables.svg" alt="Schema Tables" />
 
-Tables also require three parameters:
-
-### name
-<ParamField query="name" type="string" required>
-    Set this as the internal name for the tables for easy reference.
-</ParamField>
+Each table is declared as an object where the key is the table name and the value is an object with the following two parameters:
 
 ### type
 <ParamField query="type" type="string" required>
@@ -72,7 +62,6 @@ When put all together, your schema could look like this:
 ```javascript basic.config.ts
 export const schema = {
     project_id: '1234567890',
-    namespace: 'my-project',
     version: 0,
     tables: {
         comments: {
