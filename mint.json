@@ -44,13 +44,7 @@
       "group": "Get Started 📖",
       "pages": [
         "get-started/welcome",
-        {
-          "group": "1. Sign up",
-          "pages": [
-            "get-started/adminportal",
-            "get-started/cli"
-          ]
-        },
+        "get-started/adminportal",
         {
           "group": "2. Implement Basic",
           "pages": [
@@ -58,7 +52,8 @@
             "get-started/implement-basic/using-api"
           ]
         },
-        "get-started/schema"
+        "get-started/schema",
+        "get-started/cli"
       ]
     },
     {

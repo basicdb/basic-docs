@@ -1,9 +1,9 @@
 ---
-title: 'Using your terminal'
-description: 'Using the CLI to create a new project.'
+title: 'Command Line Interface (CLI)'
+description: 'Using the CLI to manage projects.'
 ---
 
-## Create your project
+## Install the CLI
 
 <Steps>
   <Step title="Install the CLI">
@@ -18,8 +18,12 @@ description: 'Using the CLI to create a new project.'
     basic login
     ```
   </Step>
-  <Step title="Create your project">
-    Navigate to your project directory and run `basic init` to create your project. You will be prompted to enter a project name, and choose your project stack (Typescript, React, etc.).
+</Steps>
+
+# Create / integrate a project
+<Steps>
+  <Step title="Initialize the Basic CLI">
+    Navigate to your project directory and run `basic init` to create your project.
     ```bash
     cd project-name
     ```
@@ -27,12 +31,25 @@ description: 'Using the CLI to create a new project.'
     ```bash
     basic init
     ```
+    You will be prompted to choose between creating a new project or integrating an existing project.
+    <img src="/images/basic%20init.png" />
+    </Step>
+    <Step title="Create or integrate a project">
+    Choose your tech stack and project name.
+    <CardGroup>
+      <Card title="Create a project">
+        <img src="/images/Basic%20create%20project%20cli.png" />
+      </Card>
+      <Card title="Integrate an existing project">
+        <img src="/images/Basic%20integrate%20project%20cli.png" />
+      </Card>
+    </CardGroup>
   </Step>
 </Steps>
 
 That's it! You now have a new project created. You'll even notice a new `basic.config.ts` / `basic.config.js` file in your project directory with your project ID included!
 
-## Other CLI commands
+# Other CLI commands
 
 <Card>
 **View all commands**
@@ -40,34 +57,13 @@ That's it! You now have a new project created. You'll even notice a new `basic.c
 ```bash
 basic help
 ```
-
-**Show all projects**
-
-```bash
-basic projects
-```
-
-**Log out**
-
-```bash
-basic logout
-```
-
-**Check if you're logged in**
-
-```bash
-basic status
-```
-
-**Show your account email**
-
-```bash
-basic account
-```
 </Card>
 
-## Next steps
-You can now start building your app! 
-If you are using a React app, we recommend you use the [React SDK](/get-started/implement-basic/using-react) to get started.
-
-Otherwise, you can use the [API](/get-started/implement-basic/using-api) for any language.
+Other commands include:
+- `basic account` - Show account information
+- `basic logout` - logout from your basic account
+- `basic status` - Show login status
+- `basic projects` - list your projects
+- `basic version` - Show CLI version
+- `basic update` - Update CLI to the latest version
+- `basic debug` - Show Basic config directory location
