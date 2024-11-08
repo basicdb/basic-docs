@@ -52,7 +52,6 @@
             "get-started/implement-basic/using-api"
           ]
         },
-        "get-started/schema",
         "get-started/cli"
       ]
     },
@@ -62,6 +61,7 @@
         "info/PDS",
         "info/local-first-sync",
         "info/auth-basic",
+        "get-started/schema",
         "info/permissioning"
       ]
     },

@@ -1,10 +1,12 @@
 ---
-title: 'Schema'
-description: 'How schemas work in Basic'
+title: 'Schema management'
+description: 'Deeper dive into how schemas work in Basic'
 ---
 # Overview
 In Basic, we declare schemas in a JSON format as part of the `basic.config.ts` or `basic.config.js` file that lives in your repository. 
-It would follow this general format:
+These `basic.config` files can be committed to git, and unlock "schema-as-code" capabilities for your project.
+
+Schemas would follow this general format:
 <img src="/images/schema.svg" alt="Schema" />
 
 The top level requires three parameters:
@@ -15,9 +17,8 @@ The top level requires three parameters:
 </ParamField>
 
 ### version
-<ParamField query="version" type="int" required>
+<ParamField query="version" type="number" required>
     This will be used for versioning your schema. It should be an integer that starts at 0 and increments by 1 for each new version. 
-    <Note> Versionining of schemas is currently in development. This value should remain at 0.</Note>
 </ParamField>
 
 # Tables
@@ -34,7 +35,7 @@ Each table is declared as an object where the key is the table name and the valu
 </ParamField>
 
 ### fields
-<ParamField query="fields" type="object" required>
+<ParamField query="fields" type="json" required>
     Fields are the columns of the table. They will be declared as an object of objects. Learn more about the fields below.
 </ParamField>
 
@@ -46,7 +47,7 @@ Each field is declared as an object where the key is the field name and the valu
 
 ### type
 <ParamField query="type" type="string" required>
-    This is the data type of the field. Basic supports the following field types: `string`, `int`, `boolean`, `json`, `text`.
+    This is the data type of the field. Basic supports the following field types: `string`, `number`, `boolean`, `json`.
 </ParamField>
 
 ### indexed

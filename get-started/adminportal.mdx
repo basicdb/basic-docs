@@ -3,7 +3,7 @@ title: '1. Create your project'
 description: 'Using the admin portal to create a new project.'
 ---
 
-## Create your project
+# Create your project
 
 <Steps>
     <Step title="Navigate to the Dashboard">
@@ -66,13 +66,52 @@ fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>", {
 }).then(response => response.json())
 .then(data => console.log(data));
 ```
-
   </Step>
+</Steps>
+
+# Create your schema
+<Steps>
+<Step title="Create your schema">
+    There are two ways to create your schema, either using the table UI, or by using the code editor. Let's explore the table UI first.
+    <img
+          className="block"
+          src="/images/admin-no-schema.png"
+          alt="Create your schema"
+        /> 
+</Step>
+<Step title="Add a new table">
+    Give your table a unique name, and add fields to it. Fields need to have a unique name within each table, and you can use the dropdown to select the type of each field.
+    
+    Fields can take on the following types: `string`, `number`, `boolean`, `json`.
+    <img
+          className="block"
+          src="/images/create-schema-with-ui.png"
+          alt="Create a new table"
+        /> 
+</Step>
+<Step title="(Optional) Edit your schema with the code editor">
+    You can also edit your schema with the code editor.
+    <img
+          className="block"
+          src="/images/schema-editor.png"
+          alt="Edit your schema with the code editor"
+        /> 
+</Step>
+<Step title="Publish your changes">
+    Once you've added your tables, you can publish your changes. Upon publishing, you'll notice your version number has been automatically incremented. 
+
+    You may also discard changes if you'd like to revert to the existing version.
+    <img
+          className="block"
+          src="/images/publish-schema-changes.png"
+          alt="Publish your changes"
+        /> 
+</Step>
 </Steps>
 
 
 
-## Next steps
+# Next steps
 You can now start building your app! 
 If you are using a React app, we recommend you use the [React SDK](/get-started/implement-basic/using-react) to get started.
 
