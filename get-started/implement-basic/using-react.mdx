@@ -12,11 +12,11 @@ description: "Using the @basictech/react library with your React project"
     If you don't have one already, create a new React project:
     ```bash Terminal
     # create a new vite project:
-    npm create vite@latest
+    npx create vite@latest
     ```
     When prompted in the CLI, enter `y` for installing the vite package. 
     Then give your project a name. Choose React as your framework. 
-    And finally choose the JavaScript variant.
+    And finally choose the TypeScript variant.
 
     <Note>
       You may choose to pair React with TypeScript and the library works similarly, but the example code will be in plain Javascript.
@@ -39,21 +39,49 @@ description: "Using the @basictech/react library with your React project"
   </Step>
   </Steps>
 
----
+# Set up basic.config
+<Steps>
+  <Step title="Create a basic.config.ts file">
+    Create a new file called `basic.config.ts` in the root of your project. You can either do this manually, or go through the [CLI](/get-started/cli) flow to have it automatically created for you.
+  </Step>
+  <Step title="Customize the config">
+    Add your project ID to the `basic.config.ts` file, and customize the schema in the file. You can copy your schema from the [Basic dashboard](/get-started/adminportal#create-your-schema) and paste it into the file.
+
+    Any changes you make to the schema in basic.config need to eventually be deployed to the Basic dashboard. Local changes would be for development purposes only.
+    ```ts basic.config.ts
+    export const schema = {
+      project_id: 'YOUR_PROJECT_ID',
+      version: 0,
+      tables: {
+        table_name: {
+          type: 'collection',
+          fields: {
+            field_name: {
+              type: 'string',
+              indexed: true,
+            }
+          }
+        }
+      }
+    }
+    ```
+  </Step>
+</Steps>
 
 # Adding Auth
 <Steps>
-  <Step title="Add the BasicProvider to main.jsx">
-    Navigate to `src/main.jsx`, add the BasicProvider to imports, and wrap your app in it.
+  <Step title="Add the BasicProvider to main.tsx">
+    Navigate to `src/main.tsx`, add the BasicProvider to imports, and wrap your app in it.
     <Info>Replace YOUR_PROJECT_ID with your Project ID from the Basic dashboard. To create one, follow the instructions for [signing up](/get-started/adminportal).</Info>
-    ```jsx main.jsx
+    ```tsx main.tsx
     // add the BasicProvider to your existing imports
     import { BasicProvider } from '@basictech/react'
+    import { schema } from './basic.config'
 
     createRoot(document.getElementById('root')).render(
       <StrictMode>
-        {/* Wrap your app in BasicProvider, including the project ID */}
-        <BasicProvider project_id='YOUR_PROJECT_ID'>
+        {/* Wrap your app in BasicProvider, including the project ID and schema */}
+        <BasicProvider project_id='schema.project_id' schema={schema}>
           <App />
         </BasicProvider>
       </StrictMode>,
@@ -61,9 +89,9 @@ description: "Using the @basictech/react library with your React project"
     ```
   </Step>
 
-  <Step title="Add a login button to App.jsx">
-    Now navigate to  `src/App.jsx` and import `signin`, `isSignedIn`, and `user`. Vite comes with some template code, but you can replace the contents with the following:
-    ```jsx App.jsx
+  <Step title="Add a login button to App.tsx">
+    Now navigate to  `src/App.tsx` and import `signin`, `isSignedIn`, and `user`. Vite comes with some template code, but you can replace the contents with the following:
+    ```tsx App.tsx
     import { useBasic } from '@basictech/react'
     import './App.css'
 
@@ -97,7 +125,7 @@ description: "Using the @basictech/react library with your React project"
 
   <Step title="Add a logout button">
     Use the isSignedIn hook to check if the user is logged in, and the signout function to sign out the user:
-    ```jsx App.jsx
+    ```tsx App.tsx
     import { useBasic } from '@basictech/react'
     import './App.css'
 
