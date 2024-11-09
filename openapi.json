@@ -392,7 +392,7 @@
                 "properties": {
                   "name": {
                     "type": "string"
-                  }, 
+                  },
                   "slug": {
                     "type": "string"
                   }
@@ -446,7 +446,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "apiKeyAuth": []
           }
         ]
       },
@@ -503,7 +503,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "apiKeyAuth": []
           }
         ]
       }
@@ -578,8 +578,10 @@
           "500": {
             "description": "unknown server error"
           }
-        }, 
-        "security": [{}]
+        },
+        "security": [
+          {}
+        ]
       }
     },
     "/auth/authorize": {
@@ -1122,6 +1124,15 @@
               "type": "string"
             },
             "description": "The ID of the project"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "An optional parameter to get a specific version of the schema (e.g., `schema?version=2`) or to get all versions (e.g., `schema?version=all`). If not provided, the latest version is returned by default."
           }
         ],
         "responses": {
@@ -1139,9 +1150,7 @@
           }
         },
         "security": [
-          {
-           
-          }
+          {}
         ]
       },
       "post": {
@@ -1248,7 +1257,14 @@
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
-        "scheme": "bearer"
+        "scheme": "bearer",
+        "description": "Enter your Bearer token in the format: Bearer <token>"
+      },
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "bearerAPIKey",
+        "description": "Enter your Bearer token in the format: Bearer <API key>"
       }
     }
   }
