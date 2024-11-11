@@ -75,11 +75,11 @@ There's 5 functions you can use to interact with the database.
 They are used in conjection with the `db` property from the `useBasic()` hook, and are appended in the format of `db.collection('tablename').FUNCTION()`.
 
 <ParamField query=".get('ID_OF_ITEM')">
-    Fetch a single item from the table. Can be used with useQuery to "subscribe" to data changes
+    Fetch a single item from the table. Returns a promise, or can be used with `useQuery` to "subscribe" to data changes
 </ParamField>
 
 <ParamField query=".getAll()">
-    Fetch all items from the table. Can be used with useQuery to "subscribe" to data changes
+    Fetch all items from the table. Returns a promise, or can be used with `useQuery` to "subscribe" to data changes
 </ParamField>
 
 <ParamField query=".add({ 'item': 'value' })">
@@ -112,7 +112,12 @@ function App() {
   
   // Example 2: Or get a single item by ID. You could use async instead of useQuery if you need it only once
   const getItem = async () => {
-    const item = await db.collection('tablename').get('ID_OF_ITEM')
+    try {
+      const item = await db.collection('tablename').get('ID_OF_ITEM')
+      // Handle success
+    } catch (error) {
+      // Handle error
+    }
   }
 
   return (
@@ -130,7 +135,12 @@ function App() {
   const { db } = useBasic()
 
   // Use .add() to add items
-  db.collection('tablename').add({ name: 'cutie' })
+  try {
+    const newItem = await db.collection('tablename').add({ name: 'cutie' })
+    // Handle success
+  } catch (error) {
+    // Handle error
+  }
 }
 ```
 
@@ -141,12 +151,17 @@ import { useBasic } from '@basictech/react'
 function App() {
   const { db } = useBasic()
 
-  // Use .update() to add items. 
+  // Use .update() to update items. 
   // Include the ID of the item you want to update, and the new value
-  db.collection('tablename').update({ 
-  id: 'ID_OF_ITEM',
-    value: { name: 'super cute' }
-  })
+  try {
+    await db.collection('tablename').update({ 
+      id: 'ID_OF_ITEM',
+      value: { name: 'super cute' }
+    })
+    // Handle success
+  } catch (error) {
+    // Handle error
+  }
 }
 ```
 
@@ -159,6 +174,11 @@ function App() {
 
   // Use .delete() to delete items
   // Include the ID of the item you want to delete
-  db.collection('tablename').delete('ID_OF_ITEM')
+  try {
+    await db.collection('tablename').delete('ID_OF_ITEM')
+    // Handle success
+  } catch (error) {
+    // Handle error
+  }
 }
 ```
