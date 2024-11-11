@@ -49,13 +49,18 @@ const { db, dbStatus, user, getToken, signin, signout, isSignedIn, isAuthReady }
 The `useQuery` hook is used to "subscribe" to data from the database, so that it updates when the data changes.
 It's a listener for data, and enables automatic sync between the local database, users' devices, and all other users that are connected to the same database.
 
-We use it primarily to wrap our .getAll() function, and it takes a function as an argument.
+We use it primarily to wrap our `.get()` and `.getAll()` functions, and it takes a function as an argument.
 
 ``` tsx
 import { useBasic, useQuery } from '@basictech/react'
 
 function App() {
   const { db } = useBasic()
+
+  // Example 1: Fetch a single item from the table
+  const item = useQuery(() => db.collection('tablename').get('ID_OF_ITEM'))
+
+  // Example 2: Fetch all items from the table
   const items = useQuery(() => db.collection('tablename').getAll())
 
   return (
@@ -70,18 +75,18 @@ There's 5 functions you can use to interact with the database.
 They are used in conjection with the `db` property from the `useBasic()` hook, and are appended in the format of `db.collection('tablename').FUNCTION()`.
 
 <ParamField query=".get('ID_OF_ITEM')">
-    Returns a promise with a single item from the table
+    Fetch a single item from the table. Can be used with useQuery to "subscribe" to data changes
 </ParamField>
 
 <ParamField query=".getAll()">
-    Used with the `useQuery` hook to fetch all items from the table
+    Fetch all items from the table. Can be used with useQuery to "subscribe" to data changes
 </ParamField>
 
-<ParamField query=".add('ITEM')">
+<ParamField query=".add({ 'item': 'value' })">
     Adds a new item to the table, returns a promise with the new item
 </ParamField>
 
-<ParamField query=".update('ITEM')">
+<ParamField query=".update({ 'id': 'ID_OF_ITEM', 'value': { 'item': 'value' } })">
     Updates an item in the table, returns a promise with the updated item
 </ParamField>
 
@@ -102,11 +107,13 @@ function App() {
   // Import db from useBasic() inside your React component
   const { db } = useBasic()
 
-  // Use useQuery to "subscribe" to data from the database
+  // Example 1: Use useQuery to "subscribe" to data from the database
   const items = useQuery(() => db.collection('tablename').getAll())
   
-  // Or get a single item by ID
-  const item = await db.collection('tablename').get('ID_OF_ITEM')
+  // Example 2: Or get a single item by ID. You could use async instead of useQuery if you need it only once
+  const getItem = async () => {
+    const item = await db.collection('tablename').get('ID_OF_ITEM')
+  }
 
   return (
     // render items
@@ -117,23 +124,41 @@ function App() {
 ### Add new item
 
 ```tsx App.tsx
-// Use .add() to add items
-db.collection('tablename').add({ name: 'cutie' })
+import { useBasic } from '@basictech/react'
+
+function App() {
+  const { db } = useBasic()
+
+  // Use .add() to add items
+  db.collection('tablename').add({ name: 'cutie' })
+}
 ```
 
 ### Update item
 ```tsx App.tsx
-// Use .update() to add items. 
-// Include the ID of the item you want to update, and the new value
-db.collection('tablename').update({ 
+import { useBasic } from '@basictech/react'
+
+function App() {
+  const { db } = useBasic()
+
+  // Use .update() to add items. 
+  // Include the ID of the item you want to update, and the new value
+  db.collection('tablename').update({ 
   id: 'ID_OF_ITEM',
-  value: { name: 'super cute' }
-})
+    value: { name: 'super cute' }
+  })
+}
 ```
 
 ### Delete item
 ```tsx App.tsx
-// Use .delete() to delete items
-// Include the ID of the item you want to delete
-db.collection('tablename').delete('ID_OF_ITEM')
+import { useBasic } from '@basictech/react' 
+
+function App() {
+  const { db } = useBasic()
+
+  // Use .delete() to delete items
+  // Include the ID of the item you want to delete
+  db.collection('tablename').delete('ID_OF_ITEM')
+}
 ```
