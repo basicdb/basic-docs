@@ -111,9 +111,11 @@ function App() {
   const items = useQuery(() => db.collection('tablename').getAll())
   
   // Example 2: Or get a single item by ID. You could use async instead of useQuery if you need it only once
+  const [item, setItem] = useState(null)
   const getItem = async () => {
     try {
       const item = await db.collection('tablename').get('ID_OF_ITEM')
+      setItem(item)
       // Handle success
     } catch (error) {
       // Handle error
@@ -121,7 +123,9 @@ function App() {
   }
 
   return (
-    // render items
+    <div>
+      {/* render items */}
+    </div>
   )
 }
 ```
@@ -130,55 +134,88 @@ function App() {
 
 ```tsx App.tsx
 import { useBasic } from '@basictech/react'
+import { useState } from 'react'
 
 function App() {
   const { db } = useBasic()
 
   // Use .add() to add items
-  try {
-    const newItem = await db.collection('tablename').add({ name: 'cutie' })
-    // Handle success
-  } catch (error) {
-    // Handle error
+  const [newItem, setNewItem] = useState(null)
+  const addItem = async () => {
+    try {
+      const item = await db.collection('tablename').add({ name: 'cutie' })
+      setNewItem(item)
+      // Handle success
+    } catch (error) {
+      // Handle error
+    }
   }
+
+  return (
+    <div>
+      {/* render newItem */}
+    </div>
+  )
 }
 ```
 
 ### Update item
 ```tsx App.tsx
 import { useBasic } from '@basictech/react'
+import { useState } from 'react'
 
 function App() {
   const { db } = useBasic()
 
   // Use .update() to update items. 
   // Include the ID of the item you want to update, and the new value
-  try {
-    await db.collection('tablename').update({ 
-      id: 'ID_OF_ITEM',
-      value: { name: 'super cute' }
-    })
-    // Handle success
-  } catch (error) {
-    // Handle error
+  const [updatedItem, setUpdatedItem] = useState(null)
+  const updateItem = async () => {
+    try {
+      const item = await db.collection('tablename').update({ 
+        id: 'ID_OF_ITEM',
+        value: { name: 'super cute' }
+      })
+      setUpdatedItem(item)
+      // Handle success
+    } catch (error) {
+      // Handle error
+    }
   }
+
+  return (
+    <div>
+      {/* render updatedItem */}
+    </div>
+  )
 }
 ```
 
 ### Delete item
 ```tsx App.tsx
 import { useBasic } from '@basictech/react' 
+import { useState } from 'react'
 
 function App() {
   const { db } = useBasic()
 
   // Use .delete() to delete items
   // Include the ID of the item you want to delete
-  try {
-    await db.collection('tablename').delete('ID_OF_ITEM')
-    // Handle success
-  } catch (error) {
-    // Handle error
+  const [deletedItem, setDeletedItem] = useState(null)
+  const deleteItem = async () => {
+    try {
+      const item = await db.collection('tablename').delete('ID_OF_ITEM')
+      setDeletedItem(item)
+      // Handle success
+    } catch (error) {
+      // Handle error
+    }
   }
+
+  return (
+    <div>
+      {/* render deletedItem */}
+    </div>
+  )
 }
 ```
