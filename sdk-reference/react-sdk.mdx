@@ -28,10 +28,10 @@ function App() {
 The `useBasic` hook is used to access the database and other Basic features.
 Here's a list of all the useBasic properties:
 
-- `db`: The database object, which you can use to [read, add, update, and delete items](/sdk-reference/react-sdk#crud)
+- `db`: The database object, which you can use to [read, add, update, and delete items](/sdk-reference/react-sdk#db)
 - `dbStatus`: Fetches the status of the database
 - `user`: Fetches the user object containing the user's ID, email, and name
-- `getToken`: Fetches the user's JWT token
+- `getToken`: Fetches the user's JWT token, returns a promise
 - `signin`: Function to sign a user in via the Basic OAuth flow
 - `signout`: Function to sign a user out
 - `isSignedIn`: Boolean that checks if a user is signed in
@@ -42,7 +42,15 @@ Any of these properties can be accessed by destructuring the `useBasic` hook.
 ```tsx App.tsx
 import { useBasic } from '@basictech/react'
 
-const { db, dbStatus, user, getToken, signin, signout, isSignedIn, isAuthReady } = useBasic()
+function App() {
+  const { db, dbStatus, user, getToken, signin, signout, isSignedIn, isAuthReady } = useBasic()
+
+  return (
+    <div>
+      {/* render items */}
+    </div>
+  )
+}
 ```
 
 ### useQuery
@@ -69,7 +77,7 @@ function App() {
 }
 ```
 
-# CRUD
+# DB
 There's 5 functions you can use to interact with the database. 
 
 They are used in conjection with the `db` property from the `useBasic()` hook, and are appended in the format of `db.collection('tablename').FUNCTION()`.
@@ -111,21 +119,20 @@ function App() {
   const items = useQuery(() => db.collection('tablename').getAll())
   
   // Example 2: Or get a single item by ID. You could use async instead of useQuery if you need it only once
-  const [item, setItem] = useState(null)
-  const getItem = async () => {
-    try {
-      const item = await db.collection('tablename').get('ID_OF_ITEM')
-      setItem(item)
-      // Handle success
-    } catch (error) {
-      // Handle error
-    }
+  const [singleItem, setSingleItem] = useState(null)
+  const getItem = () => {
+    db.collection('tablename').get('ID_OF_ITEM')
+      .then(item => {
+        setSingleItem(item)
+        console.log("Successfully fetched single item: ", item)
+      })
+      .catch(error => console.error("Error fetching single item: ", error))
   }
 
   return (
-    <div>
+    <>
       {/* render items */}
-    </div>
+    </>
   )
 }
 ```
@@ -141,20 +148,19 @@ function App() {
 
   // Use .add() to add items
   const [newItem, setNewItem] = useState(null)
-  const addItem = async () => {
-    try {
-      const item = await db.collection('tablename').add({ name: 'cutie' })
-      setNewItem(item)
-      // Handle success
-    } catch (error) {
-      // Handle error
-    }
+  const addItem = () => {
+    db.collection('tablename').add({ name: 'cutie' })
+      .then(item => {
+        setNewItem(item)
+        console.log("Successfully added new item with ID: ", item)
+      })
+      .catch(error => console.error("Error adding new item: ", error))
   }
 
   return (
-    <div>
+    <>
       {/* render newItem */}
-    </div>
+    </>
   )
 }
 ```
@@ -170,23 +176,19 @@ function App() {
   // Use .update() to update items. 
   // Include the ID of the item you want to update, and the new value
   const [updatedItem, setUpdatedItem] = useState(null)
-  const updateItem = async () => {
-    try {
-      const item = await db.collection('tablename').update({ 
-        id: 'ID_OF_ITEM',
-        value: { name: 'super cute' }
+  const updateItem = () => {
+    db.collection('tablename').update('ID_OF_ITEM', { name: 'super cute' })
+      .then(item => {
+        setUpdatedItem(item)
+        console.log("Successfully updated item: ", item)
       })
-      setUpdatedItem(item)
-      // Handle success
-    } catch (error) {
-      // Handle error
-    }
+      .catch(error => console.error("Error updating item: ", error))
   }
 
   return (
-    <div>
+    <>
       {/* render updatedItem */}
-    </div>
+    </>
   )
 }
 ```
@@ -201,21 +203,16 @@ function App() {
 
   // Use .delete() to delete items
   // Include the ID of the item you want to delete
-  const [deletedItem, setDeletedItem] = useState(null)
-  const deleteItem = async () => {
-    try {
-      const item = await db.collection('tablename').delete('ID_OF_ITEM')
-      setDeletedItem(item)
-      // Handle success
-    } catch (error) {
-      // Handle error
-    }
+  const deleteItem = () => {
+      db.collection('tablename').delete('ID_OF_ITEM')
+      .then(console.log("Successfully deleted item"))
+      .catch(error => console.error("Error deleting item: ", error))
   }
 
   return (
-    <div>
-      {/* render deletedItem */}
-    </div>
+    <>
+      {/* render delete button */}
+    </>
   )
 }
 ```
