@@ -1,107 +1,37 @@
 ---
-title: 'React SDK'
+title: '3. DB'
 ---
-# Components
-### BasicProvider
-To enable the features of the Basic SDK, you need to wrap your app in a `<BasicProvider>` component.
-
-BasicProvider takes 3 props:
-- `project_id`: The project ID of your Basic project
-- `schema`: The schema of your Basic project
-- `debug`: An optional prop to enable additional debug logs to the console.
-
-```tsx App.tsx
-import { BasicProvider } from '@basictech/react'
-import schema from './basic.config'
-
-function App() {
-  return (
-    <BasicProvider project_id={schema.project_id} schema={schema} debug>
-      <YourApp />
-    </BasicProvider>
-  )
-}
-```
-
-# Hooks
-### useBasic
-The `useBasic` hook is used to access the database and other Basic features.
-Here's a list of all the useBasic properties:
-
-- `db`: The database object, which you can use to [read, add, update, and delete items](/sdk-reference/react-sdk#db)
-- `dbStatus`: Fetches the status of the database
-- `user`: Fetches the user object containing the user's ID, email, and name
-- `getToken`: Fetches the user's JWT token, returns a promise
-- `signin`: Function to sign a user in via the Basic OAuth flow
-- `signout`: Function to sign a user out
-- `isSignedIn`: Boolean that checks if a user is signed in
-- `isAuthReady`: Boolean that checks if the auth is ready
-
-Any of these properties can be accessed by destructuring the `useBasic` hook.
-
-```tsx App.tsx
-import { useBasic } from '@basictech/react'
-
-function App() {
-  const { db, dbStatus, user, getToken, signin, signout, isSignedIn, isAuthReady } = useBasic()
-
-  return (
-    <div>
-      {/* render items */}
-    </div>
-  )
-}
-```
-
-### useQuery
-The `useQuery` hook is used to "subscribe" to data from the database, so that it updates when the data changes.
-It's a listener for data, and enables automatic sync between the local database, users' devices, and all other users that are connected to the same database.
-
-We use it primarily to wrap our `.get()` and `.getAll()` functions, and it takes a function as an argument.
-
-``` tsx
-import { useBasic, useQuery } from '@basictech/react'
-
-function App() {
-  const { db } = useBasic()
-
-  // Example 1: Fetch a single item from the table
-  const item = useQuery(() => db.collection('tablename').get('ID_OF_ITEM'))
-
-  // Example 2: Fetch all items from the table
-  const items = useQuery(() => db.collection('tablename').getAll())
-
-  return (
-    // render items
-  )
-}
-```
-
-# DB
+# Overview
 There's 5 functions you can use to interact with the database. 
 
 They are used in conjection with the `db` property from the `useBasic()` hook, and are appended in the format of `db.collection('tablename').FUNCTION()`.
 
+### .get
 <ParamField query=".get('ID_OF_ITEM')">
     Fetch a single item from the table. Returns a promise, or can be used with `useQuery` to "subscribe" to data changes
 </ParamField>
 
+### .getAll()
 <ParamField query=".getAll()">
     Fetch all items from the table. Returns a promise, or can be used with `useQuery` to "subscribe" to data changes
 </ParamField>
 
+### .add()
 <ParamField query=".add({ 'item': 'value' })">
     Adds a new item to the table, returns a promise with the new item
 </ParamField>
 
+### .update()
 <ParamField query=".update({ 'id': 'ID_OF_ITEM', 'value': { 'item': 'value' } })">
     Updates an item in the table, returns a promise with the updated item
 </ParamField>
 
+### .delete()
 <ParamField query=".delete('ID_OF_ITEM')">
     Deletes an item from the table, returns a promise with the deleted item
 </ParamField>
 
+# Examples
 ### Read items
 There's 2 ways to read items from the database:
 - `.get('ID_OF_ITEM')`: Fetches a single item in a table
@@ -216,3 +146,4 @@ function App() {
   )
 }
 ```
+

@@ -118,7 +118,14 @@
     {
       "group": "Libraries",
       "pages": [
-        "sdk-reference/react-sdk"
+        {
+          "group": "React",
+          "pages": [
+            "sdk-reference/react-components",
+            "sdk-reference/react-hooks",
+            "sdk-reference/react-db"
+          ]
+        }
       ]
     }
   ],

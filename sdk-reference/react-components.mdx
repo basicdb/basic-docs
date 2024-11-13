@@ -1,0 +1,23 @@
+---
+title: '1. Components'
+---
+# BasicProvider
+To enable the features of the Basic SDK, you need to wrap your app in a `<BasicProvider>` component.
+
+BasicProvider takes 3 props:
+- `project_id`: The project ID of your Basic project
+- `schema`: The schema of your Basic project
+- `debug`: An optional prop to enable additional debug logs to the console.
+
+```tsx App.tsx
+import { BasicProvider } from '@basictech/react'
+import schema from './basic.config'
+
+function App() {
+  return (
+    <BasicProvider project_id={schema.project_id} schema={schema} debug>
+      <YourApp />
+    </BasicProvider>
+  )
+}
+```
