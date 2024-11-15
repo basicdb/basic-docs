@@ -3,11 +3,31 @@ title: Welcome
 ---
 
 <Frame>
-<img
-  className="block"
-  src="/images/hero_intro_hyper.png"
-  alt="Hero Light"
-/>
+<div style={{ position: 'relative' }}>
+  <img
+    className="block"
+    src="/images/hero_intro2.webp"
+    alt="Hero Light"
+    style={{ 
+      objectFit: 'cover',
+      height: '325px',
+      width: '100vw',
+      maxWidth: '100%',
+      objectPosition: 'center',
+    }}
+  />
+  <div style={{
+    position: 'absolute',
+    bottom: '20px',
+    right: '20px',
+    color: 'white',
+    fontSize: '1.3rem',
+    fontWeight: '700',
+    textShadow: '3px 3px 3px rgba(0,0,0,0.5)'
+  }}>
+    Open source infra for data ownership
+  </div>
+</div>
 </Frame>
 
 
