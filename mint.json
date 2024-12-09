@@ -58,7 +58,7 @@
     {
       "group": "Info about Basic 💡",
       "pages": [
-        "info/PDS",
+        "info/user-owned-data-stores",
         "info/local-first-sync",
         "info/auth-basic",
         "get-started/schema",
