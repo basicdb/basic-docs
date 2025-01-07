@@ -105,5 +105,33 @@ Traditional apps and websites have larger and more complex backend and data laye
 User-owned data stores allow developers to build apps and websites with much simpler architectures since they no longer need to own or manage user data. 
 With Basic, developers can focus on building better user experiences.
 
+# FAQs
+<AccordionGroup>
+<Accordion title="Are user-owned data stores less secure than traditional databases?">
+No. Human errors and social engineering compose of the vast majority of security breaches. 
+In traditional databases, the consequences of these sort of human-oriented attacks are much more dire since a single database tends to contain information about hundreds of thousands or millions of users.
+
+In user-owned data stores, data is limited to only that of a single user. 
+
+For a hacker to obtain the equivalent scale of data, they’d have to conduct an attack on millions of users instead of relying on a single “weak point”, which is significantly more difficult and less rewarding for them.
+
+On top of that, Basic’s protocol is designed to be safe and our user’s information is of our utmost priority and will continue to invest in ensuring they don’t fall privy to phishing or data breach attempts.
+</Accordion> 
+
+<Accordion title="Does Basic lead to data loss for users because data is stored locally?">
+No. 
+Basic automatically syncs data across devices and the cloud when internet is available to ensure that data is always backed up. 
+Users don’t have to manually perform any backups of their data.
+</Accordion>
+
+<Accordion title="Is Basic difficult to use for users?">
+No, Basic is simple to use. 
+Users can manage their apps and permissions on Basic.id (feel free to check out what the experience would look like for them at [Basic.id](https://basic.id)!). 
+The interface to do so is simple and straightforward, and we’ll continue to invest in making this experience smoother for users.
+
+In fact, if they never intend on changing any of their permissions, other than the OAuth flow to sign up to your app they never have to interact with Basic directly since it’s entirely optional. 
+And they can always in the future choose to access their data since it’s always in their control from the start even if they don’t take any explicit actions towards it - Basic is designed to retain data ownership for its users.
+</Accordion>
+</AccordionGroup>
 ---
 *Basic is a protocol for creating open-source, user-owned data stores. We make full-stack tooling (Auth, DB, Sync, etc.) to help developers build more interoperable applications without having to worry about privacy for their users.*
