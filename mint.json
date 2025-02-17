@@ -41,39 +41,45 @@
   "anchors": [],
   "navigation": [
     {
-      "group": "Get Started 📖",
+      "group": "get started 📖",
       "pages": [
         "get-started/welcome",
-        "get-started/adminportal",
-        {
-          "group": "2. Implement Basic",
-          "pages": [
-            "get-started/implement-basic/using-react",
-            "get-started/implement-basic/using-api"
-          ]
-        },
-        "get-started/cli"
+        "get-started/implement-basic/create-lofi-app",
+        "get-started/implement-basic/using-react",
+        "get-started/implement-basic/using-api"
       ]
     },
     {
-      "group": "Info about Basic 💡",
+      "group": "dev platforms 👾",
+      "pages": [
+        "get-started/cli",
+        "get-started/adminportal"
+      ]
+    },
+    {
+      "group": "Basic tech guides 👩🏽‍💻",
+      "pages": [
+        "info/auth-basic",
+        "get-started/schema"
+      ]
+    },
+    {
+      "group": "philosophy of Basic 💡",
       "pages": [
         "info/user-owned-data-stores",
         "info/local-first-sync",
-        "info/auth-basic",
-        "get-started/schema",
         "info/permissioning"
       ]
     },
     {
-      "group": "Others 🤓",
+      "group": "others 🤓",
       "pages": [
         "others/roadmap",
         "others/reading"
       ]
     },
     {
-      "group": "Auth",
+      "group": "auth",
       "pages": [
         "api-reference/auth/authorize",
         "api-reference/auth/token",
@@ -81,7 +87,7 @@
       ]
     },
     {
-      "group": "Database",
+      "group": "database",
       "pages": [
         "api-reference/db/get-items",
         "api-reference/db/add-item",
@@ -91,7 +97,7 @@
       ]
     },
     {
-      "group": "Account",
+      "group": "account",
       "pages": [
         "api-reference/account/account",
         "api-reference/account/get-apps",
@@ -99,7 +105,7 @@
       ]
     },
     {
-      "group": "Projects",
+      "group": "orojects",
       "pages": [
         "api-reference/projects/get-profile",
         "api-reference/projects/get-project",
@@ -109,14 +115,14 @@
       ]
     },
     {
-      "group": "Project Schema",
+      "group": "project schema",
       "pages": [
         "api-reference/projectsschema/get-schema",
         "api-reference/projectsschema/update-schema"
       ]
     },
     {
-      "group": "Libraries",
+      "group": "libraries",
       "pages": [
         {
           "group": "React",
