@@ -59,8 +59,9 @@
     {
       "group": "Basic tech guides 👩🏽‍💻",
       "pages": [
+        "info/interop",
         "info/auth-basic",
-        "get-started/schema"
+        "info/schema"
       ]
     },
     {
