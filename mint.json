@@ -59,6 +59,7 @@
     {
       "group": "Basic tech guides 👩🏽‍💻",
       "pages": [
+        "info/to-do-app",
         "info/interop",
         "info/auth-basic",
         "info/schema"

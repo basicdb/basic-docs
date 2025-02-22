@@ -13,7 +13,7 @@ In this guide, you will:
 <Steps>
   <Step title="Create a new local-first project">
     ```bash Terminal
-    # create a new vite project:
+    # create a new local-first project:
     npx create-lofi-app
     ```
     When prompted in the CLI, enter `y` for installing the vite package. 
@@ -25,7 +25,7 @@ In this guide, you will:
 # running the app
 <Steps>
   <Step title="install npm packages">
-    `cd project-name` into your project and run `npm i`:
+    `cd project-name` into your project, run `npm i`, and start your server with `npm run dev`:
 
     ```bash Terminal
     # first, cd into your project
@@ -33,6 +33,9 @@ In this guide, you will:
 
     # then, install all packages
     npm i
+
+    # start your server
+    npm run dev
     ```
   </Step>
 </Steps>
@@ -50,13 +53,13 @@ You'll now be able to navigate to `http://localhost:5173` and see the app runnin
   <Step title="change the homepage">
     Let's delete the existing code and simplify it by printing "my lofi app".
     ```diff App.tsx
-    import { useBasic, useQuery } from '@basictech/react'
+    - import { useBasic, useQuery } from '@basictech/react'
     import './App.css'
 
     - const deleteCursorIcon = `url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2MEE1RkEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cG9seWxpbmUgcG9pbnRzPSIzIDYgNSA2IDIxIDYiPjwvcG9seWxpbmU+PHBhdGggZD0iTTE5IDZ2MTRhMiAyIDAgMCAxLTIgMkg3YTIgMiAwIDAgMS0yLTJWNm0zIDBWNGEyIDIgMCAwIDEgMi0yaDRhMiAyIDAgMCAxIDIgMnYyIj48L3BhdGg+PC9zdmc+),auto`
 
     function App() {
-      const { db } = useBasic()
+    -  const { db } = useBasic()
     -  const emojis = useQuery(() => db.collection('emojis').getAll())
 
     return (
@@ -155,7 +158,8 @@ You can continue to test the app locally without the following steps, but if you
   <Step title="Add a login button to App.tsx">
     Now navigate to  `src/App.tsx` and import `signin`, `isSignedIn`, and `user`. 
     ```tsx App.tsx
-     import { useBasic } from '@basictech/react'
+    /// add back the UseBasic import
+    import { useBasic } from '@basictech/react'
     import './App.css'
 
     function App() {
@@ -172,7 +176,7 @@ You can continue to test the app locally without the following steps, but if you
           ) : (
             // once signed in, show their email
             <div>
-              <p>Signed in as: {user.email}</p>
+              <p>Signed in as: {user?.email}</p>
             </div>
           )}
         </>
@@ -198,9 +202,9 @@ You can continue to test the app locally without the following steps, but if you
 
       return (
         <>
-          {isSignedIn ? (
+          {!isSignedIn ? (
             <div>
-              <p>Signed in as: {user.email}</p>
+              <p>Signed in as: {user?.email}</p>
               {/* Add a button to sign out */}
               <button onClick={signout}>Sign Out</button>
             </div>
