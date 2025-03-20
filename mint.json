@@ -107,7 +107,7 @@
       ]
     },
     {
-      "group": "orojects",
+      "group": "projects",
       "pages": [
         "api-reference/projects/get-profile",
         "api-reference/projects/get-project",
