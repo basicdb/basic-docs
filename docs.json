@@ -1,0 +1,168 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "basic.tech docs",
+  "colors": {
+    "primary": "#9563FF",
+    "light": "#AE87FF",
+    "dark": "#0D001D"
+  },
+  "favicon": "/images/favicon.png",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "get started 📖",
+            "pages": [
+              "get-started/welcome",
+              "get-started/implement-basic/create-lofi-app",
+              "get-started/implement-basic/using-react",
+              "get-started/implement-basic/using-api"
+            ]
+          },
+          {
+            "group": "dev platforms 👾",
+            "pages": [
+              "get-started/cli",
+              "get-started/adminportal"
+            ]
+          },
+          {
+            "group": "Basic tech guides 👩🏽‍💻",
+            "pages": [
+              "info/to-do-app",
+              "info/interop",
+              "info/auth-basic",
+              "info/schema"
+            ]
+          },
+          {
+            "group": "philosophy of Basic 💡",
+            "pages": [
+              "info/user-owned-data-stores",
+              "info/local-first-sync",
+              "info/permissioning"
+            ]
+          },
+          {
+            "group": "others 🤓",
+            "pages": [
+              "others/roadmap",
+              "others/reading"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "auth",
+            "pages": [
+              "api-reference/auth/authorize",
+              "api-reference/auth/token",
+              "api-reference/auth/userinfo"
+            ]
+          },
+          {
+            "group": "database",
+            "pages": [
+              "api-reference/db/get-items",
+              "api-reference/db/add-item",
+              "api-reference/db/set-item",
+              "api-reference/db/del-item",
+              "api-reference/db/update-item"
+            ]
+          },
+          {
+            "group": "account",
+            "pages": [
+              "api-reference/account/account",
+              "api-reference/account/get-apps",
+              "api-reference/account/get-projects"
+            ]
+          },
+          {
+            "group": "projects",
+            "pages": [
+              "api-reference/projects/get-profile",
+              "api-reference/projects/get-project",
+              "api-reference/projects/new-project",
+              "api-reference/projects/update-project",
+              "api-reference/projects/get-key"
+            ]
+          },
+          {
+            "group": "project schema",
+            "pages": [
+              "api-reference/projectsschema/get-schema",
+              "api-reference/projectsschema/update-schema"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "SDK Reference",
+        "groups": [
+          {
+            "group": "libraries",
+            "pages": [
+              {
+                "group": "React",
+                "pages": [
+                  "sdk-reference/react-components",
+                  "sdk-reference/react-hooks",
+                  "sdk-reference/react-db"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/images/logo/logo_black.png",
+    "dark": "/images/logo/logo_white.png"
+  },
+  "api": {
+    "openapi": [
+      "openapi.json"
+    ],
+    "playground": {
+      "display": "interactive"
+    },
+    "mdx": {
+      "server": "https://api.basic.tech",
+      "auth": {
+        "method": "bearer"
+      }
+    }
+  },
+  "background": {
+    "color": {
+      "dark": "#090014"
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Connect with us",
+        "href": "https://cal.com/basic/30min?user=basic&date=2024-09-20&month=2024-09"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Request Access",
+      "href": "https://airtable.com/shr5ALU6Ha9uBzErA"
+    }
+  },
+  "footer": {
+    "socials": {
+      "twitter": "https://twitter.com/basic_db",
+      "github": "https://github.com/basicdb"
+    }
+  }
+}
