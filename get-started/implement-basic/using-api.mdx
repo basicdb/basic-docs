@@ -18,7 +18,7 @@ With this, you'll be ready to [access the user's database](/api-reference/db/get
 Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Auth](/info/auth-basic#introduction-to-oauth-2-0).
 
 <Steps>
-    <Step title="Redirect user to /authorize">
+    <Step title="Redirect user to /auth/authorize">
         Create a button that redirects the user to the Basic Auth page, with the following required parameters (more info on [required parameters](/info/auth-basic#required-parameters)):
         - `client_id='YOUR_CLIENT_ID'`
         - `redirect_uri='YOUR_REDIRECT_URI'`
@@ -121,10 +121,10 @@ Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Aut
     </Step>
 
     <Step title="Exchange the authorization code for an access token and a refresh code">
-        Make a post request to `/token` with the authorization code in the body. The response will be a JSON object with the access token and a refresh code.
+        Make a post request to `/auth/token` with the authorization code in the body. The response will be a JSON object with the access token and a refresh code.
 
         Token URL template: 
-        `https://api.basic.tech/token`
+        `https://api.basic.tech/auth/token`
 
         <Note>
             Make sure to replace `YOUR_CODE` with your own values
@@ -133,7 +133,7 @@ Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Aut
         <CodeGroup>
             ```bash cURL
             curl --request POST \
-                --url 'https://api.basic.tech/token' \
+                --url 'https://api.basic.tech/auth/token' \
                 --header 'Content-Type: application/json' \
                 --data '{"code":"YOUR_CODE"}'
             ```
@@ -156,7 +156,7 @@ Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Aut
                 body: JSON.stringify({code: 'YOUR_CODE'})
             };
 
-            fetch('https://api.basic.tech/token', options)
+            fetch('https://api.basic.tech/auth/token', options)
             .then(response => response.json())
             .then(response => console.log(response))
             ```
@@ -239,6 +239,5 @@ Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Aut
 </Steps>
 
 # Using the database
-You can use the REST API to read and write to the user's database. Checkout the [API Reference](/api-reference/db/get-items) to get started.
+You can use the REST API to read and write to the user's database. Checkout the [API Reference](/api-reference/project-users/create-a-new-item-in-the-users-database) to get started.
 Before making any requests, you should validate that the access token is not expired.
-
