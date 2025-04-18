@@ -56,8 +56,70 @@
         ]
       },
       {
-        "tab": "API Reference",
-        "openapi": "https://api.basic.tech/docs/json"
+        "tab": "Project APIs",
+        "groups": [
+          {
+            "group": "Authentication",
+            "pages": [
+              "api-reference/auth/health-check-endpoint-for-auth-service",
+              "api-reference/auth/oauth-20-authorization-endpoint",
+              "api-reference/auth/oauth-20-token-endpoint",
+              "api-reference/auth/get-user-information-from-access-token"
+            ]
+          },
+          {
+            "group": "Project Users",
+            "pages": [
+              "api-reference/project-users/create-a-new-item-in-the-users-database",
+              "api-reference/project-users/get-user-details-1",
+              "api-reference/project-users/get-user-details-2",
+              "api-reference/project-users/update-an-item-in-the-users-database",
+              "api-reference/project-users/update-an-item-in-the-users-database-1",
+              "api-reference/project-users/delete-an-item-from-the-users-database"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Management APIs",
+        "groups": [
+          {
+            "group": "Projects",
+            "pages": [
+              "api-reference/projects/create-a-new-project",
+              "api-reference/projects/get-user-projects",
+              "api-reference/projects/get-project-details",
+              "api-reference/projects/get-project-public-profile",
+              "api-reference/projects/get-project-schema",
+              "api-reference/projects/update-project-details",
+              "api-reference/projects/update-project-schema",
+              "api-reference/projects/upload-project-image",
+              "api-reference/projects/check-project-slug-availability",
+              "api-reference/projects/delete-a-project"
+            ]
+          },
+          {
+            "group": "Project Keys",
+            "pages": [
+              "api-reference/project-keys/create-new-api-key",
+              "api-reference/project-keys/get-project-api-keys",
+              "api-reference/project-keys/get-specific-api-key",
+              "api-reference/project-keys/update-api-key",
+              "api-reference/project-keys/regenerate-api-key",
+              "api-reference/project-keys/verify-api-key",
+              "api-reference/project-keys/delete-api-key"
+            ]
+          },
+          {
+            "group": "Utilities",
+            "pages": [
+              "api-reference/utils/health-check-endpoint-for-utils-service",
+              "api-reference/utils/compare-two-schemas",
+              "api-reference/utils/verify-update-schema",
+              "api-reference/utils/convert-text-to-url-friendly-slug"
+            ]
+          }
+        ]
       },
       {
         "tab": "SDK Reference",
