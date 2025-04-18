@@ -56,7 +56,7 @@
         ]
       },
       {
-        "tab": "Project APIs",
+        "tab": "REST APIs",
         "groups": [
           {
             "group": "Authentication",
