@@ -57,51 +57,7 @@
       },
       {
         "tab": "API Reference",
-        "groups": [
-          {
-            "group": "auth",
-            "pages": [
-              "api-reference/auth/authorize",
-              "api-reference/auth/token",
-              "api-reference/auth/userinfo"
-            ]
-          },
-          {
-            "group": "database",
-            "pages": [
-              "api-reference/db/get-items",
-              "api-reference/db/add-item",
-              "api-reference/db/set-item",
-              "api-reference/db/del-item",
-              "api-reference/db/update-item"
-            ]
-          },
-          {
-            "group": "account",
-            "pages": [
-              "api-reference/account/account",
-              "api-reference/account/get-apps",
-              "api-reference/account/get-projects"
-            ]
-          },
-          {
-            "group": "projects",
-            "pages": [
-              "api-reference/projects/get-profile",
-              "api-reference/projects/get-project",
-              "api-reference/projects/new-project",
-              "api-reference/projects/update-project",
-              "api-reference/projects/get-key"
-            ]
-          },
-          {
-            "group": "project schema",
-            "pages": [
-              "api-reference/projectsschema/get-schema",
-              "api-reference/projectsschema/update-schema"
-            ]
-          }
-        ]
+        "openapi": "https://api.basic.tech/docs/json"
       },
       {
         "tab": "SDK Reference",

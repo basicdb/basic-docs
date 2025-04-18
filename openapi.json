@@ -1,645 +1,133 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.0.0",
   "info": {
-    "title": "basic-server",
-    "description": "",
-    "version": "1.0.0"
+    "title": "Basic Admin API",
+    "description": "API for Basic Admin",
+    "version": "0.1.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT Authorization Token header using the Bearer scheme"
+      },
+      "apiKeyAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "API Key Authorization header using the Bearer scheme"
+      }
+    },
+    "schemas": {}
   },
   "paths": {
-    "/project/{project_id}/user": {
+    "/": {
       "get": {
-        "description": "Retrieve all users for a specific project.",
-        "summary": "All Users ",
-        "tags": [
-          "User"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          }
-        ],
+        "description": "Root route - check if server is alive",
         "responses": {
           "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/project/{project_id}/user/{account_id}": {
-      "post": {
-        "description": "Update a specific user's information within a project.",
-        "summary": "Update User",
-        "tags": [
-          "User"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          },
-          {
-            "name": "account_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the account"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "example": {
-                  "data": {
-                    "unicorn": "bessie"
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "root": {
+                      "type": "boolean"
+                    },
+                    "env": {
+                      "type": "string"
+                    },
+                    "db_conn": {
+                      "type": "boolean"
+                    },
+                    "version": {
+                      "type": "string"
+                    }
                   }
                 }
               }
             }
           }
-        },
-        "security": []
-      },
-      "delete": {
-        "description": "Delete a specific user item from a project.",
-        "summary": "Delete User Item",
-        "tags": [
-          "User"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          },
-          {
-            "name": "account_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the account"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "example": {
-                  "key": "uni"
-                }
-              }
-            }
-          }
-        },
-        "security": []
-      },
+        }
+      }
+    },
+    "/auth/": {
       "get": {
-        "description": "Retrieve information for a specific user within a project.",
-        "summary": "Get User",
+        "summary": "Health check endpoint for auth service",
         "tags": [
-          "User"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          },
-          {
-            "name": "account_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the account"
-          }
+          "auth"
         ],
         "responses": {
           "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/account/new": {
-      "post": {
-        "description": "",
-        "summary": "Create Account",
-        "tags": [
-          "Account"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "example": {
-                  "external_id": "sfsdsdfdsf",
-                  "name": "ingy",
-                  "email": "ingypingy@example.com"
-                }
-              }
-            }
-          }
-        },
-        "security": []
-      }
-    },
-    "/account/apps": {
-      "get": {
-        "description": "Retrieve the account's apps. Requires the auth token for the account holder.",
-        "summary": "Get Apps",
-        "tags": [
-          "Account"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/account/projects": {
-      "get": {
-        "description": "Retrieve the account's projects. Requires the auth token for the account holder.",
-        "summary": "Get Projects",
-        "tags": [
-          "Account"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/account": {
-      "get": {
-        "description": "Retrieve the account information. Requires the auth token for the account holder.",
-        "summary": "Account",
-        "tags": [
-          "Account"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/account/verify": {
-      "get": {
-        "description": "",
-        "summary": "Verify",
-        "tags": [
-          "Account"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/project/new": {
-      "post": {
-        "description": "",
-        "summary": "New Project",
-        "tags": [
-          "Projects"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "slug": {
-                    "type": "string"
-                  }
-                },
-                "example": {
-                  "name": "project name",
-                  "slug": "project-slug"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/project/{project_id}": {
-      "get": {
-        "description": "Retrieve details for a specific project.",
-        "summary": "Get Project",
-        "tags": [
-          "Projects"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      },
-      "post": {
-        "description": "Update information for a specific project.",
-        "summary": "Update Project",
-        "tags": [
-          "Projects"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "data": {
-                    "type": "object"
-                  }
-                },
-                "example": {
-                  "data": {
-                    "website": "example.com"
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
                   }
                 }
               }
             }
           }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
-      }
-    },
-    "/project/{project_id}/key": {
-      "get": {
-        "description": "Retrieve the API key for a specific project.",
-        "summary": "Get Key",
-        "tags": [
-          "Projects"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/project/{project_id}/profile": {
-      "get": {
-        "description": "Retrieve the public profile of a specific project.",
-        "summary": "Get Profile",
-        "tags": [
-          "Projects"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "security": [
-          {}
-        ]
+        }
       }
     },
     "/auth/authorize": {
       "get": {
-        "description": "Begin the OAuth flow. This endpoint is used to redirect the user to the authorization URL, and will return an authorization code.",
-        "summary": "Authorize",
+        "summary": "OAuth 2.0 authorization endpoint",
         "tags": [
-          "Auth"
+          "auth"
         ],
         "parameters": [
           {
-            "name": "response_type",
+            "schema": {
+              "type": "string"
+            },
             "in": "query",
-            "required": true,
+            "name": "client_id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            },
+            "in": "query",
+            "name": "redirect_uri",
+            "required": true
+          },
+          {
             "schema": {
               "type": "string",
               "enum": [
                 "code"
               ]
             },
-            "description": "The response type. Must be 'code' for the authorization code flow."
+            "in": "query",
+            "name": "response_type",
+            "required": true
           },
           {
-            "name": "client_id",
-            "in": "query",
-            "required": true,
             "schema": {
               "type": "string"
             },
-            "description": "The client identifier."
-          },
-          {
-            "name": "redirect_uri",
             "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uri"
-            },
-            "description": "The URI to redirect to after authorization."
-          },
-          {
             "name": "scope",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The scope of the access request."
+            "required": true
           },
           {
-            "name": "state",
-            "in": "query",
-            "required": false,
             "schema": {
               "type": "string"
             },
-            "description": "An opaque value used to maintain state between the request and callback."
+            "in": "query",
+            "name": "state",
+            "required": true
           }
         ],
         "responses": {
@@ -647,625 +135,4792 @@
             "description": "Redirect to authorization page"
           },
           "400": {
-            "description": "Bad request - invalid or missing parameters"
-          }
-        },
-        "security": [
-          {}
-        ]
-      },
-      "post": {
-        "description": "",
-        "summary": "authorize",
-        "tags": [
-          "Auth"
-        ],
-        "parameters": [
-          {
-            "name": "",
-            "description": "",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "example": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "example": {
-                  "client_id": "cb18c3fd-6d5a-49f3-9810-7497d6a42353",
-                  "user_id": "c0df70c6-2df2-4d2f-b49c-1e2bb44e617d",
-                  "redirect_uri": "https://example.com",
-                  "scope": "profile email"
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
           }
-        },
-        "security": []
+        }
       }
     },
     "/auth/token": {
       "post": {
-        "description": "Use the authorization code to get an access token.",
-        "summary": "token",
+        "summary": "OAuth 2.0 token endpoint",
         "tags": [
-          "Auth"
+          "auth"
         ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "code"
+                ],
                 "properties": {
                   "code": {
                     "type": "string"
                   }
-                },
-                "example": {
-                  "code": "AUTHORIZATION_CODE"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "string"
+                    },
+                    "token_type": {
+                      "type": "string"
+                    },
+                    "expires_in": {
+                      "type": "integer"
+                    },
+                    "refresh": {
+                      "type": "string"
+                    },
+                    "refresh_token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
           }
-        },
-        "security": [
-          {}
-        ]
+        }
       }
     },
     "/auth/userInfo": {
       "get": {
-        "description": "",
-        "summary": "userInfo",
+        "summary": "Get user information from access token",
         "tags": [
-          "Auth"
+          "auth"
         ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
         "security": [
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sub": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/account/{project_id}/db/{table_name}": {
+    "/project/": {
       "get": {
-        "description": "Retrieve items from a specific table within a project.",
-        "summary": "Get Items",
+        "summary": "Get user projects",
         "tags": [
-          "DB"
+          "projects"
         ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          },
-          {
-            "name": "table_name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The name of the table"
-          },
-          {
-            "name": "id",
-            "description": "",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "example": "ITEM_ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
+        "description": "Retrieves all projects owned by the authenticated user",
         "security": [
           {
             "bearerAuth": []
-          }
-        ]
-      },
-      "post": {
-        "description": "Add a new item to a specific table within a project.",
-        "summary": "Add Item",
-        "tags": [
-          "DB"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
           },
           {
-            "name": "table_name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The name of the table"
+            "apiKeyAuth": []
           }
         ],
         "responses": {
           "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object"
-                  }
-                },
-                "example": {
-                  "value": {
-                    "ayo": "key"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/account/{project_id}/db/{table_name}/{item_id}": {
-      "patch": {
-        "description": "Update a specific item in a table within a project.",
-        "summary": "Update Item",
-        "tags": [
-          "DB"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          },
-          {
-            "name": "table_name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The name of the table"
-          },
-          {
-            "name": "item_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the item to update"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object"
-                  }
-                },
-                "example": {
-                  "value": {
-                    "sup": "world"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "put": {
-        "description": "Replace a specific item in a table within a project.",
-        "summary": "Set Item",
-        "tags": [
-          "DB"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          },
-          {
-            "name": "table_name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The name of the table"
-          },
-          {
-            "name": "item_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the item to be replaced"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object"
-                  }
-                },
-                "example": {
-                  "value": {
-                    "ayo": "key"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "delete": {
-        "description": "Delete a specific item from a table within a project.",
-        "summary": "Del Item",
-        "tags": [
-          "DB"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          },
-          {
-            "name": "table_name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The name of the table"
-          },
-          {
-            "name": "item_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the item to be deleted"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/project/{project_id}/schema": {
-      "get": {
-        "description": "Retrieve the database schema for a specific project.",
-        "summary": "Get Schema",
-        "tags": [
-          "Projects/Schema"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          },
-          {
-            "name": "version",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "An optional parameter to get a specific version of the schema (e.g., `schema?version=2`) or to get all versions (e.g., `schema?version=all`). If not provided, the latest version is returned by default."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "security": [
-          {}
-        ]
-      },
-      "post": {
-        "description": "Update the database schema for a specific project.",
-        "summary": "Update Schema",
-        "tags": [
-          "Projects/Schema"
-        ],
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the project"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful"
-          },
-          "401": {
-            "description": "authorization failed"
-          },
-          "422": {
-            "description": "validation failed"
-          },
-          "500": {
-            "description": "unknown server error"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "tables": {
-                        "type": "array"
+            "description": "List of user projects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "List of user projects",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "slug": {
+                            "type": "string"
+                          },
+                          "profile": {
+                            "type": "object",
+                            "properties": {
+                              "icon_url": {
+                                "type": "string"
+                              }
+                            },
+                            "additionalProperties": true
+                          },
+                          "team_id": {
+                            "type": "string"
+                          },
+                          "team_name": {
+                            "type": "string"
+                          },
+                          "team_slug": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
                       }
                     }
                   }
-                },
-                "example": {
-                  "schema": {
-                    "tables": [
-                      {
-                        "name": "default"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new project",
+        "tags": [
+          "projects"
+        ],
+        "description": "Creates a new project for the authenticated user and returns an API key for the project",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "team_id",
+                  "slug"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the project"
+                  },
+                  "team_id": {
+                    "type": "string",
+                    "description": "ID of the team that owns this project"
+                  },
+                  "slug": {
+                    "type": "string",
+                    "description": "URL-friendly slug for the project. If not provided, will be generated from name"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Project created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Project created successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
                       }
-                    ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid input",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}": {
+      "get": {
+        "summary": "Get project details",
+        "tags": [
+          "projects"
+        ],
+        "description": "Retrieves detailed information for a specific project",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Project details retrieved successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "website": {
+                          "type": "string"
+                        },
+                        "profile": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": true
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Project not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update project details",
+        "tags": [
+          "projects"
+        ],
+        "description": "Updates the details of a specific project. Only provided fields will be updated.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "data"
+                ],
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "New name for the project"
+                      },
+                      "slug": {
+                        "type": "string",
+                        "description": "New URL-friendly slug for the project"
+                      },
+                      "website": {
+                        "type": "string",
+                        "description": "Project website URL"
+                      },
+                      "profile": {
+                        "type": "object",
+                        "description": "Additional project metadata",
+                        "properties": {},
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Project updated successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "website": {
+                          "type": "string"
+                        },
+                        "profile": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": true
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid input",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a project",
+        "tags": [
+          "projects"
+        ],
+        "description": "Permanently deletes a project and all its associated data. This action cannot be undone.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project to delete"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Project deleted successfully",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project not found or user does not have access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Project not found or user does not have access",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}/profile": {
+      "get": {
+        "summary": "Get project public profile",
+        "tags": [
+          "projects"
+        ],
+        "description": "Retrieves public profile for a specific project",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Project details retrieved successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "website": {
+                          "type": "string"
+                        },
+                        "profile": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": true
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Project not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}/schema": {
+      "get": {
+        "summary": "Get project schema",
+        "tags": [
+          "projects"
+        ],
+        "description": "Retrieves the schema configuration for a specific project. Can return either the latest version, a specific version, or all versions.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "description": "Schema version to retrieve. Use \"all\" for all versions, a number for a specific version, or omit for latest version."
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "in": "query",
+            "name": "debug",
+            "required": false,
+            "description": "Enable debug mode for additional information"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project schema retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Project schema retrieved successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "description": "Single schema version",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "project_id": {
+                              "type": "string"
+                            },
+                            "schema": {
+                              "type": "object",
+                              "properties": {},
+                              "additionalProperties": true
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          }
+                        },
+                        {
+                          "type": "array",
+                          "description": "All schema versions",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "project_id": {
+                                "type": "string"
+                              },
+                              "schema": {
+                                "type": "object",
+                                "properties": {},
+                                "additionalProperties": true
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "count": {
+                      "type": "number",
+                      "description": "Total number of schema versions when requesting all versions"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid version parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid version parameter",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Update project schema",
+        "tags": [
+          "projects"
+        ],
+        "description": "Updates the schema configuration for a specific project. Creates a new version of the schema.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "schema"
+                ],
+                "properties": {
+                  "schema": {
+                    "type": "object",
+                    "description": "New schema configuration",
+                    "properties": {},
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Schema updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Schema updated successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "project_id": {
+                          "type": "string"
+                        },
+                        "schema": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": true
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid schema",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid schema",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}/upload-image": {
+      "post": {
+        "summary": "Upload project image",
+        "tags": [
+          "projects"
+        ],
+        "description": "Upload an image file for the project (e.g., project icon, logo). The image will be stored in R2 storage.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Image uploaded successfully",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "icon_url": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "Public URL of the uploaded image"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid file or missing file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid file or missing file",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}/key": {
+      "get": {
+        "summary": "Get project API keys",
+        "tags": [
+          "project-keys"
+        ],
+        "description": "Retrieves all API keys associated with the project",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API keys retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API keys retrieved successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "roles": {
+                            "type": "string"
+                          },
+                          "is_private": {
+                            "type": "boolean"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "last_used": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Project not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new API key",
+        "tags": [
+          "project-keys"
+        ],
+        "description": "Creates a new API key for the project with specified permissions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "label",
+                  "roles"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "description": "A descriptive name for the API key"
+                  },
+                  "roles": {
+                    "type": "string",
+                    "description": "Comma-separated list of permissions for this key"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API key created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API key created successfully",
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The actual API key value. Save this immediately as it cannot be retrieved later."
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid input",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}/key/{key_id}": {
+      "get": {
+        "summary": "Get specific API key",
+        "tags": [
+          "project-keys"
+        ],
+        "description": "Retrieves details of a specific API key for the project",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "description": "Unique identifier of the API key"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API key details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API key details retrieved successfully",
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "API key not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API key not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete API key",
+        "tags": [
+          "project-keys"
+        ],
+        "description": "Permanently deletes an API key from the project. This action cannot be undone.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "description": "Unique identifier of the API key to delete"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API key deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API key deleted successfully",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "API key not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API key not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update API key",
+        "tags": [
+          "project-keys"
+        ],
+        "description": "Updates the label and/or roles of an existing API key",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "description": "New label for the API key"
+                  },
+                  "roles": {
+                    "type": "string",
+                    "description": "New comma-separated list of permissions"
+                  }
+                },
+                "minProperties": 1
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "description": "Unique identifier of the API key to update"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API key updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API key updated successfully",
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid input",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "API key not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API key not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}/key/verify": {
+      "post": {
+        "summary": "Verify API key",
+        "tags": [
+          "project-keys"
+        ],
+        "description": "Verifies if an API key is valid for the project and returns its associated permissions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "key"
+                ],
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "description": "API key to verify"
+                  },
+                  "key_id": {
+                    "type": "string",
+                    "description": "Optional key ID for more specific verification"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API key verification result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API key verification result",
+                  "type": "object",
+                  "properties": {
+                    "is_valid": {
+                      "type": "boolean",
+                      "description": "Whether the API key is valid"
+                    },
+                    "key": {
+                      "type": "object",
+                      "description": "Key details if valid",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid input",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}/key/{key_id}/regenerate": {
+      "post": {
+        "summary": "Regenerate API key",
+        "tags": [
+          "project-keys"
+        ],
+        "description": "Regenerates an existing API key with a new value while maintaining the same permissions and label",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "description": "Unique identifier of the API key to regenerate"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API key regenerated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API key regenerated successfully",
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The new API key value. Save this immediately as it cannot be retrieved later."
+                        },
+                        "is_private": {
+                          "type": "boolean"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "API key not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "API key not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/slug": {
+      "get": {
+        "summary": "Check project slug availability",
+        "tags": [
+          "projects"
+        ],
+        "description": "Checks if a project slug is available for use",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "slug",
+            "required": true,
+            "description": "Project slug to check availability for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Slug availability check result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Slug availability check result",
+                  "type": "object",
+                  "properties": {
+                    "available": {
+                      "type": "boolean",
+                      "description": "Whether the slug is available"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid slug",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid slug",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "slugified": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}/user/": {
+      "get": {
+        "summary": "Get project users",
+        "tags": [
+          "project-users"
+        ],
+        "description": "Retrieves all users associated with the project, including their metadata and profiles",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of project users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "List of project users",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Unique identifier of the user account"
+                          },
+                          "account_id": {
+                            "type": "string",
+                            "description": "Unique identifier of the user account - same as ID - temporary"
+                          },
+                          "meta": {
+                            "type": "object",
+                            "description": "Additional metadata about the user",
+                            "properties": {},
+                            "additionalProperties": true
+                          },
+                          "profile": {
+                            "type": "object",
+                            "description": "User profile information",
+                            "properties": {},
+                            "additionalProperties": true
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "When the user was added to the project"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid project ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid project ID",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}/user/{user_id}": {
+      "get": {
+        "summary": "Get user details",
+        "tags": [
+          "project-users"
+        ],
+        "description": "Retrieves details for a specific user in the project",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Project ID"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "description": "User ID"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "User details retrieved successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid ID",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "User not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update user details",
+        "tags": [
+          "project-users"
+        ],
+        "description": "Updates the details of a specific user in the project",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "meta": {
+                    "type": "object",
+                    "additionalProperties": true
                   }
                 }
               }
             }
           }
         },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "user_id",
+            "required": true
+          }
+        ],
         "security": [
           {
             "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "description": "User details updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "User details updated successfully",
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid ID",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a user from the project",
+        "tags": [
+          "project-users"
+        ],
+        "description": "Removes a user from the project",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "user_id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully removed from project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "User successfully removed from project",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid ID",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized - Invalid or missing authentication",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}/user/{user_id}/db/{table_id}": {
+      "get": {
+        "summary": "Get user details",
+        "tags": [
+          "project-users"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "user_id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table_id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "User details retrieved successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid ID",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new item in the user's database",
+        "tags": [
+          "project-users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "user_id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table_id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Item created successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid ID",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/{id}/user/{user_id}/db/{table_id}/{item_id}": {
+      "get": {
+        "summary": "Get user details",
+        "tags": [
+          "project-users"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "user_id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table_id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "item_id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Item retrieved successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid ID",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update an item in the user's database",
+        "tags": [
+          "project-users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "user_id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table_id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "item_id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Item updated successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid ID",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an item from the user's database",
+        "tags": [
+          "project-users"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "user_id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table_id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "item_id",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Item deleted successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid ID",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an item in the user's database",
+        "tags": [
+          "project-users"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "user_id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table_id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "item_id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/team/": {
+      "get": {
+        "summary": "Get user teams",
+        "tags": [
+          "teams"
+        ],
+        "description": "Retrieves all teams the user is a member of",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of user teams",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "List of user teams",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "slug": {
+                            "type": "string"
+                          },
+                          "owner": {
+                            "type": "string"
+                          },
+                          "roles": {
+                            "type": "string"
+                          },
+                          "role_name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new team",
+        "tags": [
+          "teams"
+        ],
+        "description": "Creates a new team for the authenticated user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "slug"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the team"
+                  },
+                  "slug": {
+                    "type": "string",
+                    "description": "URL-friendly slug for the team - must be unique"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Team created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Team created successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "owner": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team/{team_id}": {
+      "get": {
+        "summary": "Get team by ID",
+        "tags": [
+          "teams"
+        ],
+        "description": "Retrieves a specific team by its ID",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "team_id",
+            "required": true,
+            "description": "The ID of the team to retrieve"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Team retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Team retrieved successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "owner_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "account_id": {
+                                "type": "string"
+                              },
+                              "roles": {
+                                "type": "string"
+                              },
+                              "role_name": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "projects": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "slug": {
+                                "type": "string"
+                              },
+                              "profile": {
+                                "type": "object",
+                                "properties": {
+                                  "icon_url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "additionalProperties": true
+                              }
+                            }
+                          }
+                        },
+                        "invites": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "team_id": {
+                                "type": "string"
+                              },
+                              "email_or_username": {
+                                "type": "string"
+                              },
+                              "roles": {
+                                "type": "string"
+                              },
+                              "role_name": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Team not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Team not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a team",
+        "tags": [
+          "teams"
+        ],
+        "description": "Updates a team's name and/or slug",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "New name for the team"
+                  },
+                  "slug": {
+                    "type": "string",
+                    "description": "New URL-friendly slug for the team - must be unique"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "team_id",
+            "required": true,
+            "description": "The ID of the team to update"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Team updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Team updated successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "owner_id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Forbidden",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Team not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Team not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team/{team_id}/invite": {
+      "post": {
+        "summary": "Create a team invite",
+        "tags": [
+          "teams"
+        ],
+        "description": "Creates a new invite for a team",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "roles"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "The email of the account to invite to the team"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "The username of the account to invite to the team"
+                  },
+                  "roles": {
+                    "type": "string",
+                    "description": "The roles assigned to the team member"
+                  },
+                  "role_name": {
+                    "type": "string",
+                    "description": "Optional display name for the role"
+                  },
+                  "expires_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Optional expiration date for the invite"
+                  }
+                },
+                "oneOf": [
+                  {
+                    "required": [
+                      "email"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "username"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "team_id",
+            "required": true,
+            "description": "The ID of the team to create an invite for"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Member invite created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Member invite created successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "team_id": {
+                          "type": "string"
+                        },
+                        "account_id": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "role_name": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "expires_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "email_or_username": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Forbidden",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Team or account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Team or account not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get team invites",
+        "tags": [
+          "teams"
+        ],
+        "description": "Retrieves all pending invites for a specific team",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "team_id",
+            "required": true,
+            "description": "The ID of the team to get invites for"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of pending invites",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "List of pending invites",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "team_id": {
+                            "type": "string"
+                          },
+                          "email_or_username": {
+                            "type": "string"
+                          },
+                          "roles": {
+                            "type": "string"
+                          },
+                          "role_name": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "expires_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team/{team_id}/member/{member_id}": {
+      "patch": {
+        "summary": "Update a team member",
+        "tags": [
+          "teams"
+        ],
+        "description": "Updates a team member's roles or role_name",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "roles": {
+                    "type": "string",
+                    "description": "The new roles for the team member"
+                  },
+                  "role_name": {
+                    "type": "string",
+                    "description": "The new display name for the role"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "team_id",
+            "required": true,
+            "description": "The ID of the team"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "member_id",
+            "required": true,
+            "description": "The ID of the member to update"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Member updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Member updated successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "team_id": {
+                          "type": "string"
+                        },
+                        "account_id": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "role_name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Forbidden",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Team or member not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Team or member not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a team member",
+        "tags": [
+          "teams"
+        ],
+        "description": "Removes a member from a team",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "team_id",
+            "required": true,
+            "description": "The ID of the team"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "member_id",
+            "required": true,
+            "description": "The ID of the member to remove"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Member removed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Member removed successfully",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Forbidden",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Team or member not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Team or member not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team/accept-invite": {
+      "post": {
+        "summary": "Accept a team invite",
+        "tags": [
+          "teams"
+        ],
+        "description": "Accepts a team invitation and adds the user to the team",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "invite_id"
+                ],
+                "properties": {
+                  "invite_id": {
+                    "type": "string",
+                    "description": "The ID of the invite to accept"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Invite accepted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Invite accepted successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "team_id": {
+                          "type": "string"
+                        },
+                        "account_id": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "role_name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invite not found or expired",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Invite not found or expired",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team/{team_id}/invite/{invite_id}": {
+      "delete": {
+        "summary": "Delete a team invite",
+        "tags": [
+          "teams"
+        ],
+        "description": "Deletes a team invitation",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "team_id",
+            "required": true,
+            "description": "The ID of the team"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "invite_id",
+            "required": true,
+            "description": "The ID of the invite to delete"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Invite deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Invite deleted successfully",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Team or invite not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Team or invite not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team/{team_id}/member": {
+      "get": {
+        "summary": "Get team members",
+        "tags": [
+          "teams"
+        ],
+        "description": "Retrieves all members of a team",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "team_id",
+            "required": true,
+            "description": "The ID of the team"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of team members",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "List of team members",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "account_id": {
+                            "type": "string"
+                          },
+                          "roles": {
+                            "type": "string"
+                          },
+                          "role_name": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Team not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Team not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/team/slug": {
+      "get": {
+        "summary": "Check team slug availability",
+        "tags": [
+          "teams"
+        ],
+        "description": "Checks if a team slug is available for use",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "slug",
+            "required": true,
+            "description": "Team slug to check availability for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Slug availability check result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Slug availability check result",
+                  "type": "object",
+                  "properties": {
+                    "available": {
+                      "type": "boolean",
+                      "description": "Whether the slug is available"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid slug",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid slug",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "slugified": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/utils/": {
+      "get": {
+        "summary": "Health check endpoint for utils service",
+        "tags": [
+          "utils"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/utils/slugify": {
+      "get": {
+        "summary": "Convert text to URL-friendly slug",
+        "tags": [
+          "utils"
+        ],
+        "description": "Converts any text into a URL-friendly slug by removing special characters, converting to lowercase, and replacing spaces with hyphens",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "slug",
+            "required": true,
+            "description": "Text to convert into a URL-friendly slug"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully converted text to slug",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Successfully converted text to slug",
+                  "type": "object",
+                  "properties": {
+                    "slug": {
+                      "type": "string",
+                      "description": "The converted URL-friendly slug"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing slug parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Missing slug parameter",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message indicating missing slug parameter"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/utils/schema/compareSchema": {
+      "post": {
+        "summary": "Compare two schemas",
+        "tags": [
+          "utils"
+        ],
+        "description": "Compare two schemas and return the differences",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "schema"
+                ],
+                "properties": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/utils/schema/verifyUpdateSchema": {
+      "post": {
+        "summary": "Verify update schema",
+        "tags": [
+          "utils"
+        ],
+        "description": "Verify update schema",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "schema"
+                ],
+                "properties": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
       }
     }
   },
   "servers": [
     {
-      "description": "Base Environment",
-      "url": "https://api.basic.tech"
+      "url": "http://localhost:3003",
+      "description": "Development server"
+    },
+    {
+      "url": "https://api.basic.tech",
+      "description": "Production server"
     }
   ],
   "tags": [
     {
-      "name": "User",
-      "description": ""
+      "name": "auth",
+      "description": "Authentication and authorization end-points"
     },
     {
-      "name": "Account",
-      "description": ""
+      "name": "projects",
+      "description": "Project management end-points"
     },
     {
-      "name": "Projects",
-      "description": ""
+      "name": "project-keys",
+      "description": "Project API key management end-points"
     },
     {
-      "name": "Auth",
-      "description": ""
+      "name": "project-users",
+      "description": "Project user management end-points"
     },
     {
-      "name": "DB",
-      "description": ""
+      "name": "teams",
+      "description": "Project user management end-points"
     },
     {
-      "name": "Projects/Schema",
-      "description": ""
+      "name": "utils",
+      "description": "Utility end-points - very useful, trust me"
     }
   ],
-  "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "description": "Enter your Bearer token in the format: Bearer <token>"
-      },
-      "apiKeyAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "bearerAPIKey",
-        "description": "Enter your Bearer token in the format: Bearer <API key>"
-      }
-    }
+  "externalDocs": {
+    "url": "https://docs.basic.tech",
+    "description": "Find more info here"
   }
 }
