@@ -12,7 +12,7 @@ description: 'Adding authentication to your project with the Basic API'
 4. Basic.id redirects the user back to your app with an authorization code
 5. Your app can exchange the authorization code for access and refresh tokens. With the access token, you can make database requests and keep the user logged in. If the access token expires, you can use the refresh token to get a new access token
 
-With this, you'll be ready to [access the user's database](/api-reference/db/get-items)!
+With this, you'll be ready to [let your users access their data](/api-reference/project-users/get-all-items)!
 
 # Authentication with API
 Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Auth](/info/auth-basic#introduction-to-oauth-2-0).
@@ -239,5 +239,5 @@ Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Aut
 </Steps>
 
 # Using the database
-You can use the REST API to read and write to the user's database. Checkout the [API Reference](/api-reference/project-users/create-a-new-item-in-the-users-database) to get started.
+You can use the REST API to read and write to the user's database. Checkout the [API Reference](/api-reference/project-users/create-item) to get started.
 Before making any requests, you should validate that the access token is not expired.
