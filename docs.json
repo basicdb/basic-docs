@@ -93,7 +93,6 @@
               "api-reference/projects/get-project-schema",
               "api-reference/projects/update-project-schema",
               "api-reference/projects/delete-a-project",
-              "api-reference/projects/get-project-public-profile",
               "api-reference/projects/upload-project-image",
               "api-reference/projects/check-project-slug-availability"
             ]
