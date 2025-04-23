@@ -15,37 +15,89 @@
         "dropdowns": [
           {
             "dropdown": "React",
-            "pages": [
-              "get-started/welcome",
-              "get-started/implement-basic/create-lofi-app",
-              "get-started/implement-basic/using-react",
-              "get-started/implement-basic/using-api"
+            "groups": [
+              {
+                "group": "get started",
+                "pages": [
+                  "get-started/welcome",
+                  "get-started/adminportal",
+                  "get-started/cli"
+                ]
+              },
+              {
+                "group": "start a new app",
+                "pages": [
+                  "basic-react/create-lofi-app",
+                  "basic-react/to-do-app"
+                ]
+              },
+              {
+                "group": "integrate Basic into existing app",
+                "pages": [
+                  "basic-react/basic-sdk"
+                ]
+              }
             ]
           },
           {
             "dropdown": "REST APIs",
-            "pages": [
-              "api-reference/auth/redirect-to-sign-in"
+            "groups": [
+              {
+                "group": "get started",
+                "pages": [
+                  "get-started/welcome",
+                  "get-started/adminportal",
+                  "get-started/cli"
+                ]
+              }
             ]
           },
           {
             "dropdown": "Management APIs",
-            "pages": [
-              "api-reference/auth/redirect-to-sign-in"
+            "groups": [
+              {
+                "group": "get started",
+                "pages": [
+                  "get-started/welcome",
+                  "get-started/adminportal",
+                  "get-started/cli"
+                ]
+              },
+              {
+                "group": "Projects APIs",
+                "pages": [
+                  "api-reference/projects/create-a-new-project",
+                  "api-reference/projects/get-project-details",
+                  "api-reference/projects/get-all-admin-projects",
+                  "api-reference/projects/get-project-schema",
+                  "api-reference/projects/update-project-schema",
+                  "api-reference/projects/delete-a-project",
+                  "api-reference/projects/upload-project-image",
+                  "api-reference/projects/check-project-slug-availability"
+                ]
+              }
             ]
           }
         ]
       },
       {
-        "tab": "REST APIs",
+        "tab": "Readings",
         "groups": [
           {
-            "group": "Authentication",
+            "group": "philosophy of Basic",
             "pages": [
-              "api-reference/auth/redirect-to-sign-in",
-              "api-reference/auth/get-auth-token",
-              "api-reference/auth/get-user-info",
-              "api-reference/auth/check-auth-endpoint-status"
+              "readings/user-owned-data-stores.mdx",
+              "readings/local-first-sync.mdx",
+              "readings/interop.mdx",
+              "readings/permissioning.mdx",
+              "readings/schema.mdx"
+            ]
+          },
+          {
+            "group": "others",
+            "pages": [
+              "readings/others/reading.mdx",
+              "readings/others/roadmap.mdx"
             ]
           }
         ]
