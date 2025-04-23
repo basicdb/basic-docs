@@ -1,9 +1,9 @@
 ---
-title: 'Get started with the Basic API'
+title: '⚡️ Quickstart'
 description: 'Adding authentication to your project with the Basic API'
 ---
 <Info>
-    For built-in local-first benefits like offline support and instant UI, please use [create-lofi-app](/get-started/implement-basic/create-lofi-app) or the [Basic SDK](/get-started/implement-basic/using-react). The API currently does not include these benefits.
+    For built-in local-first benefits like offline support and instant UI, please use [create-lofi-app](/basic-react/create-lofi-app) or the [Basic SDK](/basic-react/basic-sdk). The API currently does not include these benefits.
 </Info>
 # Summary
 1. The user beings the flow by clicking a "Sign in with Basic" button in your app
@@ -15,11 +15,11 @@ description: 'Adding authentication to your project with the Basic API'
 With this, you'll be ready to [let your users access their data](/api-reference/project-users/get-all-items)!
 
 # Authentication with API
-Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Auth](/info/auth-basic#introduction-to-oauth-2-0).
+Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Auth](/readings/auth-basic#introduction-to-oauth-2-0).
 
 <Steps>
     <Step title="Redirect user to /auth/authorize">
-        Create a button that redirects the user to the Basic Auth page, with the following required parameters (more info on [required parameters](/info/auth-basic#required-parameters)):
+        Create a button that redirects the user to the Basic Auth page, with the following required parameters (more info on [required parameters](/readings/auth-basic#required-parameters)):
         - `client_id='YOUR_CLIENT_ID'`
         - `redirect_uri='YOUR_REDIRECT_URI'`
         - `response_type=code`
