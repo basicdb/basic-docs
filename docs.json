@@ -12,9 +12,9 @@
     "tabs": [
       {
         "tab": "Documentation",
-        "groups": [
+        "dropdowns": [
           {
-            "group": "get started 📖",
+            "dropdown": "React",
             "pages": [
               "get-started/welcome",
               "get-started/implement-basic/create-lofi-app",
@@ -23,34 +23,15 @@
             ]
           },
           {
-            "group": "dev platforms 👾",
+            "dropdown": "REST APIs",
             "pages": [
-              "get-started/cli",
-              "get-started/adminportal"
+              "api-reference/auth/redirect-to-sign-in"
             ]
           },
           {
-            "group": "Basic tech guides 👩🏽‍💻",
+            "dropdown": "Management APIs",
             "pages": [
-              "info/to-do-app",
-              "info/interop",
-              "info/auth-basic",
-              "info/schema"
-            ]
-          },
-          {
-            "group": "philosophy of Basic 💡",
-            "pages": [
-              "info/user-owned-data-stores",
-              "info/local-first-sync",
-              "info/permissioning"
-            ]
-          },
-          {
-            "group": "others 🤓",
-            "pages": [
-              "others/roadmap",
-              "others/reading"
+              "api-reference/auth/redirect-to-sign-in"
             ]
           }
         ]
@@ -65,75 +46,6 @@
               "api-reference/auth/get-auth-token",
               "api-reference/auth/get-user-info",
               "api-reference/auth/check-auth-endpoint-status"
-            ]
-          },
-          {
-            "group": "Project Users",
-            "pages": [
-              "api-reference/project-users/create-item",
-              "api-reference/project-users/get-all-items",
-              "api-reference/project-users/get-specific-item",
-              "api-reference/project-users/replace-an-item",
-              "api-reference/project-users/update-an-item-in-the-users-database-1",
-              "api-reference/project-users/delete-an-item"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Management APIs",
-        "groups": [
-          {
-            "group": "Projects",
-            "pages": [
-              "api-reference/projects/create-a-new-project",
-              "api-reference/projects/get-project-details",
-              "api-reference/projects/update-project-details",
-              "api-reference/projects/get-all-admin-projects",
-              "api-reference/projects/get-project-schema",
-              "api-reference/projects/update-project-schema",
-              "api-reference/projects/delete-a-project",
-              "api-reference/projects/upload-project-image",
-              "api-reference/projects/check-project-slug-availability"
-            ]
-          },
-          {
-            "group": "Project Keys",
-            "pages": [
-              "api-reference/project-keys/create-new-api-key",
-              "api-reference/project-keys/get-all-keys",
-              "api-reference/project-keys/get-specific-api-key",
-              "api-reference/project-keys/update-api-key",
-              "api-reference/project-keys/regenerate-api-key",
-              "api-reference/project-keys/verify-api-key",
-              "api-reference/project-keys/delete-api-key"
-            ]
-          },
-          {
-            "group": "Utilities",
-            "pages": [
-              "api-reference/utils/compare-two-schemas",
-              "api-reference/utils/verify-update-schema",
-              "api-reference/utils/convert-text-to-url-friendly-slug",
-              "api-reference/utils/check-utils-endpoint-status"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "SDK Reference",
-        "groups": [
-          {
-            "group": "libraries",
-            "pages": [
-              {
-                "group": "React",
-                "pages": [
-                  "sdk-reference/react-components",
-                  "sdk-reference/react-hooks",
-                  "sdk-reference/react-db"
-                ]
-              }
             ]
           }
         ]
