@@ -58,7 +58,7 @@
                 ]
               },
               {
-                "group": "authentication",
+                "group": "Basic Auth APIs",
                 "pages": [
                   "api-reference/auth/redirect-to-sign-in",
                   "api-reference/auth/get-auth-token",
@@ -67,7 +67,7 @@
                 ]
               },
               {
-                "group": "CRUD operations",
+                "group": "Basic CRUD APIs",
                 "pages": [
                   "api-reference/project-users/create-item",
                   "api-reference/project-users/get-all-items",

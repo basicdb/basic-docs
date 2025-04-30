@@ -1,24 +1,33 @@
 ---
 title: '⚡️ Quickstart'
-description: 'Adding authentication to your project with the Basic API'
+description: 'Integrate Basic into your project using REST APIs'
 ---
 <Info>
-    For built-in local-first benefits like offline support and instant UI, please use [create-lofi-app](/basic-react/create-lofi-app) or the [Basic SDK](/basic-react/basic-sdk). The API currently does not include these benefits.
+    First, check if there's an existing Basic SDK for your technology stack and use it instead for a better dev experience!
 </Info>
 # Summary
-1. The user beings the flow by clicking a "Sign in with Basic" button in your app
-2. User is redirected to a login page
-3. The user can login with Basic.id which grants them permissions to your app
-4. Basic.id redirects the user back to your app with an authorization code
-5. Your app can exchange the authorization code for access and refresh tokens. With the access token, you can make database requests and keep the user logged in. If the access token expires, you can use the refresh token to get a new access token
+There's two main steps to integrating Basic into your app. You'll need to implement Basic Auth, and then you'll be able to access the database CRUD APIs.
 
-With this, you'll be ready to [let your users access their data](/api-reference/project-users/get-all-items)!
+<CardGroup>
+<Card title="Auth APIs guide" href="/basic-restapi/basic-api#basic-auth-apis-guide">
+    Implement signup / login flows for your app's users 
+</Card>
+<Card title="CRUD APIs guide" href="/basic-restapi/basic-api#basic-crud-apis-guide">
+    Write and display data safely in your app
+</Card>
+</CardGroup>
 
-# Authentication with API
+# Basic Auth APIs guide
 Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Auth](/readings/auth-basic#introduction-to-oauth-2-0).
 
+In this guide, you will:
+1. Use "redirect to sign in" endpoint to redirect users to account creation / login flow
+2. Extract code from URL
+3. Use "get auth token" endpoint with extracted code
+4. Store auth token object for future API calls
+
 <Steps>
-    <Step title="Redirect user to /auth/authorize">
+    <Step title='Use "redirect to sign in" endpoint'>
         Create a button that redirects the user to the Basic Auth page, with the following required parameters (more info on [required parameters](/readings/auth-basic#required-parameters)):
         - `client_id='YOUR_CLIENT_ID'`
         - `redirect_uri='YOUR_REDIRECT_URI'`
@@ -112,15 +121,103 @@ Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Aut
         </CodeGroup>
     </Step>
 
-    <Step title="User grants access and is redirected back to your app with an authorization code">
+    <Step title='Extract code from URL'>
         The authorization code will be in the URL as a `code` query parameter.
         For example: 
         `https://your-app.com/callback?code=1234567890`.
         
         You need to extract the code from the URL and use it in the next step.
+
+        <CodeGroup>
+            ```bash cURL
+            # Assuming the URL is stored in a variable
+            URL="https://your-app.com/callback?code=1234567890"
+            CODE=$(echo $URL | grep -o 'code=[^&]*' | cut -d'=' -f2)
+            echo $CODE
+            ```
+            ```python Python
+            from urllib.parse import urlparse, parse_qs
+
+            # Example URL
+            url = "https://your-app.com/callback?code=1234567890"
+            
+            # Parse the URL and extract the code parameter
+            parsed_url = urlparse(url)
+            code = parse_qs(parsed_url.query)['code'][0]
+            
+            print(code)
+            ```
+            ```javascript JavaScript
+            // Example URL
+            const url = "https://your-app.com/callback?code=1234567890";
+            
+            // Extract the code parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            
+            console.log(code);
+            ```
+            ```php PHP
+            <?php
+            // Example URL
+            $url = "https://your-app.com/callback?code=1234567890";
+            
+            // Parse the URL and extract the code parameter
+            $query = parse_url($url, PHP_URL_QUERY);
+            parse_str($query, $params);
+            $code = $params['code'];
+            
+            echo $code;
+            ?>
+            ```
+            ```go Go
+            package main
+
+            import (
+                "fmt"
+                "net/url"
+            )
+
+            func main() {
+                // Example URL
+                rawURL := "https://your-app.com/callback?code=1234567890"
+                
+                // Parse the URL and extract the code parameter
+                parsedURL, _ := url.Parse(rawURL)
+                code := parsedURL.Query().Get("code")
+                
+                fmt.Println(code)
+            }
+            ```
+            ```java Java
+            import java.net.URI;
+            import java.net.URLDecoder;
+            import java.nio.charset.StandardCharsets;
+            import java.util.HashMap;
+            import java.util.Map;
+
+            public class Main {
+                public static void main(String[] args) {
+                    // Example URL
+                    String url = "https://your-app.com/callback?code=1234567890";
+                    
+                    // Parse the URL and extract the code parameter
+                    String query = URI.create(url).getQuery();
+                    Map<String, String> params = new HashMap<>();
+                    for (String param : query.split("&")) {
+                        String[] pair = param.split("=");
+                        params.put(pair[0], URLDecoder.decode(pair[1], StandardCharsets.UTF_8));
+                    }
+                    String code = params.get("code");
+                    
+                    System.out.println(code);
+                }
+            }
+            ```
+        </CodeGroup>
     </Step>
 
-    <Step title="Exchange the authorization code for an access token and a refresh code">
+    <Step title='Use "get auth token" endpoint with extracted code'>
         Make a post request to `/auth/token` with the authorization code in the body. The response will be a JSON object with the access token and a refresh code.
 
         Token URL template: 
@@ -229,15 +326,22 @@ Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Aut
         </CodeGroup>
     </Step>
 
-    <Step title="Using the access token and refresh code">
-        The access token is used to make requests to the API as part of the request header (e.g., `Authorization: Bearer 'YOUR_ACCESS_TOKEN'`), and the refresh code is used to get a new access token when the current access token expires. 
-
-        <Note>
-            Basic access tokens expire after 1 hour
-        </Note>
+    <Step title="Store auth token object for future API calls">
+        The response from the token endpoint will look like this:
+        ```json
+        {
+          "access_token": "<string>",
+          "token_type": "<string>",
+          "expires_in": 123,
+          "refresh_token": "<string>"
+        }
+        ```
     </Step>
 </Steps>
 
-# Using the database
-You can use the REST API to read and write to the user's database. Checkout the [API Reference](/api-reference/project-users/create-item) to get started.
-Before making any requests, you should validate that the access token is not expired.
+# Basic CRUD APIs guide
+The CRUD APIs are easy to use. 
+
+Make sure to check the validity of the `access_token`, and pass it in the Header of your API call. 
+
+If the `access_token` is expired, you'd repeat step 3 of the [Auth APIs guide](/basic-restapi/basic-api#basic-auth-apis-guide) but using the `refresh_token` instead of the extracted code. This will return you a fresh new `access_token`.
