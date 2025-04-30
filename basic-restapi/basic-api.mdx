@@ -345,3 +345,330 @@ The CRUD APIs are easy to use.
 Make sure to check the validity of the `access_token`, and pass it in the Header of your API call. 
 
 If the `access_token` is expired, you'd repeat step 3 of the [Auth APIs guide](/basic-restapi/basic-api#basic-auth-apis-guide) but using the `refresh_token` instead of the extracted code. This will return you a fresh new `access_token`.
+
+Here's how to validate and use the access token in different programming languages:
+
+<CodeGroup>
+    ```bash cURL
+    # Note: For bash, you'll need to use a JWT decoding tool like jq or jwt-cli
+    # Example using jwt-cli:
+    # if jwt decode YOUR_ACCESS_TOKEN | jq '.exp > now' | grep -q "true"; then
+    #   # Token is valid, proceed with API calls
+    curl --request GET \
+     --url 'https://api.basic.tech/your-endpoint' \
+     --header 'Authorization: Bearer YOUR_ACCESS_TOKEN'
+    # else
+    #   # Token is expired, refresh it
+    curl --request POST \
+     --url 'https://api.basic.tech/auth/token' \
+     --header 'Content-Type: application/json' \
+     --data '{"refresh_token":"YOUR_REFRESH_TOKEN"}'
+    ```
+    ```python Python
+    import jwt
+    import time
+    import requests
+
+    def refresh_token(refresh_token):
+        response = requests.post(
+            'https://api.basic.tech/auth/token',
+            json={'refresh_token': refresh_token},
+            headers={'Content-Type': 'application/json'}
+        )
+        return response.json()
+
+    def is_token_valid(access_token):
+        try:
+            # Decode the token without verification
+            decoded = jwt.decode(access_token, options={"verify_signature": False})
+            # Check if token is expired
+            return decoded['exp'] > time.time()
+        except:
+            return False
+
+    # Example usage
+    if is_token_valid(access_token):
+        # Token is valid, proceed with API calls
+        headers = {'Authorization': f'Bearer {access_token}'}
+        response = requests.get('https://api.basic.tech/your-endpoint', headers=headers)
+    else:
+        # Token is invalid, refresh it
+        new_tokens = refresh_token(refresh_token)
+        access_token = new_tokens['access_token']
+        refresh_token = new_tokens['refresh_token']
+        
+        # Now use the new access token
+        headers = {'Authorization': f'Bearer {access_token}'}
+        response = requests.get('https://api.basic.tech/your-endpoint', headers=headers)
+    ```
+    ```javascript JavaScript
+    import jwtDecode from 'jwt-decode';
+
+    async function refreshToken(refreshToken) {
+        const response = await fetch('https://api.basic.tech/auth/token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ refresh_token: refreshToken })
+        });
+        return await response.json();
+    }
+
+    function isTokenValid(accessToken) {
+        try {
+            const decoded = jwtDecode(accessToken);
+            // Check if token is expired
+            return decoded.exp * 1000 > Date.now();
+        } catch (error) {
+            return false;
+        }
+    }
+
+    // Example usage
+    if (isTokenValid(accessToken)) {
+        // Token is valid, proceed with API calls
+        const response = await fetch('https://api.basic.tech/your-endpoint', {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+    } else {
+        // Token is invalid, refresh it
+        const newTokens = await refreshToken(refreshToken);
+        accessToken = newTokens.access_token;
+        refreshToken = newTokens.refresh_token;
+        
+        // Now use the new access token
+        const response = await fetch('https://api.basic.tech/your-endpoint', {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+    }
+    ```
+    ```php PHP
+    <?php
+    use Firebase\JWT\JWT;
+
+    function refreshToken($refreshToken) {
+        $ch = curl_init('https://api.basic.tech/auth/token');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json'
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            'refresh_token' => $refreshToken
+        ]));
+        
+        $response = curl_exec($ch);
+        curl_close($ch);
+        
+        return json_decode($response, true);
+    }
+
+    function isTokenValid($accessToken) {
+        try {
+            $decoded = JWT::decode($accessToken, null, false);
+            return $decoded->exp > time();
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    // Example usage
+    if (isTokenValid($accessToken)) {
+        // Token is valid, proceed with API calls
+        $ch = curl_init('https://api.basic.tech/your-endpoint');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $accessToken
+        ]);
+        $response = curl_exec($ch);
+        curl_close($ch);
+    } else {
+        // Token is invalid, refresh it
+        $newTokens = refreshToken($refreshToken);
+        $accessToken = $newTokens['access_token'];
+        $refreshToken = $newTokens['refresh_token'];
+        
+        // Now use the new access token
+        $ch = curl_init('https://api.basic.tech/your-endpoint');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $accessToken
+        ]);
+        $response = curl_exec($ch);
+        curl_close($ch);
+    }
+    ?>
+    ```
+    ```go Go
+    package main
+
+    import (
+        "fmt"
+        "time"
+        "net/http"
+        "io/ioutil"
+        "encoding/json"
+        "github.com/golang-jwt/jwt/v5"
+    )
+
+    type TokenResponse struct {
+        AccessToken  string `json:"access_token"`
+        RefreshToken string `json:"refresh_token"`
+    }
+
+    func refreshToken(refreshToken string) (*TokenResponse, error) {
+        payload := map[string]string{
+            "refresh_token": refreshToken,
+        }
+        jsonData, _ := json.Marshal(payload)
+
+        req, _ := http.NewRequest("POST", "https://api.basic.tech/auth/token", bytes.NewBuffer(jsonData))
+        req.Header.Set("Content-Type", "application/json")
+
+        client := &http.Client{}
+        resp, err := client.Do(req)
+        if err != nil {
+            return nil, err
+        }
+        defer resp.Body.Close()
+
+        var tokenResp TokenResponse
+        err = json.NewDecoder(resp.Body).Decode(&tokenResp)
+        return &tokenResp, err
+    }
+
+    func isTokenValid(accessToken string) bool {
+        token, _, err := jwt.NewParser().ParseUnverified(accessToken, jwt.MapClaims{})
+        if err != nil {
+            return false
+        }
+
+        if claims, ok := token.Claims.(jwt.MapClaims); ok {
+            exp := claims["exp"].(float64)
+            return int64(exp) > time.Now().Unix()
+        }
+        return false
+    }
+
+    func main() {
+        if isTokenValid(accessToken) {
+            // Token is valid, proceed with API calls
+            req, _ := http.NewRequest("GET", "https://api.basic.tech/your-endpoint", nil)
+            req.Header.Add("Authorization", "Bearer "+accessToken)
+
+            client := &http.Client{}
+            resp, _ := client.Do(req)
+            defer resp.Body.Close()
+            body, _ := ioutil.ReadAll(resp.Body)
+            fmt.Println(string(body))
+        } else {
+            // Token is invalid, refresh it
+            newTokens, err := refreshToken(refreshToken)
+            if err != nil {
+                fmt.Println("Error refreshing token:", err)
+                return
+            }
+            
+            accessToken = newTokens.AccessToken
+            refreshToken = newTokens.RefreshToken
+            
+            // Now use the new access token
+            req, _ := http.NewRequest("GET", "https://api.basic.tech/your-endpoint", nil)
+            req.Header.Add("Authorization", "Bearer "+accessToken)
+
+            client := &http.Client{}
+            resp, _ := client.Do(req)
+            defer resp.Body.Close()
+            body, _ := ioutil.ReadAll(resp.Body)
+            fmt.Println(string(body))
+        }
+    }
+    ```
+    ```java Java
+    import io.jsonwebtoken.Claims;
+    import io.jsonwebtoken.Jwts;
+    import java.util.Date;
+    import java.net.http.HttpClient;
+    import java.net.http.HttpRequest;
+    import java.net.http.HttpResponse;
+    import java.net.URI;
+    import com.google.gson.Gson;
+
+    class TokenResponse {
+        String access_token;
+        String refresh_token;
+    }
+
+    public class TokenValidator {
+        private static final HttpClient client = HttpClient.newHttpClient();
+        private static final Gson gson = new Gson();
+
+        public static TokenResponse refreshToken(String refreshToken) throws Exception {
+            String json = String.format("{\"refresh_token\":\"%s\"}", refreshToken);
+            
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://api.basic.tech/auth/token"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return gson.fromJson(response.body(), TokenResponse.class);
+        }
+
+        public static boolean isTokenValid(String accessToken) {
+            try {
+                Claims claims = Jwts.parserBuilder()
+                    .build()
+                    .parseClaimsJwt(accessToken)
+                    .getBody();
+                
+                Date expiration = claims.getExpiration();
+                return expiration.after(new Date());
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        public static void main(String[] args) {
+            if (isTokenValid(accessToken)) {
+                // Token is valid, proceed with API calls
+                HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://api.basic.tech/your-endpoint"))
+                    .header("Authorization", "Bearer " + accessToken)
+                    .build();
+
+                try {
+                    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                    System.out.println(response.body());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Token is invalid, refresh it
+                try {
+                    TokenResponse newTokens = refreshToken(refreshToken);
+                    accessToken = newTokens.access_token;
+                    refreshToken = newTokens.refresh_token;
+                    
+                    // Now use the new access token
+                    HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create("https://api.basic.tech/your-endpoint"))
+                        .header("Authorization", "Bearer " + accessToken)
+                        .build();
+
+                    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                    System.out.println(response.body());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    ```
+</CodeGroup>
