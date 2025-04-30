@@ -1,6 +1,6 @@
 ---
-title: 'User-owned data stores'
-description: 'What is a user-owned data store in Basic'
+title: 'Personal Data Stores (PDS)'
+description: 'What is a PDS in Basic'
 ---
 
 # Summary
@@ -14,8 +14,8 @@ description: 'What is a user-owned data store in Basic'
   </Card>
 </CardGroup>
 
-User-owned data stores are independent cloud databases per user.
-An assigned primary user is the ultimate owner of the data within that database.
+PDS' are independent cloud data stores per user.
+An assigned primary user is the ultimate owner of the data within that data store.
 Data may be shared with apps, devices, and other users, and the decision to do so is always made by (or reverted by) the primary user. 
 
 # What is a Basic Data Store?
@@ -25,14 +25,14 @@ We designed Basic Data Stores so that every user is the proprietor of their own 
 <img
   className="block"
   src="/images/user-owned-data-store.svg"
-  alt="User-owned Data Store"
+  alt="Personal Data Store"
 />
 
 <Note>
     The data store above is depicted for an individual. For businesses, the data store would be owned by primary admins and the same principles apply.
 </Note>
 
-Fundamentally, a user-owned data store is a database that’s dedicated to a user. 
+Fundamentally, a PDS is a data store that’s dedicated to a user. 
 This database is independent of any application that it is connected to (in that it doesn’t live on the servers or be owned by applications in the way a traditional database like Firebase, MongoDB, etc. may be). 
 Instead, it’s ownership belongs to the user that’s assigned to it as a primary user. 
 
@@ -54,10 +54,10 @@ Data flows between the frontend, backend, and data layers as shown in App A.
 The apps and websites they're using act as an intermediary that they have to interact with in order to retrieve or change their own data.
 For example, if App B or C want to access the words they had typed up in Google Docs (App A), they would likely have to go through the Google Docs backend.
 
-User-owned data stores flips this paradigm and give every user their own bucket, where information about them and the data they generate is put into their own independent buckets. 
+PDS' flips this paradigm and give every user their own bucket, where information about them and the data they generate is put into their own independent buckets. 
 Applications will request permission to read / write data to those buckets, but at any point users can sever those connections to any of their apps rather than relying on intermediary services for accessing their data.
 
-# Benefits of user-owned data stores
+# Benefits of PDS'
 
 ### Consolidation, and interoperability
 
@@ -70,7 +70,7 @@ Applications will request permission to read / write data to those buckets, but 
 In traditional centralized data ownership models, user data is spread across multiple databases owned by different apps and websites (notice how User A's data is spread across Apps A, B, and C). 
 The data is likely to be in different formats, limiting its utility and increasing the complexity of integration.
 
-With user-owned data stores, user data remains in a single space that can be queried (all the data from Apps A, B, and C that pertains to User A are stored in User A's data store). 
+With PDS', user data remains in a single space that can be queried (all the data from Apps A, B, and C that pertains to User A are stored in User A's data store). 
 If you were to build a word processor tool A (similar to Google Docs) using Basic, all the words that your users type up on the document are stored in their data store. 
 Any words they may type up in a different word processor tool B that also uses Basic for data would also be stored in the same data store.
 
@@ -89,7 +89,7 @@ Traditionally, user data is generally only interactable through APIs of the resp
 This approach relies on individual services to implement APIs, and to decide what data to share or not. 
 A mismatch of priorities between the type of data a service wants to make available through their APIs and the data a user may want to use would cause users to feel like their data is "walled off".
 
-With user-owned data stores, a user's data remains with them regardless of the availability of APIs or the shuttering of services (in the diagram above, even if any of the connections to apps, devices, or users disappear, the data will still be available in User A's data store). 
+With PDS', a user's data remains with them regardless of the availability of APIs or the shuttering of services (in the diagram above, even if any of the connections to apps, devices, or users disappear, the data will still be available in User A's data store). 
 It will remain available for use with any future services - a deep dive into how Basic enables data permanence is coming soon.
 
 ### Simpler applications
@@ -102,16 +102,16 @@ It will remain available for use with any future services - a deep dive into how
 
 Traditional apps and websites have larger and more complex backend and data layers because of having to manage data, auth, and other complex data operations for all their users.
 
-User-owned data stores allow developers to build apps and websites with much simpler architectures since they no longer need to own or manage user data. 
+PDS' allow developers to build apps and websites with much simpler architectures since they no longer need to own or manage user data. 
 With Basic, developers can focus on building better user experiences.
 
 # FAQs
 <AccordionGroup>
-<Accordion title="Are user-owned data stores less secure than traditional databases?">
+<Accordion title="Are PDS' less secure than traditional databases?">
 No. Human errors and social engineering compose of the vast majority of security breaches. 
 In traditional databases, the consequences of these sort of human-oriented attacks are much more dire since a single database tends to contain information about hundreds of thousands or millions of users.
 
-In user-owned data stores, data is limited to only that of a single user. 
+In PDS, data is limited to only that of a single user. 
 
 For a hacker to obtain the equivalent scale of data, they’d have to conduct an attack on millions of users instead of relying on a single “weak point”, which is significantly more difficult and less rewarding for them.
 
@@ -134,4 +134,4 @@ And they can always in the future choose to access their data since it’s alway
 </Accordion>
 </AccordionGroup>
 ---
-*Basic is a protocol for creating open-source, user-owned data stores. We make full-stack tooling (Auth, DB, Sync, etc.) to help developers build more interoperable applications without having to worry about privacy for their users.*
+*Basic is a protocol for creating open-source, PDS'. We make full-stack tooling (Auth, DB, Sync, etc.) to help developers build more interoperable applications without having to worry about privacy for their users.*
