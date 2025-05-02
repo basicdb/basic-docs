@@ -125,13 +125,19 @@
         "tab": "Readings",
         "groups": [
           {
-            "group": "philosophy of Basic",
+            "group": "💡 principles of Basic",
             "pages": [
               "readings/user-owned-data-stores",
               "readings/local-first-sync",
+              "readings/permissioning"
+            ]
+          },
+          {
+            "group": "📖 tech references",
+            "pages": [
               "readings/interop",
-              "readings/permissioning",
-              "readings/schema"
+              "readings/schema",
+              "readings/pwa"
             ]
           },
           {
