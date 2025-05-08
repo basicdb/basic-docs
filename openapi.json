@@ -1183,6 +1183,150 @@
             }
           }
         }
+      },
+      "patch": {
+        "summary": "Merge and update project schema",
+        "tags": [
+          "projects"
+        ],
+        "description": "Merges the provided schema with the existing schema and creates a new version.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "schema"
+                ],
+                "properties": {
+                  "schema": {
+                    "type": "object",
+                    "description": "Schema changes to merge with the existing schema",
+                    "properties": {},
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Unique identifier of the project"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Schema merged and updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Schema merged and updated successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "project_id": {
+                          "type": "string"
+                        },
+                        "schema": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": true
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid schema or merge conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Bad Request - Invalid schema or merge conflict",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Project not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Internal server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/project/{id}/upload-image": {
@@ -4885,12 +5029,12 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3003",
-      "description": "Development server"
-    },
-    {
       "url": "https://api.basic.tech",
       "description": "Production server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Development server"
     }
   ],
   "tags": [

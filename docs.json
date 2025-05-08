@@ -91,7 +91,9 @@
                   "api-reference/projects/update-project-details",
                   "api-reference/projects/delete-a-project",
                   "api-reference/projects/get-all-admin-projects",
+                  "api-reference/projects/get-project-schema",
                   "api-reference/projects/update-project-schema",
+                  "api-reference/projects/patch-project-schema",
                   "api-reference/projects/upload-project-image",
                   "api-reference/projects/check-project-slug-availability"
                 ]
