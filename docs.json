@@ -20,7 +20,8 @@
                 "group": "get started",
                 "pages": [
                   "get-started/welcome",
-                  "get-started/adminportal"
+                  "get-started/adminportal",
+                  "get-started/cli"
                 ]
               },
               {
