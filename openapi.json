@@ -5025,6 +5025,848 @@
           }
         }
       }
+    },
+    "/account/apps/{project_id}": {
+      "get": {
+        "summary": "Get connected application details",
+        "tags": [
+          "account"
+        ],
+        "description": "Retrieves details of a specific connected application",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "description": "project id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Connected application details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Connected application details",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Application not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Application not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/{project_id}/db/{table}": {
+      "get": {
+        "summary": "Get database table item",
+        "tags": [
+          "account"
+        ],
+        "description": "Retrieves an item from a database table. Supports filtering, ordering, pagination, and field selection.\n\n- **Ordering**: Use `?order=field.direction` (e.g., `?order=created_at.desc,name.asc`)\n- **Pagination**: Use `?limit=10&offset=20`\n- **Filtering**: Use operators like `?name=eq.John`, `?price=gt.10`, etc.\n- **Field Selection**: Use `?select=id,name,email` to return only specific fields\n",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "description": "item id"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "order",
+            "required": false,
+            "description": "order by field and direction (asc or desc) (e.g. ?order=created_at.desc,name.asc)"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "description": "maximum number of results to return"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "description": "number of results to skip"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "description": "comma-separated list of fields to return (e.g. ?select=name,email,created_at)"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "description": "project id"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "description": "table name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Database item",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Database item",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "count": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Item not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create database table item",
+        "tags": [
+          "account"
+        ],
+        "description": "Creates a new item in a database table",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "description": "project id"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "description": "table name"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Item created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Item created successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data schema",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Invalid data schema",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/{project_id}/db/{table}/{item_id}": {
+      "get": {
+        "summary": "Get database table item by ID",
+        "tags": [
+          "account"
+        ],
+        "description": "Retrieves a specific item by ID from a database table. Supports field selection with `?select=field1,field2,field3`.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "description": "comma-separated list of fields to return (e.g. ?select=name,email,created_at)"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "description": "project id"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "description": "table name"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "description": "item id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Database item",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Database item",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Item not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update database table item",
+        "tags": [
+          "account"
+        ],
+        "description": "Updates an existing item in a database table",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "description": "project id"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "description": "table name"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "description": "item id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Item updated successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data schema",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Invalid data schema",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Replace database table item",
+        "tags": [
+          "account"
+        ],
+        "description": "Replaces an existing item in a database table",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "description": "project id"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "description": "table name"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "description": "item id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item replaced successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Item replaced successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data schema",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Invalid data schema",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Server error",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete database table item",
+        "tags": [
+          "account"
+        ],
+        "description": "Deletes an item from a database table",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "description": "project id"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "description": "table name"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "description": "item id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Item deleted successfully",
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Unauthorized",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Item not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Item not found",
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "servers": [
@@ -5061,6 +5903,10 @@
     {
       "name": "utils",
       "description": "Utility end-points - very useful, trust me"
+    },
+    {
+      "name": "account",
+      "description": "Account and database management end-points"
     }
   ],
   "externalDocs": {

@@ -67,14 +67,14 @@
                 ]
               },
               {
-                "group": "Basic Datastore APIs",
+                "group": "Basic Datastore APIs (client side)",
                 "pages": [
-                  "api-reference/project-users/create-item",
-                  "api-reference/project-users/get-all-items",
-                  "api-reference/project-users/get-specific-item",
-                  "api-reference/project-users/replace-an-item",
-                  "api-reference/project-users/update-an-item-in-the-users-database-1",
-                  "api-reference/project-users/delete-an-item"
+                  "api-reference/pds/create-item-pds",
+                  "api-reference/pds/get-all-items-pds",
+                  "api-reference/pds/get-specific-item-pds",
+                  "api-reference/pds/replace-an-item-pds",
+                  "api-reference/pds/update-an-item-pds",
+                  "api-reference/pds/delete-an-item-pds"
                 ]
               }
             ]
@@ -83,6 +83,17 @@
             "dropdown": "Management APIs",
             "icon": "screwdriver-wrench",
             "groups": [
+              {
+                "group": "Datastore APIs (via a server)",
+                "pages": [
+                  "api-reference/project-users/create-item",
+                  "api-reference/project-users/get-all-items",
+                  "api-reference/project-users/get-specific-item",
+                  "api-reference/project-users/replace-an-item",
+                  "api-reference/project-users/update-an-item-in-the-users-database-1",
+                  "api-reference/project-users/delete-an-item"
+                ]
+              },
               {
                 "group": "projects",
                 "pages": [
