@@ -32,7 +32,7 @@ description: "Build personalized apps and agents with Basic. Users are in contro
 
 ## features and benefits
 Basic is a purpose-built backend for personalization of apps and agents. 
-We have a federated, "data store per-user" model instead of a traditional database that you have to provision and manage.
+We have a federated, "data store per-user" model instead of a traditional database.
 
 Read/write data directly to user data stores with simple SDKs/APIs.
 Securely access real-time user-context across existing apps in your users' data stores for personalizing your apps and LLMs.
@@ -67,29 +67,25 @@ Next, choose the right version of the docs based on your technology stack in the
 
 *Roadmap for support: Next, Python, iOS, Android*
 
+**Follow one of these implementation guides based on your stack:**
 
-If you're **starting from scratch**, the fastest way to get a local-first app running is with `npx create-lofi-app`.
-
+  <CardGroup cols={3}>
   <Card
-    title="getting started with create-lofi-app"
+    title="starting from scratch for React"
     icon="code"
     href="/basic-react/create-lofi-app"
   >
     quickest way to build a local-first app from scratch
   </Card>
-
-If you're **already have a React project**, check out our React SDK. **Otherwise**, use our API.
-
-  <CardGroup cols={2}>
     <Card
-      title="getting started with the React SDK"
+      title="integrate into existing React project"
       icon="code"
       href="/basic-react/basic-sdk"
     >
       integrate Basic into your existing React project
     </Card>
     <Card
-      title="getting started with the Basic API"
+      title="integrate into non-React project"
       icon="code"
       href="/basic-restapi/basic-api"
     >

@@ -67,7 +67,7 @@
                 ]
               },
               {
-                "group": "Basic CRUD APIs",
+                "group": "Basic Datastore APIs",
                 "pages": [
                   "api-reference/project-users/create-item",
                   "api-reference/project-users/get-all-items",
