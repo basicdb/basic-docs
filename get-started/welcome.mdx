@@ -30,37 +30,42 @@ description: "Build personalized apps and agents with Basic. Users are in contro
 </div>
 </Frame>
 
-Basic replaces your primary datastore:
+## features and benefits
+Basic is a purpose-built backend for personalization of apps and agents. 
+We have a federated, "data store per-user" model instead of a traditional database that you have to provision and manage.
+
+Read/write data directly to user data stores with simple SDKs/APIs.
+Securely access real-time user-context across existing apps in your users' data stores for personalizing your apps and LLMs.
+
+Basic replaces your primary datastore for the following benefits:
 - **Zero infrastructure**: no database to provision — CRUD via SDKs/APIs
 - **Share user-context across apps**: real-time read/writes across schemas
-- **Built in auth & permissioning**: "multitenant" auth with RLS by default
+- **Built in auth & permissioning**: "multi-tenant" auth with RLS by default
 - **Federated, per-user data stores**: portable across apps for deep personalization
 - **Instant & offline-first (SDKs only)**: apps with 0 latency apps and offline support
 
-*Coming soon: multiplayer, federated learning*
+*Features coming soon: multiplayer, federated learning*
 
-**Best for:** AI apps & agents, AI app/agent builders, AI wearables, Embedded AI, personal/productivity software
+## use cases
+- **AI apps & agents**: Simple way to store and access user context from previous interactions.
+- **AI app/agent builders**: Scale auth and backends for the thousands of apps and agents your users are building.
+- **AI wearables**: Store sensitive user information securely and continue improving your models with leaking their data.
+- **Embedded AI**: Personalize LLMs for your users with their existing rather than providing a generic, bland experience.
+- **Personal/productivity software**: Fit into existing user workflows with bi-directional sync of their existing data. Zero latency and offline support cuts through the noise of your competition. 
 
-## getting started with Basic
+## getting started
 First, [set up your Basic account](/get-started/adminportal). You've the option to [set up the Basic CLI](/get-started/cli) as well.
 
-Next, choose the right version of the docs based on your technology stack in the top left hand dropdown.
+Next, choose the right version of the docs based on your technology stack in the top left hand dropdown. These are the ones we support so far:
 
-<Info> Management APIs are only for managing Basic admin accounts and projects programmatically. </Info>
+| Framework / API      | Support   |
+|----------------------|-----------|
+| React                | ✅        |
+| React Native         | ✅        |
+| REST APIs            | ✅        |
+| Management APIs      | ✅        |
 
-<Card>
-  <img
-    className="block"
-    src="/images/StackDropdown.png"
-    alt="Technology Stack Dropdown"
-    style={{ 
-      objectFit: 'contain',
-      width: '50%',
-      maxWidth: '50%',
-      marginBottom: '20px'
-    }}
-  />
-</Card>
+*Roadmap for support: Next, Python, iOS, Android*
 
 
 If you're **starting from scratch**, the fastest way to get a local-first app running is with `npx create-lofi-app`.
