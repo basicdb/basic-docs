@@ -1,0 +1,71 @@
+---
+title: "⚡️ Quickstart"
+description: "Using the @basictech/expo library with your React Native project"
+---
+## Installation
+Install the package via npm:
+```bash
+npm install @basictech/expo
+```
+
+## Define a schema
+Define your database schema as a TypeScript constant (e.g., `src/schema.ts`):
+
+```typescript
+// src/basic.config.ts
+export const schema = {
+  project_id: 'YOUR_PROJECT_ID', // Replace with your actual project ID
+  version: 1,
+  tables: {
+    // example table for a notes app
+    notes: {
+      type: 'collection',
+      fields: {
+        title: { type: 'string', indexed: true },
+        content: { type: 'string' },
+        createdAt: { type: 'number', indexed: true },
+        completed: { type: 'boolean', indexed: true },
+        priority: { type: 'number', indexed: true },
+        tags: { type: 'json', indexed: true }
+      },
+    },
+    // Add other tables here
+  },
+};
+```
+
+## Provider Integration
+Wrap your application's root with the `BasicProvider`:
+```tsx
+// App.tsx
+import { BasicProvider } from '@basictech/expo';
+import { schema } from './basic.config';
+import MainApp from './MainApp';
+
+export default function App() {
+  return (
+    <BasicProvider schema={schema} project_id={schema.project_id}>
+      <MainApp />
+    </BasicProvider>
+  );
+}
+```
+**Note:** Ensure your app's `app.json` sets the correct URI scheme under `expo.scheme` for authentication callbacks.
+
+## Authentication & State Management
+Use the `useBasic` hook from `@basictech/expo` inside your components to access authentication state and database client:
+
+```tsx
+import { useBasic } from '@basictech/expo';
+
+const { user, login, signout, db, isLoading, isSignedIn } = useBasic();
+```
+
+**Returned properties:**  
+- `user`: The authenticated user or null.
+- `login()`: Starts the OAuth login flow.
+- `signout()`: Logs the user out, clearing all tokens.
+- `db`: The main [database client](/sdk-reference/expo-rn).
+- `isLoading`: True during authentication state checks.
+- `isSignedIn`: Whether a user is authenticated.
+

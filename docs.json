@@ -34,7 +34,7 @@
               {
                 "group": "integrate Basic into existing app",
                 "pages": [
-                  "basic-react/basic-sdk"
+                  "basic-react/basic-react-sdk"
                 ]
               },
               {
@@ -43,6 +43,24 @@
                   "sdk-reference/react-components",
                   "sdk-reference/react-hooks",
                   "sdk-reference/react-db"
+                ]
+              }
+            ]
+          },
+          {
+            "dropdown": "Expo / React Native",
+            "groups": [
+              {
+                "group": "get started",
+                "pages": [
+                  "basic-expo-rn/basic-rn-sdk"
+                ]
+              },
+              {
+                "group": "SDK reference",
+                "pages": [
+                  "sdk-reference/expo-rn",
+                  "sdk-reference/expo-rn-filtering"
                 ]
               }
             ]
@@ -84,7 +102,7 @@
             "icon": "screwdriver-wrench",
             "groups": [
               {
-                "group": "Datastore APIs (via a server)",
+                "group": "Datastore APIs (server side)",
                 "pages": [
                   "api-reference/project-users/create-item",
                   "api-reference/project-users/get-all-items",

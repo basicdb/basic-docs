@@ -1,0 +1,48 @@
+---
+title: Filtering, ordering, pagination
+description: Learn how to filter results using the Expo / RN SDK
+---
+## Querying
+Chain after `.getAll()`:
+
+### Filtering (`filter`)
+```js
+const notes = await db.from('notes').getAll().filter({ completed: true });
+```
+- **Method:** `filter(conditions)`
+- **Supported Operators:** eq, neq, gt, gte, lt, lte, like, ilike, in, not (see [list of operators](#supported-operators))
+
+### Ordering (`order`)
+```js
+const ordered = await db.from('notes').getAll().order('created_at', 'desc');
+```
+- **Method:** `order(field, direction?)` (`direction` defaults to 'asc')
+
+### Pagination (`limit`, `offset`)
+```js
+const paged = await db.from('notes').getAll().limit(10).offset(10);
+```
+- **Methods:** `limit(count)`, `offset(count)`
+
+**Note:** All these must be chained after `.getAll()`.
+
+## Supported operators
+All used within `filter()`:
+
+| Operator | Description                       | Example                                            |
+|----------|-----------------------------------|----------------------------------------------------|
+| `eq`     | Equality                         | `.filter({ status: { eq: "active" } })`            |
+| `neq`    | Not equal                        | `.filter({ status: { neq: "deleted" } })`          |
+| `gt`     | Greater than                     | `.filter({ priority: { gt: 3 } })`                 |
+| `gte`    | Greater than or equal            | `.filter({ priority: { gte: 3 } })`                |
+| `lt`     | Less than                        | `.filter({ priority: { lt: 3 } })`                 |
+| `lte`    | Less than or equal               | `.filter({ priority: { lte: 3 } })`                |
+| `like`   | Pattern (case sensitive)         | `.filter({ title: { like: "%project%" } })`        |
+| `ilike`  | Pattern (case insensitive)       | `.filter({ title: { ilike: "%todo%" } })`         |
+| `in`     | Value in set                     | `.filter({ tags: { in: ["work", "important"] } })` |
+| `not`    | Negation                        | `.filter({ tags: { not: { eq: "work" } } })`       |
+
+## Limitations
+- Only one filterable condition per field per query (no compound filters across multiple fields)
+- Range filters (e.g., `{ gte: x, lte: y }`) not supported
+- Method chaining order is flexible, but all must be chained after `getAll()`
