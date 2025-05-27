@@ -76,7 +76,7 @@
                 ]
               },
               {
-                "group": "Basic Auth APIs",
+                "group": "Basic auth APIs",
                 "pages": [
                   "api-reference/auth/redirect-to-sign-in",
                   "api-reference/auth/get-auth-token",
@@ -85,7 +85,7 @@
                 ]
               },
               {
-                "group": "Basic Datastore APIs (client side)",
+                "group": "Basic database APIs (client side)",
                 "pages": [
                   "api-reference/pds/create-item-pds",
                   "api-reference/pds/get-all-items-pds",
@@ -102,7 +102,7 @@
             "icon": "screwdriver-wrench",
             "groups": [
               {
-                "group": "Datastore APIs (server side)",
+                "group": "Database APIs (server side)",
                 "pages": [
                   "api-reference/project-users/create-item",
                   "api-reference/project-users/get-all-items",
@@ -120,11 +120,27 @@
                   "api-reference/projects/update-project-details",
                   "api-reference/projects/delete-a-project",
                   "api-reference/projects/get-all-admin-projects",
+                  "api-reference/projects/upload-project-image",
+                  "api-reference/projects/check-project-slug-availability"
+                ]
+              },
+              {
+                "group": "projects-users",
+                "pages": [
+                  "api-reference/project-users/get-project-users",
+                  "api-reference/project-users/get-user-details",
+                  "api-reference/project-users/update-user-details",
+                  "api-reference/project-users/delete-a-user-from-the-project"
+                ]
+              },
+              {
+                "group": "schema",
+                "pages": [
                   "api-reference/projects/get-project-schema",
                   "api-reference/projects/update-project-schema",
                   "api-reference/projects/patch-project-schema",
-                  "api-reference/projects/upload-project-image",
-                  "api-reference/projects/check-project-slug-availability"
+                  "api-reference/utils/compare-two-schemas",
+                  "api-reference/utils/verify-update-schema"
                 ]
               },
               {
@@ -142,8 +158,6 @@
               {
                 "group": "utilities",
                 "pages": [
-                  "api-reference/utils/compare-two-schemas",
-                  "api-reference/utils/verify-update-schema",
                   "api-reference/utils/convert-text-to-url-friendly-slug",
                   "api-reference/utils/check-utils-endpoint-status"
                 ]
