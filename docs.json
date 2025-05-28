@@ -92,9 +92,24 @@
             "icon": "cloud",
             "groups": [
               {
-                "group": "get started",
+                "group": "1. create Basic account",
+                "pages": [
+                  "basic-restapi/api-adminportal",
+                  "basic-restapi/api-cli"
+                ]
+              },
+              {
+                "group": "2. implement Basic",
                 "pages": [
                   "basic-restapi/basic-api"
+                ]
+              },
+              {
+                "group": "guides",
+                "pages": [
+                  "basic-restapi/api-schema",
+                  "basic-restapi/api-interop",
+                  "basic-restapi/api-filtering"
                 ]
               },
               {

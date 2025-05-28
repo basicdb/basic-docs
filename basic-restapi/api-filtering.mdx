@@ -1,0 +1,64 @@
+---
+title: Filtering, ordering, pagination
+description: Learn how to filter results using the APIs
+---
+## Querying
+Chain after ` GET https://api.basic.tech/account/{project_id}/db/{table}'` endpoint as query params.
+
+### Filtering (`filter`)
+```js
+const options = {method: 'GET'};
+
+//example to filter where name equals John
+fetch('https://api.basic.tech/account/{project_id}/db/{table}?name=eq.John', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
+```
+- **Method:** `filter(conditions)`
+- **Supported Operators:** eq, neq, gt, gte, lt, lte, like, ilike, in, not (see [list of operators](#supported-operators))
+
+### Ordering (`order`)
+```js
+const options = {method: 'GET'};
+
+//example to filter where created_at is descending, and name is ascending
+fetch('https://api.basic.tech/account/{project_id}/db/{table}?order=created_at.desc,name.asc', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
+```
+- **Method:** `order(field, direction?)` (`direction` defaults to 'asc')
+
+### Pagination (`limit`, `offset`)
+```js
+const options = {method: 'GET'};
+
+//example to filter where limit is 10, offset is 20
+fetch('https://api.basic.tech/account/{project_id}/db/{table}?limit=10&offset=20', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
+```
+- **Methods:** `limit(count)`, `offset(count)`
+
+## Supported operators
+All used within `filter()`:
+
+| Operator | Description                       | Example                                            |
+|----------|-----------------------------------|----------------------------------------------------|
+| `eq`     | Equality                         | `.filter({ status: { eq: "active" } })`            |
+| `neq`    | Not equal                        | `.filter({ status: { neq: "deleted" } })`          |
+| `gt`     | Greater than                     | `.filter({ priority: { gt: 3 } })`                 |
+| `gte`    | Greater than or equal            | `.filter({ priority: { gte: 3 } })`                |
+| `lt`     | Less than                        | `.filter({ priority: { lt: 3 } })`                 |
+| `lte`    | Less than or equal               | `.filter({ priority: { lte: 3 } })`                |
+| `like`   | Pattern (case sensitive)         | `.filter({ title: { like: "%project%" } })`        |
+| `ilike`  | Pattern (case insensitive)       | `.filter({ title: { ilike: "%todo%" } })`         |
+| `in`     | Value in set                     | `.filter({ tags: { in: ["work", "important"] } })` |
+| `not`    | Negation                        | `.filter({ tags: { not: { eq: "work" } } })`       |
+
+## Limitations
+- Only one filterable condition per field per query (no compound filters across multiple fields)
+- Range filters (e.g., `{ gte: x, lte: y }`) not supported
+- Method chaining order is flexible, but all must be chained after `getAll()`
