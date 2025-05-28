@@ -43,20 +43,19 @@ fetch('https://api.basic.tech/account/{project_id}/db/{table}?limit=10&offset=20
 - **Methods:** `limit(count)`, `offset(count)`
 
 ## Supported operators
-All used within `filter()`:
 
 | Operator | Description                       | Example                                            |
 |----------|-----------------------------------|----------------------------------------------------|
-| `eq`     | Equality                         | `.filter({ status: { eq: "active" } })`            |
-| `neq`    | Not equal                        | `.filter({ status: { neq: "deleted" } })`          |
-| `gt`     | Greater than                     | `.filter({ priority: { gt: 3 } })`                 |
-| `gte`    | Greater than or equal            | `.filter({ priority: { gte: 3 } })`                |
-| `lt`     | Less than                        | `.filter({ priority: { lt: 3 } })`                 |
-| `lte`    | Less than or equal               | `.filter({ priority: { lte: 3 } })`                |
-| `like`   | Pattern (case sensitive)         | `.filter({ title: { like: "%project%" } })`        |
-| `ilike`  | Pattern (case insensitive)       | `.filter({ title: { ilike: "%todo%" } })`         |
-| `in`     | Value in set                     | `.filter({ tags: { in: ["work", "important"] } })` |
-| `not`    | Negation                        | `.filter({ tags: { not: { eq: "work" } } })`       |
+| `eq`     | Equality                         | `status=eq.active`                                |
+| `neq`    | Not equal                        | `status=neq.deleted`                              |
+| `gt`     | Greater than                     | `priority=gt.3`                                   |
+| `gte`    | Greater than or equal            | `priority=gte.3`                                  |
+| `lt`     | Less than                        | `priority=lt.3`                                   |
+| `lte`    | Less than or equal               | `priority=lte.3`                                  |
+| `like`   | Pattern (case sensitive)         | `title=like.%project%`                            |
+| `ilike`  | Pattern (case insensitive)       | `title=ilike.%todo%`                              |
+| `in`     | Value in set                     | `tags=in.work,important`                          |
+| `not`    | Negation                         | `tags=not.eq.work`                                |
 
 ## Limitations
 - Only one filterable condition per field per query (no compound filters across multiple fields)
