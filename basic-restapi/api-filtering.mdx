@@ -3,7 +3,7 @@ title: Filtering, ordering, pagination
 description: Learn how to filter results using the APIs
 ---
 ## Querying
-Chain after ` GET https://api.basic.tech/account/{project_id}/db/{table}'` endpoint as query params.
+Chain after `GET https://api.basic.tech/account/{project_id}/db/{table}` endpoint as query params.
 
 ### Filtering (`filter`)
 ```js
@@ -52,12 +52,12 @@ fetch('https://api.basic.tech/account/{project_id}/db/{table}?limit=10&offset=20
 | `gte`    | Greater than or equal            | `priority=gte.3`                                  |
 | `lt`     | Less than                        | `priority=lt.3`                                   |
 | `lte`    | Less than or equal               | `priority=lte.3`                                  |
-| `like`   | Pattern (case sensitive)         | `title=like.%project%`                            |
-| `ilike`  | Pattern (case insensitive)       | `title=ilike.%todo%`                              |
+| `like`   | Pattern (case sensitive)         | `title=like.*project*`                            |
+| `ilike`  | Pattern (case insensitive)       | `title=ilike.*todo*`                              |
 | `in`     | Value in set                     | `tags=in.work,important`                          |
 | `not`    | Negation                         | `tags=not.eq.work`                                |
 
 ## Limitations
 - Only one filterable condition per field per query (no compound filters across multiple fields)
-- Range filters (e.g., `{ gte: x, lte: y }`) not supported
-- Method chaining order is flexible, but all must be chained after `getAll()`
+- Range filters (e.g., `?field=gte.x&lte.y`) not supported
+- Method chaining order is flexible, but all must be chained after `GET https://api.basic.tech/account/{project_id}/db/{table}`
