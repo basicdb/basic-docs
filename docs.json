@@ -39,7 +39,10 @@
               {
                 "group": "guides",
                 "pages": [
-                  "basic-react/to-do-app"
+                  "basic-react/to-do-app",
+                  "basic-react/react-schema",
+                  "basic-react/react-interop",
+                  "basic-react/react-pwa"
                 ]
               },
               {

@@ -1,10 +1,15 @@
 ---
-title: 'Schema management'
+title: 'Schema'
 description: 'Deeper dive into how schemas work in Basic'
 ---
 # Overview
 In Basic, we declare schemas in a JSON format as part of the `basic.config.ts` or `basic.config.js` file that lives in your repository. 
 These `basic.config` files can be committed to git, and unlock "schema-as-code" capabilities for your project.
+
+Basic schemas are very similar to SQL/Postgres tables with the following differences:
+- no separate users table required (Basic's datastore per user model already ties data to each specific user)
+- no need to declare RLS
+- `id` and `created_at` fields are created automatically for you
 
 Schemas would follow this general format:
 <img src="/images/schema.svg" alt="Schema" />
