@@ -17,24 +17,29 @@
             "dropdown": "React",
             "groups": [
               {
-                "group": "get started",
+                "group": "welcome",
                 "pages": [
-                  "get-started/welcome",
-                  "get-started/adminportal",
-                  "get-started/cli"
+                  "get-started/welcome"
                 ]
               },
               {
-                "group": "start a new app",
+                "group": "1. create Basic account",
+                "pages": [
+                  "basic-react/react-adminportal",
+                  "basic-react/react-cli"
+                ]
+              },
+              {
+                "group": "2. implement Basic",
                 "pages": [
                   "basic-react/create-lofi-app",
-                  "basic-react/to-do-app"
+                  "basic-react/basic-react-sdk"
                 ]
               },
               {
-                "group": "integrate Basic into existing app",
+                "group": "guides",
                 "pages": [
-                  "basic-react/basic-react-sdk"
+                  "basic-react/to-do-app"
                 ]
               },
               {

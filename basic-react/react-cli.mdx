@@ -1,0 +1,70 @@
+---
+title: 'Set up the Basic CLI (optional)'
+description: 'Using the CLI or code editor LLMs to manage projects.'
+---
+
+## Install the CLI
+
+<Steps>
+  <Step title="Install the CLI">
+    First, install the CLI using your terminal.
+    ```bash
+    npm i -g @basictech/cli
+    ```
+  </Step>
+  <Step title="Login to Basic using the CLI">
+    Run `basic login` to create your basic admin account. You will be redirected to a web page to login.
+    ```bash
+    basic login
+    ```
+  </Step>
+</Steps>
+
+# Create / integrate a project
+<Steps>
+  <Step title="Initialize the Basic CLI">
+    Navigate to your project directory and run `basic init` to create your project.
+    ```bash
+    cd project-name
+    ```
+
+    ```bash
+    basic init
+    ```
+    You will be prompted to choose between creating a new project or integrating an existing project.
+    <img src="/images/basic-init.png" />
+    </Step>
+    <Step title="Create or integrate a project">
+    Choose your tech stack and project name.
+    <CardGroup>
+      <Card title="Create a project">
+        <img src="/images/basic-create-project-cli.png" />
+      </Card>
+      <Card title="Integrate an existing project">
+        <img src="/images/basic-integrate-project-cli.png" />
+      </Card>
+    </CardGroup>
+  </Step>
+</Steps>
+
+That's it! You now have a new project created. You'll even notice a new `basic.config.ts` / `basic.config.js` file in your project directory with your project ID included!
+
+If you run `basic init` in a codebase with an existing `basic.config.ts` file (e.g., created using via [create-lofi-app](/basic-react/create-lofi-app)), you'll notice that the project_id in your `basic.config.ts` file gets automatically updated.
+# Other CLI commands
+
+<Card>
+**View all commands**
+
+```bash
+basic help
+```
+</Card>
+
+Other commands include:
+- `basic account` - Show account information
+- `basic logout` - logout from your basic account
+- `basic status` - Show login status
+- `basic projects` - list your projects
+- `basic version` - Show CLI version
+- `basic update` - Update CLI to the latest version
+- `basic debug` - Show Basic config directory location

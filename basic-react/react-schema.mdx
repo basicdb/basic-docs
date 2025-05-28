@@ -1,0 +1,106 @@
+---
+title: 'Schema management'
+description: 'Deeper dive into how schemas work in Basic'
+---
+# Overview
+In Basic, we declare schemas in a JSON format as part of the `basic.config.ts` or `basic.config.js` file that lives in your repository. 
+These `basic.config` files can be committed to git, and unlock "schema-as-code" capabilities for your project.
+
+Schemas would follow this general format:
+<img src="/images/schema.svg" alt="Schema" />
+
+The top level requires three parameters:
+
+### project_id
+<ParamField query="project_id" type="string" required>
+    This is your project ID, which you can find in the Basic dashboard, or will be auto-generated for you if you had used the [CLI to create your project](/get-started/cli).
+</ParamField>
+
+### version
+<ParamField query="version" type="number" required>
+    This will be used for versioning your schema. It should be an integer that starts at 0 and increments by 1 for each new version. 
+</ParamField>
+
+# Tables
+
+Let's double click into the tables to learn how they are declared in the schema.
+
+<img src="/images/SchemaTables.svg" alt="Schema Tables" />
+
+Each table is declared as an object where the key is the table name and the value is an object with the following two parameters:
+
+### type
+<ParamField query="type" type="string" required>
+    This refers to the type of database table you are creating. At the moment, Basic only supports `collection`, which will operate similarly to MongoDB collections.
+</ParamField>
+
+### fields
+<ParamField query="fields" type="json" required>
+    Fields are the columns of the table. They will be declared as an object of objects. Learn more about the fields below.
+</ParamField>
+
+# Fields
+
+<img src="/images/SchemaFields.svg" alt="Schema Fields" />
+
+Each field is declared as an object where the key is the field name and the value is an object with the following 2 parameters:
+
+<Info> Default values for fields are not supported yet. Nesting fields is not supported; please use a flat structure for field declarations. </Info>
+
+### type
+<ParamField query="type" type="string" required>
+    This is the data type of the field. Basic supports the following field types: `string`, `number`, `boolean`, `json`.
+</ParamField>
+
+### indexed
+<ParamField query="indexed" type="boolean" required>
+    This lets you control if the field should be indexed in the user's client database for local-first benefits. For now, this should always be set to `true`.
+</ParamField>
+
+# Example
+
+When put all together, your schema could look like this:
+
+
+```javascript basic.config.ts
+export const schema = {
+    project_id: '1234567890',
+    version: 0,
+    tables: {
+        comments: {
+            type: 'collection',
+            fields: {
+                title: { 
+                    type: 'string',
+                    indexed: true
+                },
+                body: { 
+                    type: 'string',
+                    indexed: true
+                },
+                rating: { 
+                    type: 'number',
+                    indexed: true
+                }
+            }
+        },
+        items: {
+            type: 'collection',
+            fields: {
+                name: { 
+                    type: 'string',
+                    indexed: true
+                },
+                quantity: { 
+                    type: 'number',
+                    indexed: true
+                },
+                available: {
+                    type: 'boolean',
+                    indexed: true
+                }
+            }
+        }
+    }
+}
+```
