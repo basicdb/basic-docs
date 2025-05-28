@@ -59,16 +59,30 @@
             "dropdown": "Expo / React Native",
             "groups": [
               {
-                "group": "get started",
+                "group": "1. create Basic account",
+                "pages": [
+                  "basic-expo-rn/rn-adminportal",
+                  "basic-expo-rn/rn-cli"
+                ]
+              },
+              {
+                "group": "2. implement Basic",
                 "pages": [
                   "basic-expo-rn/basic-rn-sdk"
+                ]
+              },
+              {
+                "group": "guides",
+                "pages": [
+                  "basic-expo-rn/rn-schema",
+                  "basic-expo-rn/rn-interop"
                 ]
               },
               {
                 "group": "SDK reference",
                 "pages": [
                   "sdk-reference/expo-rn",
-                  "sdk-reference/expo-rn-filtering"
+                  "basic-expo-rn/rn-filtering"
                 ]
               }
             ]

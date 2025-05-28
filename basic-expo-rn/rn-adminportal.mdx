@@ -1,0 +1,118 @@
+---
+title: 'Set up your Basic account'
+description: 'Using the admin portal to create a new project.'
+---
+
+# Create your project
+
+<Steps>
+    <Step title="Navigate to the Dashboard">
+    Head to https://app.basic.tech to begin creating your project. 
+        <img
+          className="block"
+          src="/images/admin-logged-out.png"
+          alt="Login / Signup to Basic"
+        /> 
+    </Step>
+  <Step title="Login / Signup with Basic">
+    Login with your Basic account. If you don't have one yet, signup to Basic.
+    <img
+          className="block"
+          src="/images/basic-sso.png"
+          alt="Login / Signup to Basic"
+        /> 
+  </Step>
+  <Step title="Create your project">
+    After creating your Basic account, head to the Dashboard and create a new project.
+    <img
+          className="block"
+          src="/images/admin-no-projects.png"
+          alt="Create your project"
+        /> 
+  </Step>
+  <Step title="Add your project details">
+    Use the form to create a project with a unique name and slug. Make sure not to leave the name or slug fields blank.
+    <img
+          className="block"
+          src="/images/admin-create-project.png"
+          alt="Add your project details"
+        /> 
+  </Step>
+  <Step title="Manage your projects">
+    This page allows you to view all your projects and manage them. To view project details, click into any of them.
+    <img
+          className="block"
+          src="/images/admin-with-projects.png"
+          alt="Manage your projects"
+        /> 
+  </Step>
+  <Step title="Note your project ID, database URL, and API key (keep this a secret!)">
+    You'll need these if you're using the API to connect to your database. Store them securely.
+    <Warning>
+        Keep your API Key a secret! Only use it on a secure server environment.
+    </Warning>
+    <Frame>
+      <img src="/images/api-key.png" />
+    </Frame>
+  </Step>
+  <Step title="(Optional) You can test everything is working by making a sample fetch request to your database:">
+    Make sure to replace `<YOUR_PROJECT_ID>` and `<YOUR_API_KEY>`. 
+  
+``` js GET Project Details
+fetch("https://api.basic.tech/project/<YOUR_PROJECT_ID>", {
+  headers: {
+      "Authorization": "Bearer <YOUR_API_KEY>",
+  },
+}).then(response => response.json())
+.then(data => console.log(data));
+```
+  </Step>
+</Steps>
+
+# Create your schema
+<Steps>
+<Step title="Create your schema">
+    There are two ways to create your schema, either using the table UI, or by using the code editor. Let's explore the table UI first.
+    <img
+          className="block"
+          src="/images/admin-no-schema.png"
+          alt="Create your schema"
+        /> 
+</Step>
+<Step title="Add a new table">
+    Give your table a unique name, and add fields to it. Fields need to have a unique name within each table, and you can use the dropdown to select the type of each field.
+    
+    Fields can take on the following types: `string`, `number`, `boolean`, `json`.
+    <img
+          className="block"
+          src="/images/create-schema-with-ui.png"
+          alt="Create a new table"
+        /> 
+</Step>
+<Step title="(Optional) Edit your schema with the code editor">
+    You can also edit your schema with the code editor.
+    <img
+          className="block"
+          src="/images/schema-editor.png"
+          alt="Edit your schema with the code editor"
+        /> 
+</Step>
+<Step title="Publish your changes">
+    Once you've added your tables, you can publish your changes. Upon publishing, you'll notice your version number has been automatically incremented. 
+
+    You may also discard changes if you'd like to revert to the existing version.
+    <img
+          className="block"
+          src="/images/publish-schema-changes.png"
+          alt="Publish your changes"
+        /> 
+</Step>
+</Steps>
+
+
+
+# Next steps
+You can now start building your app! 
+If you are using a React app, we recommend you use the [React SDK](/basic-react/basic-react-sdk) to get started.
+
+Otherwise, you can use the [API](/basic-restapi/basic-api) for any language.
