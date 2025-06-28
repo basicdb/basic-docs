@@ -209,7 +209,7 @@
           {
             "group": "💡 principles of Basic",
             "pages": [
-              "readings/user-owned-data-stores",
+              "readings/personal-data-stores",
               "readings/local-first-sync",
               "readings/permissioning"
             ]

@@ -3,7 +3,7 @@ title: "⚡️ Quickstart new React project"
 description: "the fastest way to build a React app with Basic from scratch"
 ---
 In this guide, you will:
-1. Create a new local-first project using `create-lofi-app`
+1. Create a new project using `create-lofi-app`
 2. Customize the homepage and schema
 3. Connect to a Basic project
 4. Add sign in and sign out functionality
@@ -11,9 +11,9 @@ In this guide, you will:
 # installation
 
 <Steps>
-  <Step title="Create a new local-first project">
+  <Step title="Create a new project">
     ```bash Terminal
-    # create a new local-first project:
+    # create a new project:
     npx create-lofi-app
     ```
     When prompted in the CLI, enter `y` for installing the vite package. 
@@ -138,8 +138,8 @@ You'll now be able to navigate to `http://localhost:5173` and see the app runnin
   </Step>
 </Steps>
 
-## testing local-first sync and Auth
-You can continue to test the app locally without the following steps, but if you wish to test local-first sync and Auth, you would need to create a Basic project and connect it to the app.
+## testing sync and Auth
+You can continue to test the app locally without the following steps, but if you wish to test sync and Auth, you would need to create a Basic project and connect it to the app.
 <Steps>
   <Step title="create and connect to a Basic project">
     You can use the [Basic CLI](/get-started/cli) to create a new project (the `basic init` command will automatically update the `basic.config.ts` file with the project_id). You will need to `basic push` to update the version number in the `basic.config.ts` file.
