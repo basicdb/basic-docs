@@ -213,12 +213,12 @@ It's very easy to add the ability to have your users sign in and sign out of you
               <div className="mt-12">
                 <p>Signed in as: {user?.email}</p>
                 {/* Add a button to sign out */}
-                <button" onClick={signout}>Sign Out</button>
+                <button onClick={signout}>Sign Out</button>
               </div>
             ) : (
               <button className="mt-12" onClick={signin}>Sign In</button>
             )}
-          </>
+          </div>
         )
       }
 
