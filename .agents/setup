@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+export MINTLIFY_TELEMETRY_DISABLED=1
+mint_version=4.2.939
+
+echo 'Checking the Node.js toolchain provided by the orb...'
+node -e '
+  const [major, minor] = process.versions.node.split(".").map(Number);
+  if (major < 20 || (major === 20 && minor < 17)) {
+    console.error("Mintlify requires Node.js 20.17.0 or newer.");
+    process.exit(1);
+  }
+'
+node --version
+npm --version
+
+# npm reinstalls even the same global version; reuse the snapshot when it matches.
+echo "Preparing Mintlify CLI ${mint_version}..."
+if ! command -v mint >/dev/null 2>&1 || [[ "$(mint --version)" != "$mint_version" ]]; then
+  time npm install --global --prefer-offline --no-audit --no-fund "mint@${mint_version}"
+else
+  echo 'Pinned Mintlify CLI is already installed.'
+fi
+
+# Validation downloads the preview client on a cold orb and reuses it when current.
+# Unlike `mint dev`, it terminates and leaves no server running during snapshotting.
+echo 'Preparing the preview client and validating the documentation...'
+time mint validate
+mint version

@@ -2,6 +2,23 @@
 
 Welcome to the official documentation for Basic, a local-first database designed for user-owned data.
 
+## Development in Amp orbs
+
+`.agents/setup` uses the orb's Node.js runtime (20.17.0 or newer), installs a pinned
+Mintlify CLI, and runs `mint validate` to cache the preview client and check the
+documentation. Amp snapshots these tools for reuse; repeated setup runs skip an
+already installed CLI. No secrets or database services are required.
+
+Start the supervised preview and print its portal URL:
+
+```bash
+amp orb services ensure
+```
+
+Run `mint validate` to check documentation changes. `.agents/resume` only checks
+that the CLI is available; it does not reinstall dependencies or start servers.
+To upgrade Mintlify, change `mint_version` in `.agents/setup` and rerun the script.
+
 ## Maintaining `openapi.json`
 
 The file [`openapi.json`](./openapi.json) should stay in sync with the deployed Admin API. Regenerate it from the live spec (same host as the docs playground):

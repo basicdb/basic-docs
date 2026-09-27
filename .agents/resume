@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Cached tools survive pause/resume; Amp supervises the preview separately.
+# Do not install dependencies or authenticate users in this hook.
+if ! command -v mint >/dev/null 2>&1; then
+  echo 'Mintlify CLI is missing. Run .agents/setup to repair this orb.' >&2
+  exit 1
+fi
