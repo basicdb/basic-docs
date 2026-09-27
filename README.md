@@ -4,10 +4,10 @@ Welcome to the official documentation for Basic, a local-first database designed
 
 ## Development in Amp orbs
 
-`.agents/setup` uses the orb's Node.js runtime (20.17.0 or newer), installs a pinned
-Mintlify CLI, and runs `mint validate` to cache the preview client and check the
-documentation. Amp snapshots these tools for reuse; repeated setup runs skip an
-already installed CLI. No secrets or database services are required.
+`.agents/setup` installs Node.js 24 LTS at the version in `.node-version`, its bundled
+npm, and a pinned Mintlify CLI. It runs `mint validate` to cache the preview client
+and check the documentation. Amp snapshots these tools for reuse; repeated setup
+runs skip already installed versions. No secrets or database services are required.
 
 Start the supervised preview and print its portal URL:
 
@@ -15,9 +15,13 @@ Start the supervised preview and print its portal URL:
 amp orb services ensure
 ```
 
-Run `mint validate` to check documentation changes. `.agents/resume` only checks
-that the CLI is available; it does not reinstall dependencies or start servers.
-To upgrade Mintlify, change `mint_version` in `.agents/setup` and rerun the script.
+Run `mint validate` and `mint broken-links` to check documentation changes.
+GitHub Actions runs both checks on pull requests and pushes to `main`, using the
+same version pins and setup script. `.agents/resume` only checks that the CLI is
+available; it does not reinstall dependencies or start servers.
+
+To upgrade Node.js, change `.node-version`. To upgrade Mintlify, change
+`mint_version` in `.agents/setup`. Rerun the setup script after either change.
 
 ## Maintaining `openapi.json`
 

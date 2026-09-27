@@ -13,6 +13,8 @@ In this guide, you will:
 
 ## Create a new React project
 
+Use Node.js 24 LTS for this guide. The Basic React SDK requires Node.js 24 or newer.
+
 <Steps>
   <Step title="Create a new Vite React project">
     ```bash Terminal
@@ -24,32 +26,28 @@ In this guide, you will:
   <Step title="Install Basic and Tailwind">
     ```bash Terminal
     npm install @basictech/react
-    npm install -D tailwindcss postcss autoprefixer
-    npx tailwindcss init -p
+    npm install -D tailwindcss@^4 @tailwindcss/vite@^4
     ```
   </Step>
   <Step title="Configure Tailwind">
-    Update `tailwind.config.js`:
-    ```js tailwind.config.js
-    /** @type {import('tailwindcss').Config} */
-    export default {
-      content: [
-        "./index.html",
-        "./src/**/*.{js,ts,jsx,tsx}",
-      ],
-      theme: {
-        extend: {},
-      },
-      plugins: [],
-    }
+    Add Tailwind's Vite plugin alongside the React plugin in `vite.config.ts`:
+    ```ts vite.config.ts
+    import { defineConfig } from 'vite'
+    import react from '@vitejs/plugin-react'
+    import tailwindcss from '@tailwindcss/vite'
+
+    export default defineConfig({
+      plugins: [react(), tailwindcss()],
+    })
     ```
     
     Replace `src/index.css` with:
     ```css src/index.css
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
+    @import "tailwindcss";
     ```
+
+    Tailwind 4 detects your source files automatically. You do not need a
+    `tailwind.config.js`, PostCSS configuration, or an `init` command for this setup.
   </Step>
   <Step title="Start your dev server">
     ```bash Terminal
