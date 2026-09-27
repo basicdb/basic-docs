@@ -1,106 +1,24 @@
 ---
-title: 'Schema management'
-description: 'Deeper dive into how schemas work in Basic'
+title: 'Apps & schemas'
+description: 'Different tools can understand the same data.'
 ---
-# Overview
-In Basic, we declare schemas in a JSON format as part of the `basic.config.ts` or `basic.config.js` file that lives in your repository. 
-These `basic.config` files can be committed to git, and unlock "schema-as-code" capabilities for your project.
 
-Schemas follow this general format:
-<img src="/images/schema.svg" alt="Schema" />
+Your PDS gives data a home. Apps give you ways to use it: write a note, plan a trip, or organize a collection.
 
-The top level requires three parameters:
+For an app to work with data, it needs to understand how that data is arranged. That's what a **schema** describes.
 
-### project_id
-<ParamField query="project_id" type="string" required>
-    This is your project ID, which you can find in the Basic dashboard, or will be auto-generated for you if you had used the [CLI to create your project](/get-started/cli).
-</ParamField>
+## A description that stays with the data
 
-### version
-<ParamField query="version" type="number" required>
-    This will be used for versioning your schema. It should be an integer that starts at 0 and increments by 1 for each new version. 
-</ParamField>
+A note might have a title and some text. A task might have a name, a due date, and a mark saying whether it's done. A schema describes those parts so apps know what to expect.
 
-# Tables
+Basic keeps that description alongside the data in your PDS. It doesn't exist only inside the app that created it.
 
-Let's double click into the tables to learn how they are declared in the schema.
+## More than one way to use your information
 
-<img src="/images/SchemaTables.svg" alt="Schema Tables" />
+Two compatible apps could show the same tasks differently: one as a checklist, another as a calendar. With your permission, both can work with the same underlying information.
 
-Each table is declared as an object where the key is the table name and the value is an object with the following two parameters:
+This doesn't mean every app automatically understands every kind of data. Apps still need to support its structure and have your approval to use it.
 
-### type
-<ParamField query="type" type="string" required>
-    This refers to the type of database table you are creating. At the moment, Basic only supports `collection`, which will operate similarly to MongoDB collections.
-</ParamField>
+The aim is to let apps offer different experiences without each needing a separate copy of your life.
 
-### fields
-<ParamField query="fields" type="json" required>
-    Fields are the columns of the table. They will be declared as an object of objects. Learn more about the fields below.
-</ParamField>
-
-# Fields
-
-<img src="/images/SchemaFields.svg" alt="Schema Fields" />
-
-Each field is declared as an object where the key is the field name and the value is an object with the following 2 parameters:
-
-<Info> Default values for fields are not supported yet. Nesting fields is not supported; please use a flat structure for field declarations. </Info>
-
-### type
-<ParamField query="type" type="string" required>
-    This is the data type of the field. Basic supports the following field types: `string`, `number`, `boolean`, `json`.
-</ParamField>
-
-### indexed
-<ParamField query="indexed" type="boolean" required>
-    This lets you control if the field should be indexed in the user's client database for local-first benefits. For now, this should always be set to `true`.
-</ParamField>
-
-# Example
-
-When put all together, your schema could look like this:
-
-
-```javascript basic.config.ts
-export const schema = {
-    project_id: '1234567890',
-    version: 0,
-    tables: {
-        comments: {
-            type: 'collection',
-            fields: {
-                title: { 
-                    type: 'string',
-                    indexed: true
-                },
-                body: { 
-                    type: 'string',
-                    indexed: true
-                },
-                rating: { 
-                    type: 'number',
-                    indexed: true
-                }
-            }
-        },
-        items: {
-            type: 'collection',
-            fields: {
-                name: { 
-                    type: 'string',
-                    indexed: true
-                },
-                quantity: { 
-                    type: 'number',
-                    indexed: true
-                },
-                available: {
-                    type: 'boolean',
-                    indexed: true
-                }
-            }
-        }
-    }
-}
-```
+Ready to make something? Head to [Build](/get-started/welcome).

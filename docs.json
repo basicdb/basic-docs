@@ -11,7 +11,29 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Learn",
+        "groups": [
+          {
+            "group": "Concepts",
+            "pages": [
+              "readings/personal-data-stores",
+              "readings/auth-basic",
+              "readings/local-first-sync",
+              "readings/multiplayer-and-sharing",
+              "readings/schema"
+            ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              "readings/others/reading",
+              "readings/others/roadmap"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Build",
         "dropdowns": [
           {
             "dropdown": "Get started",
@@ -229,47 +251,19 @@
             ]
           }
         ]
-      },
-      {
-        "tab": "Concepts",
-        "groups": [
-          {
-            "group": "Why Basic?",
-            "pages": [
-              "readings/why-basic"
-            ]
-          },
-          {
-            "group": "Core Concepts",
-            "pages": [
-              "readings/personal-data-stores",
-              "readings/local-first-sync",
-              "readings/permissioning"
-            ]
-          },
-          {
-            "group": "Auth & OAuth",
-            "pages": [
-              "readings/auth-basic"
-            ]
-          },
-          {
-            "group": "Technical References",
-            "pages": [
-              "readings/schema"
-            ]
-          },
-          {
-            "group": "Resources",
-            "pages": [
-              "readings/others/reading",
-              "readings/others/roadmap"
-            ]
-          }
-        ]
       }
     ]
   },
+  "redirects": [
+    {
+      "source": "/readings/why-basic",
+      "destination": "/readings/personal-data-stores"
+    },
+    {
+      "source": "/readings/permissioning",
+      "destination": "/readings/auth-basic"
+    }
+  ],
   "logo": {
     "light": "/images/logo/logo_black.png",
     "dark": "/images/logo/logo_white.png"

@@ -18,7 +18,7 @@ There are two main steps to integrating Basic into your app: implement Basic Aut
 </CardGroup>
 
 # Basic Auth APIs guide
-Basic uses OAuth 2.0 for authentication. For more details, read about [Basic Auth](/readings/auth-basic#introduction-to-oauth-2-0).
+Basic uses OAuth 2.0 for authentication. For request details, see the [sign-in API reference](/api-reference/auth/redirect-to-sign-in).
 
 In this guide, you will:
 1. Use "redirect to sign in" endpoint to redirect users to account creation / login flow
@@ -28,7 +28,7 @@ In this guide, you will:
 
 <Steps>
     <Step title='Use "redirect to sign in" endpoint'>
-        Create a button that redirects the user to the Basic Auth page, with the following required parameters (more info on [required parameters](/readings/auth-basic#required-parameters)):
+        Create a button that redirects the user to the Basic Auth page, with the following required parameters (more info in the [sign-in API reference](/api-reference/auth/redirect-to-sign-in)):
         - `client_id='YOUR_CLIENT_ID'`
         - `redirect_uri='YOUR_REDIRECT_URI'`
         - `response_type=code`
@@ -40,7 +40,7 @@ In this guide, you will:
             Replace `YOUR_CLIENT_ID`, `YOUR_REDIRECT_URI`, and `YOUR_STATE` with your own values. `scope` must be a space-separated list (for example `profile` alone, or `profile` plus datastore scopes your app needs). The live contract matches the [OpenAPI spec](/api-reference/auth/redirect-to-sign-in) (`GET /auth/authorize`).
         </Note>
         <Note>
-            **PKCE (recommended):** You may include `code_challenge` and `code_challenge_method=S256` on the authorize request and the matching `code_verifier` when exchanging the code at `/auth/token`. See [Basic Auth](/readings/auth-basic) for the full OAuth flow.
+            **PKCE (recommended):** You may include `code_challenge` and `code_challenge_method=S256` on the authorize request and the matching `code_verifier` when exchanging the code at `/auth/token`. See the [sign-in](/api-reference/auth/redirect-to-sign-in) and [token](/api-reference/auth/get-auth-token) API references for request details.
         </Note>
         <CodeGroup>
             ```bash cURL

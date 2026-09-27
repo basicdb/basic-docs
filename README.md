@@ -51,12 +51,13 @@ To get started with Basic:
 - Local-first sync for offline support and real-time capabilities
 - OAuth 2.0 authentication included
 
-## 📚 Core Concepts
+## 📚 Learn
 
-- [Personal data stores](https://docs.basic.tech/readings/personal-data-stores)
-- [Local-first sync](https://docs.basic.tech/readings/local-first-sync)
-- [Basic Auth (OAuth)](https://docs.basic.tech/readings/auth-basic)
-- [Managing permissions](https://docs.basic.tech/readings/permissioning)
+- [The PDS](https://docs.basic.tech/readings/personal-data-stores)
+- [Auth](https://docs.basic.tech/readings/auth-basic)
+- [Sync](https://docs.basic.tech/readings/local-first-sync)
+- [Multiplayer & sharing](https://docs.basic.tech/readings/multiplayer-and-sharing)
+- [Apps & schemas](https://docs.basic.tech/readings/schema)
 
 ## 🛠 API reference
 

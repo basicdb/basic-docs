@@ -1,72 +1,23 @@
 ---
-title: 'Basic Auth'
-description: 'Overview of the Basic Auth'
+title: 'Auth'
+description: 'One account. You choose which apps to connect.'
 ---
-<Note>
-    This is primarily for developers using the Basic API. The client SDKs handle all these aspects of OAuth 2.0 for you.
-</Note>
-# Introduction to OAuth 2.0
-Basic uses OAuth 2.0 for authentication. This widely adopted framework allows users to securely grant permissions to multiple applications using a single account, similar to "Login with Google". It ensures user data security while enabling controlled access for third-party apps, without directly handling sensitive login credentials.
 
-<img src="/images/BasicAuthFlow.png" alt="Basic Auth Flow" />
+If your data has a home of its own, apps need a way to know it's yours—and whether you've invited them in. That's what auth is for.
 
-### Authorization
-First, an application redirects the user to the Authorization Server. Here, the user enters their login credentials of their existing account (e.g., Google, Apple, BasicID, etc.), and explicitly grants permissions to your app. 
+## Signing in and connecting an app
 
-<Note>
-    The benefit of using a service for Authorization is that they handle storing user credentials securely, validating passwords, account recovery, etc.
-</Note>
+Your Basic account is your identity across apps built with Basic. You can use the same account rather than starting from scratch in each app.
 
-The Authorization Server then issues an authorization code to the application, which has a one-time use and is exchanged for an access token <Tooltip tip="JWTs are strings that securely transmit information between parties.">(also known as JWTs)</Tooltip> and a refresh code. 
+There are two separate choices:
 
-These tokens and codes should be extracted from the callback URL and are generally stored in your user's cache or cookies.
+- **Signing in** confirms which account is yours.
+- **Approving an app** lets it work with the data it's allowed to use.
 
-### Access tokens
-Access tokens are a short-lived JWT (with Basic, this is 1 hour) that can be used to make secure and authenticated requests to protected information. They are used to make requests to the API via the `Authorization` header (e.g., `Authorization: Bearer 'YOUR_ACCESS_TOKEN'`). 
+Signing in alone doesn't open your whole PDS to an app. A notes app can work with your notes without getting access to unrelated information.
 
-Before making a request, you should validate if the access token is still valid - if it has expired, you would use the refresh token to get a new access token without requiring the user to re-authenticate (i.e., without re-entering their login credentials). 
+## You can change your mind
 
-### Refresh code
-Refresh codes can be used to obtain a new access token via the `/token` endpoint when the current access token expires. This regenerates a new access token and refresh code.
+You can disconnect an app when you no longer want it to have access. The data it saved in your PDS stays there.
 
----
-# Required parameters
-Here are the required parameters you need to set on the "Sign in with Basic" button:
-
-- `client_id`
-- `redirect_uri`
-- `response_type`
-- `scope`
-- `state`
-### client_id
-<ParamField query="client_id" type="string" required>
-    Your application's client ID from [admin.basic.tech](https://admin.basic.tech) (project settings).
-</ParamField>
-
-### redirect_uri
-<ParamField query="redirect_uri" type="string" required>
-    This is the URL that the user will be redirected to after they sign up or sign in. This would generally be a URL on your app.
-</ParamField>
-
-### response_type
-<ParamField query="response_type" type="string" default="code" required>
-    This must always be set to `code`, so that you can receive and extract an authorization code in the callback URL.
-</ParamField>
-
-### scope
-<ParamField query="scope" type="string" required>
-    Scopes are used to specify the information that your application requires. For Basic, you can specify `profile` to request the user's email address and other information.
-</ParamField>
-
-### state
-<ParamField query="state" type="string" required>
-    The state parameter is used to prevent CSRF attacks. It is a random string that is used to verify that the callback request is legitimate. It is recommended that you use a secure random string generator to generate a state parameter, and that you verify that the state parameter that you receive in the callback URL is the same as the one you sent.
-</ParamField>
-
-### PKCE (optional, recommended)
-
-<ParamField query="code_challenge" type="string">
-  SHA-256 hash of your `code_verifier`, base64url-encoded. Send together with `code_challenge_method=S256` on `/auth/authorize`, then send the original `code_verifier` in the body of `POST /auth/token` when exchanging the code.
-</ParamField>
-
-The [REST quickstart](/basic-restapi/basic-api) and the [redirect-to-sign-in API reference](/api-reference/auth/redirect-to-sign-in) describe the full parameter set.
+This separates your account from any one app. You aren't handing over your data's home every time you try a new tool—you're choosing who can use it.

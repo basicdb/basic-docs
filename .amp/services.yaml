@@ -3,7 +3,7 @@ services:
     command: mint dev --no-open --port "$PORT"
     env:
       MINTLIFY_TELEMETRY_DISABLED: "1"
-    health: /get-started/welcome
+    health: /readings/personal-data-stores
     portal:
       title: Basic documentation
-      url: /get-started/welcome
+      url: /
